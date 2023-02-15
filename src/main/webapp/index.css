@@ -79,3 +79,8 @@ svg {
 .carousel-inner {
   width: 80%;
 }
+
+#driver-overlay {
+  width: 100%;
+  height: 100%;
+}

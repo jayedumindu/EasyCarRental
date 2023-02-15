@@ -6,27 +6,21 @@ $(function () {
     $("#tab-login").removeClass("active");
     $(this).addClass("active");
     $("#pills-login").fadeOut();
-    setTimeout(() => {
-      $("#pills-register").fadeIn();
-    }, 50);
-    console.log("this runs");
-    // $("#pills-login").removeClass("show active");
+    $("#pills-register").fadeIn();
     // setTimeout(() => {
-    //   $("#pills-register").addClass("show active");
-    // }, 500);
-    // console.log("this runs");
+    //   $("#pills-login").fadeOut();
+    //   $("#pills-register").fadeIn();
+    // }, 20);
   });
 
   $("#tab-login").click(function () {
     $("#tab-register").removeClass("active");
     $(this).addClass("active");
     $("#pills-register").fadeOut();
-    setTimeout(() => {
-      $("#pills-login").fadeIn();
-    }, 50);
-    // $("#pills-register").removeClass("show active");
+    $("#pills-login").fadeIn();
     // setTimeout(() => {
-    //   $("#pills-login").addClass("show active");
-    // }, 500);
+    //   $("#pills-register").fadeOut();
+    //   $("#pills-login").fadeIn();
+    // }, 20);
   });
 });
