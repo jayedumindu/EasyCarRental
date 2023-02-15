@@ -66,3 +66,16 @@ svg {
   width: 30px;
   height: 30px;
 }
+
+.user-main {
+  width: 30%;
+}
+
+.nav-item {
+  cursor: pointer;
+  transition: all 2s;
+}
+
+.carousel-inner {
+  width: 80%;
+}
