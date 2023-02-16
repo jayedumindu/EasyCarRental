@@ -89,3 +89,7 @@ svg {
 tr {
   text-align: center;
 }
+
+.price {
+  width: 50%;
+}
