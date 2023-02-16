@@ -1,5 +1,5 @@
 .driver-cover {
-  background-image: url("./assets/driver.jpg");
+  background-image: url("./assets/images/driver.jpg");
   background-size: cover;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -45,7 +45,7 @@ table th {
   overflow: hidden;
 }
 
-tr:hover {
+tbody tr:hover {
   cursor: pointer;
 }
 
@@ -84,4 +84,8 @@ svg {
   z-index: 1;
   position: sticky;
   top: 63px;
+}
+
+tr {
+  text-align: center;
 }
