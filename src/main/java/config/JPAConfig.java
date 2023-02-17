@@ -1,6 +1,5 @@
-package lk.ijse.spring.config;
+package config;
 
-import lk.ijse.spring.repo.CustomerRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -12,20 +11,19 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import repo.UserRepo;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableTransactionManagement //AOP usage
-//meken transaction eka manage wenva
-@EnableJpaRepositories(basePackageClasses = {CustomerRepo.class})
-// dao classes JPA config eket link karane me uda annotation eken..eka dunnma ekt puluwan scan krl eka ganna
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackageClasses = {UserRepo.class})
 public class JPAConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource ds, JpaVendorAdapter va){
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPackagesToScan("lk.ijse.spring.entity");
+        factoryBean.setPackagesToScan("entity");
         factoryBean.setDataSource(ds);
         factoryBean.setJpaVendorAdapter(va);
         return factoryBean;
