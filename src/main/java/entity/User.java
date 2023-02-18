@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 @AllArgsConstructor
@@ -20,5 +21,7 @@ public class User {
     private String name;
     private String address;
     private String contact;
+    @Lob
+    private byte[] verification;
 
 }

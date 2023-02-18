@@ -93,3 +93,11 @@ tr {
 .price {
   width: 50%;
 }
+
+.nav-link {
+  color: azure;
+}
+
+.navbar {
+  background-color: #a1c4fd;
+}

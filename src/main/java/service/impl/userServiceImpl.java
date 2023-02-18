@@ -55,7 +55,7 @@ public class userServiceImpl implements userService {
     @Override
     public userDTO searchUserWithUsername(String username) {
         Optional<User> customer = repo.findById(username);
-        if (customer!=null) {
+        if (customer.isPresent()) {
             return mapper.map(customer,userDTO.class);
         }
         return null;

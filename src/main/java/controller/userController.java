@@ -13,7 +13,8 @@ public class userController {
     private userService service;
 
     @PostMapping("/add")
-    public void addUser(@RequestBody userDTO user){
+    public void addUser(@RequestParam userDTO user){
+        System.out.println("customer save called");
         service.saveUser(user);
     }
 

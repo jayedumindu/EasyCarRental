@@ -7,10 +7,6 @@ $(function () {
     $(this).addClass("active");
     $("#pills-login").fadeOut();
     $("#pills-register").fadeIn();
-    // setTimeout(() => {
-    //   $("#pills-login").fadeOut();
-    //   $("#pills-register").fadeIn();
-    // }, 20);
   });
 
   $("#tab-login").click(function () {
@@ -18,11 +14,27 @@ $(function () {
     $(this).addClass("active");
     $("#pills-register").fadeOut();
     $("#pills-login").fadeIn();
-    // setTimeout(() => {
-    //   $("#pills-register").fadeOut();
-    //   $("#pills-login").fadeIn();
-    // }, 20);
   });
 
-  // $("#car-selection")
+  // tab navigation
+  var navButtons = [
+    $("#navToItems"),
+    $("#navToCustomers"),
+    $("#navToOrders"),
+    $("#navToHome"),
+    $("#navToViewOrderDetails"),
+  ];
+  var sections = [
+    $("#car-selections"),
+    $("#home"),
+    $("#car-single-selection"),
+    $("#driver-management"),
+    $("#user-bookings"),
+  ];
+
+  $(".nav-link").each(
+    $(this).click(function () {
+      console.log("nav item clicked");
+    })
+  );
 });
