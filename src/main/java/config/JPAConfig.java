@@ -34,7 +34,7 @@ public class JPAConfig {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/springDB?createDatabaseIfNotExist=true");
         ds.setUsername("root");
-        ds.setPassword("1234");
+        ds.setPassword("Mpsys@1835");
         return ds;
     }
     @Bean

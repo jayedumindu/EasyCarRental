@@ -1,27 +1,24 @@
 package config;
 
 import advisor.AppWideExceptionHandler;
-import controller.customerController;
 import controller.mainController;
+import controller.userController;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {AppWideExceptionHandler.class, mainController.class})
+@ComponentScan(basePackageClasses = {AppWideExceptionHandler.class, mainController.class, userController.class})
 public class WebAppConfig {
     public WebAppConfig() {
         System.out.println("web-config instantiated");
     }
-//    @Bean
-//    public ViewResolver internalResourceViewResolver() {
-//        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//        bean.setPrefix("/");
-//        bean.setSuffix(".html");
-//        return bean;
-//    }
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+
 }
