@@ -5,10 +5,10 @@ import dto.userDTO;
 import java.util.ArrayList;
 
 public interface userService {
-    public void saveCustomer(userDTO dto);
-    public void deleteCustomer(userDTO id);
-    public void updateCustomer(userDTO dto);
-    public ArrayList<userDTO> getAllCustomers();
+    void saveUser(userDTO dto);
+    void deleteUser(String username);
+    void updateUser(userDTO dto);
+    ArrayList<userDTO> getAllUser();
 
-    public userDTO searchCustomerWithName(String name);
+    userDTO searchUserWithUsername(String name);
 }

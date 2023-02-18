@@ -16,9 +16,5 @@ public class WebAppConfig {
     public WebAppConfig() {
         System.out.println("web-config instantiated");
     }
-    @Bean
-    public ModelMapper modelMapper(){
-        return new ModelMapper();
-    }
 
 }
