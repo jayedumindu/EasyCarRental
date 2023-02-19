@@ -101,3 +101,7 @@ tr {
 .navbar {
   background-color: #a1c4fd;
 }
+
+.ftco-section {
+  padding: 0 !important;
+}

@@ -1,4 +1,6 @@
 $(function () {
+  let activeTab = $("#home");
+
   $(".datepicker").datepicker();
   console.log("date updated");
 
@@ -32,9 +34,18 @@ $(function () {
     $("#user-bookings"),
   ];
 
-  $(".nav-link").each(
+  // $(".sticky-top .nav-link").each(
+  //   $(this).click(function () {
+  //     console.log("nav item clicked");
+  //   })
+  // );
+
+  $(".boook-btn").each(
     $(this).click(function () {
-      console.log("nav item clicked");
+      // to vehicle checkout
+      console.log("vehicle checkout");
+      $("#car-selection").addClass("collapse");
+      $("#car-single-selection").removeClass("collapse");
     })
   );
 });

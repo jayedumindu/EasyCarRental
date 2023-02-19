@@ -7,22 +7,15 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-public class Driver {
+public class Admin {
     @Id
     private String username;
     private String password;
     private String name;
-    @Lob
-    private byte[] profile;
-    private String license;
-
-
-
 }
