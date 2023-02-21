@@ -8,6 +8,9 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +26,8 @@ public class Driver {
     private byte[] profile;
     private String license;
 
+    @OneToMany(mappedBy = "driver")
+    private Collection<Booking> bookings = new ArrayList<>();
 
 
 }

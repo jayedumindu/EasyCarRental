@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @AllArgsConstructor
@@ -21,7 +21,14 @@ public class User {
     private String name;
     private String address;
     private String contact;
+    @Column(name = "NIC")
+    private String nic;
+    private String license;
     @Lob
-    private byte[] verification;
+    private byte[] nicVerification;
+    @Lob
+    private byte[] licenseVerification;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Booking> bookings = new ArrayList<>();
 }

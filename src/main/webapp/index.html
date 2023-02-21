@@ -22,7 +22,7 @@
 <body>
 
         <!-- homepage -->
-        <section class="home collapse" id="home">
+        <section class="home " id="home">
                 <!-- home-navbar -->
                 <div class="sticky-top">
                         <nav class="navbar navbar-expand-lg bg-white border-bottom border-secondary">
@@ -148,16 +148,17 @@
 
                                 <!-- Pills content -->
                                 <div class="tab-content">
+                                        <!-- login -->
                                         <div class="tab-pane show active" id="pills-login" role="tabpanel"
                                                 aria-labelledby="tab-login">
-                                                <form>
+                                                <form method="post">
                                                         <!-- Email input -->
-                                                        <div class="form-outline mb-4">
+                                                        <!-- <div class="form-outline mb-4">
                                                                 <input type="email" id="loginName"
                                                                         class="form-control" />
                                                                 <label class="form-label" for="loginName">Email or
                                                                         username</label>
-                                                        </div>
+                                                        </div> -->
 
                                                         <!-- Password input -->
                                                         <div class="form-outline mb-4">
@@ -187,38 +188,70 @@
                                                         </div>
                                                 </form>
                                         </div>
+                                        <!-- register -->
                                         <div class="tab-pane" id="pills-register" role="tabpanel"
                                                 aria-labelledby="tab-register">
-                                                <form>
+                                                <form id="userAdd" method="post">
 
-                                                        <!-- Name input -->
                                                         <div class="form-outline mb-4">
                                                                 <input type="text" id="registerName"
-                                                                        class="form-control" />
+                                                                        class="form-control" name="name" />
                                                                 <label class="form-label"
                                                                         for="registerName">Name</label>
                                                         </div>
 
-                                                        <!-- Username input -->
                                                         <div class="form-outline mb-4">
                                                                 <input type="text" id="registerUsername"
-                                                                        class="form-control" />
+                                                                        class="form-control" name="username" />
                                                                 <label class="form-label"
                                                                         for="registerUsername">Username</label>
                                                         </div>
 
-                                                        <!-- Email input -->
                                                         <div class="form-outline mb-4">
-                                                                <input type="email" id="registerEmail"
-                                                                        class="form-control" />
-                                                                <label class="form-label"
-                                                                        for="registerEmail">Email</label>
+                                                                <input type="text" id="address" class="form-control"
+                                                                        name="address" />
+                                                                <label class="form-label" for="address">Address</label>
+                                                        </div>
+
+                                                        <div class="form-outline mb-4">
+                                                                <input type="text" id="contact" class="form-control"
+                                                                        name="contact" />
+                                                                <label class="form-label" for="contact">Contact
+                                                                        Number</label>
+                                                        </div>
+
+                                                        <div class="form-outline">
+                                                                <input type="text" id="nic" class="form-control"
+                                                                        name="nic" />
+                                                                <label class="form-label" for="nic">NIC
+                                                                        no</label>
+                                                        </div>
+
+                                                        <div class="input-group mb-4">
+                                                                <label class="input-group-text"
+                                                                        for="inputGroupFile01">Upload</label>
+                                                                <input type="file" class="form-control"
+                                                                        id="inputGroupFile01" name="nicVerification">
+                                                        </div>
+
+                                                        <div class="form-outline">
+                                                                <input type="text" id="registerName"
+                                                                        class="form-control" name="license" />
+                                                                <label class="form-label" for="license">License
+                                                                        no</label>
+                                                        </div>
+                                                        <div class="input-group mb-4">
+                                                                <label class="input-group-text"
+                                                                        for="inputGroupFile02">Upload</label>
+                                                                <input type="file" class="form-control"
+                                                                        id="inputGroupFile02"
+                                                                        name="licenseVerification">
                                                         </div>
 
                                                         <!-- Password input -->
                                                         <div class="form-outline mb-4">
                                                                 <input type="password" id="registerPassword"
-                                                                        class="form-control" />
+                                                                        class="form-control" name="pwd" />
                                                                 <label class="form-label"
                                                                         for="registerPassword">Password</label>
                                                         </div>
@@ -233,8 +266,8 @@
                                                         </div>
 
                                                         <!-- Submit button -->
-                                                        <button type="submit"
-                                                                class="btn btn-primary btn-block mb-3">Sign in</button>
+                                                        <button class="btn btn-primary btn-block mb-3"
+                                                                id="userAddBtn">Sign in</button>
                                                 </form>
                                         </div>
                                 </div>
@@ -800,7 +833,7 @@
 
 
         <!-- car selection registered user/guest user -->
-        <section class="car-selection main bg-white" id="car-selection">
+        <section class="car-selection main bg-white collapse" id="car-selection">
                 <!-- main navbar -->
                 <div class="sticky-top">
                         <nav class="navbar navbar-expand-lg  border-bottom border-secondary">
@@ -1806,7 +1839,7 @@
 
         </section>
         <!-- user-bookings and account-->
-        <section class="ftco-section ftco-cart collapse" id="user-bookings">
+        <section class="ftco-section ftco-cart" id="user-bookings">
                 <div class="account-details">
                         <div class="account-details d-flex justify-content-center">
                                 <h1 class="text-center">Account Details</h1>

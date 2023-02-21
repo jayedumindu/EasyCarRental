@@ -9,6 +9,4 @@ public interface userService {
     void deleteUser(String username);
     void updateUser(userDTO dto);
     ArrayList<userDTO> getAllUser();
-
-    userDTO searchUserWithUsername(String name);
 }

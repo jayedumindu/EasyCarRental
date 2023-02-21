@@ -7,7 +7,10 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @AllArgsConstructor
@@ -21,11 +24,18 @@ public class Car {
     private String model;
     private String type;
     private int noOfPassengers;
+    private int mileage;
+    private int serviceMileage;
     private String transmissionType;
     private String fuelType;
-    private BigDecimal pricesForTheRentDurations;
-    private int freeMileageForThePriceAndDuration;
+    private BigDecimal dailyRate;
+    private BigDecimal monthlyRate;
+    private int freeMileageForMonth;
+    private int freeMileageForDay;
     private BigDecimal priceForExtraKM;
     private String color;
+    private boolean availability;
 
+    @OneToMany(mappedBy = "car")
+    private Collection<Booking> bookings = new ArrayList<>();
 }

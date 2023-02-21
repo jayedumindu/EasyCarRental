@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -16,10 +16,20 @@ import java.time.LocalDateTime;
 @ToString
 public class Payment {
 
+    @Id
+    @Column(name = "booking_id")
+    private String bookingId;
+
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "booking_id",referencedColumnName="bookingId")
+    private Booking booking;
+
+
     private BigDecimal rent;
     private String account;
     private String payment_method;
     private BigDecimal deduction;
+    private LocalDateTime returnDateTime;
 
 
 }
