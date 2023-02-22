@@ -67,7 +67,7 @@ $(function () {
     });
   });
 
-  // -------------------- save/update car ------------------------------------
+  // --------------------  car ------------------------------------
 
   function prepareCarForm(url, method) {
     var form = $("#carAdd").serializeArray();
@@ -111,25 +111,71 @@ $(function () {
       dataType: "json",
       success: function (resp) {
         console.log(resp);
-        //  for (let cus of resp.data) {
-        //    var row =
-        //      "<tr><td>" +
-        //      cus.id +
-        //      "</td><td>" +
-        //      cus.name +
-        //      "</td><td>" +
-        //      cus.address +
-        //      "</td><td>" +
-        //      cus.salary +
-        //      "</td></tr>";
-        //    $("#tblCustomer").append(row);
-        //  }
-        //  bindRowClickEvents();
-        //  setTextFieldValues("", "", "", "");
-        //  $("#txtCustomerID").focus();
+        //  load cards
       },
     });
   }
   loadAllCars();
-  // ------------------------- end ------------------------------
+  // ------------------------- driver ------------------------------
+
+  function prepareDriverForm(url, method) {
+    var form = $("form#driver").serializeArray();
+    var formData = new FormData();
+    $.each(form, function (key, input) {
+      formData.append(input.name, input.value);
+    });
+
+    formData.append("file1", $("#driver-pro")[0].files[0]);
+
+    $.ajax({
+      url: baseURL + url,
+      method: method,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      data: formData,
+      success: function (res) {
+        alert(res.message);
+      },
+      error: function (error) {
+        var jsObject = JSON.parse(error.responseText);
+        alert(jsObject.message);
+      },
+    });
+  }
+
+  $("button#driverSave").click(function () {
+    console.log("cicked");
+    prepareDriverForm("driver/add", "post");
+  });
+
+  $("button#driverUpdate").click(function () {
+    prepareDriverForm("driver/update", "put");
+  });
+  function loadAllDrivers() {
+    $("#driver-tb").empty();
+    $.ajax({
+      url: baseURL + "driver/getAll",
+      dataType: "json",
+      success: function (resp) {
+        console.log(resp);
+        for (let driver of resp.data) {
+          var row =
+            "<tr><td>" +
+            driver.fname +
+            " " +
+            driver.lname +
+            "</td><td>" +
+            driver.username +
+            "</td><td>" +
+            driver.contactNo +
+            "</td><td>" +
+            driver.license +
+            "</td></tr>";
+          $("#driver-tb").append(row);
+        }
+      },
+    });
+  }
+  loadAllDrivers();
 });

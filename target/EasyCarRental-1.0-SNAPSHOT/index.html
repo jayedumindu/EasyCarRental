@@ -15,9 +15,9 @@
         <!-- icons -->
         <link rel="stylesheet" href="./css/flaticon.css">
         <link rel="stylesheet" href="./css/icomoon.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/fontawesome.min.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/brands.min.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/solid.min.css">
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/fontawesome.min.css"> -->
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/brands.min.css"> -->
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/solid.min.css"> -->
         <!-- end -->
 
 </head>
@@ -1543,81 +1543,24 @@
         </section>
 
         <!-- admin-driver management -->
-        <section class="h-100 bg-dark driver-management collapse" id="driver-management">
+        <section class="h-100 bg-dark driver-management" id="driver-management">
+                <div class="driver-management-heading text-center p-5 bg-secondary">
+                        <h2><i class="fa-solid fa-user">&nbsp;</i>Driver Managament</h2>
+                        <p>Add Remove and Update Drivers</p>
+                </div>
                 <div class="container py-5 h-100">
-                        <div class="driver-management-heading text-center pb-5">
-                                <h2><i class="fa-solid fa-user"></i>Driver Managament</h2>
-                                <p>Add Remove and Update Drivers</p>
-                        </div>
                         <div class="table-responsive">
                                 <table class="table table-dark table-borderless text-white mb-0 table-hover">
                                         <thead>
                                                 <tr>
-                                                        <th scope="col">EMPLOYEES</th>
-                                                        <th scope="col">POSITION</th>
-                                                        <th scope="col">CONTACTS</th>
-                                                        <th scope="col">AGE</th>
-                                                        <th scope="col">ADDRESS</th>
-                                                        <th scope="col">SALARY</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Username</th>
+                                                        <th scope="col">Contact Number</th>
+                                                        <th scope="col">License Number</th>
+
                                                 </tr>
                                         </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td scope="row">Tiger Nixon</td>
-                                                        <td>System Architect</td>
-                                                        <td>tnixon12@example.com</td>
-                                                        <td>61</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Sonya Frost</td>
-                                                        <td>Software Engineer</td>
-                                                        <td>sfrost34@example.com</td>
-                                                        <td>23</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$103,600</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Jena Gaines</td>
-                                                        <td>Office Manager</td>
-                                                        <td>jgaines75@example.com</td>
-                                                        <td>30</td>
-                                                        <td>London</td>
-                                                        <td>$90,560</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Quinn Flynn</td>
-                                                        <td>Support Lead</td>
-                                                        <td>qflyn09@example.com</td>
-                                                        <td>22</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$342,000</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Charde Marshall</td>
-                                                        <td>Regional Director</td>
-                                                        <td>cmarshall28@example.com</td>
-                                                        <td>36</td>
-                                                        <td>San Francisco</td>
-                                                        <td>$470,600</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Haley Kennedy</td>
-                                                        <td>Senior Marketing Designer</td>
-                                                        <td>hkennedy63@example.com</td>
-                                                        <td>43</td>
-                                                        <td>London</td>
-                                                        <td>$313,500</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Tatyana Fitzpatrick</td>
-                                                        <td>Regional Director</td>
-                                                        <td>tfitzpatrick00@example.com</td>
-                                                        <td>19</td>
-                                                        <td>Warsaw</td>
-                                                        <td>$385,750</td>
-                                                </tr>
+                                        <tbody id="driver-tb">
                                         </tbody>
                                 </table>
                         </div>
@@ -1630,216 +1573,95 @@
                                                 <div class="col-md-6 border-right">
                                                         <div
                                                                 class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                                                <img class="rounded-circle mt-5"
-                                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQF2psCzfbB611rnUhxgMi-lc2oB78ykqDGYb4v83xQ1pAbhPiB&usqp=CAU"><span
-                                                                        class="font-weight-bold">Amelly</span><span
-                                                                        class="text-black-50">amelly12@bbb.com</span><span>
-                                                                </span>
+                                                                <img class="driver-img mt-5" src="...">
+
+                                                                <div
+                                                                        class="mt-5 d-flex flex-column justify-content-start">
+                                                                        <h6>Add a profile picture</h6>
+                                                                        <div class="ml-5 pl-2">
+                                                                                <i
+                                                                                        class="fa-solid fa-cloud-arrow-up"></i>&nbsp;<input
+                                                                                        type="file" id="driver-pro">
+                                                                        </div>
+
+                                                                </div>
                                                         </div>
                                                 </div>
                                                 <div class="col-md-5 border-right">
                                                         <div class="p-3 py-5">
                                                                 <div
                                                                         class="d-flex justify-content-between align-items-center mb-3">
-                                                                        <h4 class="text-right">Profile Settings
+                                                                        <h4 class="text-right">Driver Information
                                                                         </h4>
                                                                 </div>
-                                                                <div class="row mt-2">
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Name</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="first name"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Surname</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        value="" placeholder="surname">
+                                                                <form id="driver">
+                                                                        <div class="row mt-2">
+                                                                                <div class="col-md-6"><label
+                                                                                                class="labels">firstname</label><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="fName" value="">
+                                                                                </div>
+                                                                                <div class="col-md-6"><label
+                                                                                                class="labels">lastname</label><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="lName">
+                                                                                </div>
                                                                         </div>
-                                                                </div>
-                                                                <div class="row mt-3">
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">PhoneNumber</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="enter phone number"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Address</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="enter address"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Email
-                                                                                        ID</label><input type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="enter email id"
-                                                                                        value="">
+                                                                        <div class="row mt-3">
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="username">
+                                                                                        <label
+                                                                                                class="labels">Username</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="password">
+                                                                                        <label
+                                                                                                class="labels">Password</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control">
+                                                                                        <label class="labels">Repeat
+                                                                                                Password</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="contactNo">
+                                                                                        <label class="labels">Contact
+                                                                                                No</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="license">
+                                                                                        <label
+                                                                                                class="labels">License</label>
+                                                                                </div>
                                                                         </div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Education</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="education"
-                                                                                        value=""></div>
-                                                                </div>
-                                                                <div class="row mt-3">
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Country</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="country" value="">
+
+                                                                        <div class="mt-5 text-center"><button
+                                                                                        class="btn btn-primary profile-button"
+                                                                                        type="button"
+                                                                                        id="driverSave">Save
+                                                                                        Profile</button>
+                                                                                <button class="btn btn-primary profile-button"
+                                                                                        type="button"
+                                                                                        id="driverUpdate">Update</button>
+
                                                                         </div>
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">State/Region</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        value="" placeholder="state">
-                                                                        </div>
-                                                                </div>
-                                                                <div class="mt-5 text-center"><button
-                                                                                class="btn btn-primary profile-button"
-                                                                                type="button">Save
-                                                                                Profile</button>
-                                                                </div>
+                                                                </form>
                                                         </div>
                                                 </div>
                                         </div>
                                 </div>
                         </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                        <div class="row d-flex justify-content-center align-items-center h-100" style="width: 80%;">
-                                <div class="col">
-                                        <div class="card card-registration my-4">
-                                                <div class="row g-0">
-                                                        <div class="col-xl-6 d-none d-xl-block driver-cover">
-
-                                                        </div>
-                                                        <div class="col-xl-6">
-                                                                <div class="card-body p-md-5 text-black">
-                                                                        <h3 class="mb-5 text-uppercase">Driver
-                                                                                Registration</h3>
-
-                                                                        <div class="row">
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1m"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1m">First
-                                                                                                        name</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1n"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1n">Last
-                                                                                                        name</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1m1"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1m1">Username</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1n1"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1n1">Password</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-
-
-                                                                        <div
-                                                                                class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                                                                                <h6 class="mb-0 me-4 mx-5">Gender:
-                                                                                </h6>
-
-                                                                                <div
-                                                                                        class="form-check form-check-inline mb-0 me-4">
-                                                                                        <input class="form-check-input"
-                                                                                                type="radio"
-                                                                                                name="inlineRadioOptions"
-                                                                                                id="femaleGender"
-                                                                                                value="option1" />
-                                                                                        <label class="form-check-label"
-                                                                                                for="femaleGender">Female</label>
-                                                                                </div>
-
-                                                                                <div
-                                                                                        class="form-check form-check-inline mb-0 me-4">
-                                                                                        <input class="form-check-input"
-                                                                                                type="radio"
-                                                                                                name="inlineRadioOptions"
-                                                                                                id="maleGender"
-                                                                                                value="option2" />
-                                                                                        <label class="form-check-label"
-                                                                                                for="maleGender">Male</label>
-                                                                                </div>
-
-
-                                                                        </div>
-
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example9"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example9">DOB</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example90"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example90">Pincode</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example99"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example99">Course</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example97"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example97">Email
-                                                                                        ID</label>
-                                                                        </div>
-
-                                                                        <div class="d-flex justify-content-end">
-                                                                                <button type="button"
-                                                                                        class="btn btn-light btn-lg">Reset
-                                                                                        all</button>
-                                                                                <button type="button"
-                                                                                        class="btn btn-light btn-lg">
-                                                                                        Submit form</button>
-                                                                        </div>
-
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-
         </section>
         <!-- user-bookings and account-->
         <section class="user-bookings ftco-section ftco-cart collapse" id="user-bookings">
@@ -2008,7 +1830,7 @@
                 </div>
         </section>
 
-        <section class="admin-car-management">
+        <section class="admin-car-management collapse">
                 <div class="header p-5">
                         <h1>Car Management</h1>
                 </div>
@@ -2392,7 +2214,8 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
                 integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 
-        <script src="https://use.fontawesome.com/c7cb64ec51.js"></script>
+        <!-- <script src="https://use.fontawesome.com/c7cb64ec51.js"></script> -->
+        <script src="https://kit.fontawesome.com/771f6b37f4.js" crossorigin="anonymous"></script>
 
         <script src="./index.js"></script>
 </body>

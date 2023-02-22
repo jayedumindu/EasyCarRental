@@ -24,7 +24,6 @@ public class Driver {
     private String password;
     private String fName;
     private String lName;
-    private BigDecimal revenue;
     private String contactNo;
     @Lob
     private byte[] profile;

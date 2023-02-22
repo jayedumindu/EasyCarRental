@@ -15,9 +15,9 @@
         <!-- icons -->
         <link rel="stylesheet" href="./css/flaticon.css">
         <link rel="stylesheet" href="./css/icomoon.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/fontawesome.min.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/brands.min.css">
-        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/solid.min.css">
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/fontawesome.min.css"> -->
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/brands.min.css"> -->
+        <!-- <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/solid.min.css"> -->
         <!-- end -->
 
 </head>
@@ -1557,66 +1557,10 @@
                                                         <th scope="col">Username</th>
                                                         <th scope="col">Contact Number</th>
                                                         <th scope="col">License Number</th>
-                                                        <th scope="col">Revenue</th>
+
                                                 </tr>
                                         </thead>
                                         <tbody id="driver-tb">
-                                                <!-- <tr>
-                                                        <td scope="row">Tiger Nixon</td>
-                                                        <td>System Architect</td>
-                                                        <td>tnixon12@example.com</td>
-                                                        <td>61</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Sonya Frost</td>
-                                                        <td>Software Engineer</td>
-                                                        <td>sfrost34@example.com</td>
-                                                        <td>23</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$103,600</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Jena Gaines</td>
-                                                        <td>Office Manager</td>
-                                                        <td>jgaines75@example.com</td>
-                                                        <td>30</td>
-                                                        <td>London</td>
-                                                        <td>$90,560</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Quinn Flynn</td>
-                                                        <td>Support Lead</td>
-                                                        <td>qflyn09@example.com</td>
-                                                        <td>22</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>$342,000</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Charde Marshall</td>
-                                                        <td>Regional Director</td>
-                                                        <td>cmarshall28@example.com</td>
-                                                        <td>36</td>
-                                                        <td>San Francisco</td>
-                                                        <td>$470,600</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Haley Kennedy</td>
-                                                        <td>Senior Marketing Designer</td>
-                                                        <td>hkennedy63@example.com</td>
-                                                        <td>43</td>
-                                                        <td>London</td>
-                                                        <td>$313,500</td>
-                                                </tr>
-                                                <tr>
-                                                        <td scope="row">Tatyana Fitzpatrick</td>
-                                                        <td>Regional Director</td>
-                                                        <td>tfitzpatrick00@example.com</td>
-                                                        <td>19</td>
-                                                        <td>Warsaw</td>
-                                                        <td>$385,750</td>
-                                                </tr> -->
                                         </tbody>
                                 </table>
                         </div>
@@ -1634,10 +1578,9 @@
                                                                 <div
                                                                         class="mt-5 d-flex flex-column justify-content-start">
                                                                         <h6>Add a profile picture</h6>
-                                                                        <div class="ml-5 pl-2">
-                                                                                <i
-                                                                                        class="fa-solid fa-cloud-arrow-up"></i>&nbsp;<input
-                                                                                        type="file" id="driver-pro">
+                                                                        <i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;
+                                                                        <div class="driver-pro">
+                                                                                <input type="file" id="driver-pro">
                                                                         </div>
 
                                                                 </div>
@@ -1674,18 +1617,17 @@
                                                                                                 class="labels">Username</label>
                                                                                 </div>
                                                                                 <div class="col-md-12"><input
-                                                                                                type="text"
+                                                                                                type="password"
                                                                                                 class="form-control"
                                                                                                 name="password">
                                                                                         <label
                                                                                                 class="labels">Password</label>
                                                                                 </div>
                                                                                 <div class="col-md-12"><input
-                                                                                                type="text"
-                                                                                                class="form-control"
-                                                                                                name="revenue">
-                                                                                        <label class="labels">Revenue
-                                                                                                (Rs)</label>
+                                                                                                type="password"
+                                                                                                class="form-control">
+                                                                                        <label class="labels">Repeat
+                                                                                                Password</label>
                                                                                 </div>
                                                                                 <div class="col-md-12"><input
                                                                                                 type="text"
@@ -1697,7 +1639,7 @@
                                                                                 <div class="col-md-12"><input
                                                                                                 type="text"
                                                                                                 class="form-control"
-                                                                                                name="contactNo">
+                                                                                                name="license">
                                                                                         <label
                                                                                                 class="labels">License</label>
                                                                                 </div>
@@ -1706,11 +1648,11 @@
                                                                         <div class="mt-5 text-center"><button
                                                                                         class="btn btn-primary profile-button"
                                                                                         type="button"
-                                                                                        id="driver-add">Save
+                                                                                        id="driverSave">Save
                                                                                         Profile</button>
                                                                                 <button class="btn btn-primary profile-button"
                                                                                         type="button"
-                                                                                        id="driver-update">Update</button>
+                                                                                        id="driverUpdate">Update</button>
 
                                                                         </div>
                                                                 </form>
@@ -2271,7 +2213,8 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
                 integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 
-        <script src="https://use.fontawesome.com/c7cb64ec51.js"></script>
+        <!-- <script src="https://use.fontawesome.com/c7cb64ec51.js"></script> -->
+        <script src="https://kit.fontawesome.com/771f6b37f4.js" crossorigin="anonymous"></script>
 
         <script src="./index.js"></script>
 </body>

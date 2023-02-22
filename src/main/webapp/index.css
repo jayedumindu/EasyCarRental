@@ -116,3 +116,8 @@ tr {
   width: 250px;
   height: 300px;
 }
+
+.driver-pro {
+  position: relative;
+  left: 50px;
+}

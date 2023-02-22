@@ -16,7 +16,6 @@ public class driverDTO {
     private String password;
     private String fName;
     private String lName;
-    private BigDecimal revenue;
     private String contactNo;
     private byte[] profile;
     private String license;

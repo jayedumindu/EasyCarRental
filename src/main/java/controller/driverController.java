@@ -25,11 +25,11 @@ public class driverController {
                                 @RequestParam String password,
                                 @RequestParam String fName,
                                 @RequestParam String lName,
-                                @RequestParam BigDecimal revenue,
                                 @RequestParam String license,
+                                @RequestParam String contactNo,
                                 @RequestPart(name ="file1") MultipartFile file1
                                 ) throws IOException {
-        driverDTO dto = new driverDTO(username,password,fName,lName,revenue, file1.getBytes(), license);
+        driverDTO dto = new driverDTO(username,password,fName,lName,contactNo,file1.getBytes(), license);
         driverService.saveDriver(dto);
         return new ResponseUtil("OK","Successfully Registered.!",null);
     }
@@ -39,10 +39,10 @@ public class driverController {
                                     @RequestParam String password,
                                     @RequestParam String fName,
                                     @RequestParam String lName,
-                                    @RequestParam BigDecimal revenue,
+                                      @RequestParam String contactNo,
                                     @RequestParam String license,
                                     @RequestPart(name ="file1") MultipartFile file1) throws IOException {
-        driverDTO dto = new driverDTO(username,password,fName,lName,revenue, file1.getBytes(), license);
+        driverDTO dto = new driverDTO(username,password,fName,lName, contactNo, file1.getBytes(), license);
         driverService.updateDriver(dto);
         return new ResponseUtil("OK","Successfully Updated.!",null);
     }
