@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,7 +22,10 @@ public class Driver {
     @Id
     private String username;
     private String password;
-    private String name;
+    private String fName;
+    private String lName;
+    private BigDecimal revenue;
+    private String contactNo;
     @Lob
     private byte[] profile;
     private String license;

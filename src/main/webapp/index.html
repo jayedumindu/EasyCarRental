@@ -15,6 +15,9 @@
         <!-- icons -->
         <link rel="stylesheet" href="./css/flaticon.css">
         <link rel="stylesheet" href="./css/icomoon.css">
+        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/fontawesome.min.css">
+        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/brands.min.css">
+        <link rel="stylesheet" href="./fontawesome-free-6.3.0-web/css/solid.min.css">
         <!-- end -->
 
 </head>
@@ -22,7 +25,7 @@
 <body>
 
         <!-- homepage -->
-        <section class="home " id="home">
+        <section class="home collapse" id="home">
                 <!-- home-navbar -->
                 <div class="sticky-top">
                         <nav class="navbar navbar-expand-lg bg-white border-bottom border-secondary">
@@ -1540,26 +1543,25 @@
         </section>
 
         <!-- admin-driver management -->
-        <section class="h-100 bg-dark driver-management collapse" id="driver-management">
+        <section class="h-100 bg-dark driver-management" id="driver-management">
+                <div class="driver-management-heading text-center p-5 bg-secondary">
+                        <h2><i class="fa-solid fa-user">&nbsp;</i>Driver Managament</h2>
+                        <p>Add Remove and Update Drivers</p>
+                </div>
                 <div class="container py-5 h-100">
-                        <div class="driver-management-heading text-center pb-5">
-                                <h2><i class="fa-solid fa-user"></i>Driver Managament</h2>
-                                <p>Add Remove and Update Drivers</p>
-                        </div>
                         <div class="table-responsive">
                                 <table class="table table-dark table-borderless text-white mb-0 table-hover">
                                         <thead>
                                                 <tr>
-                                                        <th scope="col">EMPLOYEES</th>
-                                                        <th scope="col">POSITION</th>
-                                                        <th scope="col">CONTACTS</th>
-                                                        <th scope="col">AGE</th>
-                                                        <th scope="col">ADDRESS</th>
-                                                        <th scope="col">SALARY</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Username</th>
+                                                        <th scope="col">Contact Number</th>
+                                                        <th scope="col">License Number</th>
+                                                        <th scope="col">Revenue</th>
                                                 </tr>
                                         </thead>
-                                        <tbody>
-                                                <tr>
+                                        <tbody id="driver-tb">
+                                                <!-- <tr>
                                                         <td scope="row">Tiger Nixon</td>
                                                         <td>System Architect</td>
                                                         <td>tnixon12@example.com</td>
@@ -1614,7 +1616,7 @@
                                                         <td>19</td>
                                                         <td>Warsaw</td>
                                                         <td>$385,750</td>
-                                                </tr>
+                                                </tr> -->
                                         </tbody>
                                 </table>
                         </div>
@@ -1627,219 +1629,99 @@
                                                 <div class="col-md-6 border-right">
                                                         <div
                                                                 class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                                                <img class="rounded-circle mt-5"
-                                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQF2psCzfbB611rnUhxgMi-lc2oB78ykqDGYb4v83xQ1pAbhPiB&usqp=CAU"><span
-                                                                        class="font-weight-bold">Amelly</span><span
-                                                                        class="text-black-50">amelly12@bbb.com</span><span>
-                                                                </span>
+                                                                <img class="driver-img mt-5" src="...">
+
+                                                                <div
+                                                                        class="mt-5 d-flex flex-column justify-content-start">
+                                                                        <h6>Add a profile picture</h6>
+                                                                        <div class="ml-5 pl-2">
+                                                                                <i
+                                                                                        class="fa-solid fa-cloud-arrow-up"></i>&nbsp;<input
+                                                                                        type="file" id="driver-pro">
+                                                                        </div>
+
+                                                                </div>
                                                         </div>
                                                 </div>
                                                 <div class="col-md-5 border-right">
                                                         <div class="p-3 py-5">
                                                                 <div
                                                                         class="d-flex justify-content-between align-items-center mb-3">
-                                                                        <h4 class="text-right">Profile Settings
+                                                                        <h4 class="text-right">Driver Information
                                                                         </h4>
                                                                 </div>
-                                                                <div class="row mt-2">
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Name</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="first name"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Surname</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        value="" placeholder="surname">
+                                                                <form id="driver">
+                                                                        <div class="row mt-2">
+                                                                                <div class="col-md-6"><label
+                                                                                                class="labels">firstname</label><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="fName" value="">
+                                                                                </div>
+                                                                                <div class="col-md-6"><label
+                                                                                                class="labels">lastname</label><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="lName">
+                                                                                </div>
                                                                         </div>
-                                                                </div>
-                                                                <div class="row mt-3">
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">PhoneNumber</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="enter phone number"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Address</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="enter address"
-                                                                                        value=""></div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Email
-                                                                                        ID</label><input type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="enter email id"
-                                                                                        value="">
+                                                                        <div class="row mt-3">
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="username">
+                                                                                        <label
+                                                                                                class="labels">Username</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="password">
+                                                                                        <label
+                                                                                                class="labels">Password</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="revenue">
+                                                                                        <label class="labels">Revenue
+                                                                                                (Rs)</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="contactNo">
+                                                                                        <label class="labels">Contact
+                                                                                                No</label>
+                                                                                </div>
+                                                                                <div class="col-md-12"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                name="contactNo">
+                                                                                        <label
+                                                                                                class="labels">License</label>
+                                                                                </div>
                                                                         </div>
-                                                                        <div class="col-md-12"><label
-                                                                                        class="labels">Education</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="education"
-                                                                                        value=""></div>
-                                                                </div>
-                                                                <div class="row mt-3">
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">Country</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        placeholder="country" value="">
+
+                                                                        <div class="mt-5 text-center"><button
+                                                                                        class="btn btn-primary profile-button"
+                                                                                        type="button"
+                                                                                        id="driver-add">Save
+                                                                                        Profile</button>
+                                                                                <button class="btn btn-primary profile-button"
+                                                                                        type="button"
+                                                                                        id="driver-update">Update</button>
+
                                                                         </div>
-                                                                        <div class="col-md-6"><label
-                                                                                        class="labels">State/Region</label><input
-                                                                                        type="text" class="form-control"
-                                                                                        value="" placeholder="state">
-                                                                        </div>
-                                                                </div>
-                                                                <div class="mt-5 text-center"><button
-                                                                                class="btn btn-primary profile-button"
-                                                                                type="button">Save
-                                                                                Profile</button>
-                                                                </div>
+                                                                </form>
                                                         </div>
                                                 </div>
                                         </div>
                                 </div>
                         </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                        <div class="row d-flex justify-content-center align-items-center h-100" style="width: 80%;">
-                                <div class="col">
-                                        <div class="card card-registration my-4">
-                                                <div class="row g-0">
-                                                        <div class="col-xl-6 d-none d-xl-block driver-cover">
-
-                                                        </div>
-                                                        <div class="col-xl-6">
-                                                                <div class="card-body p-md-5 text-black">
-                                                                        <h3 class="mb-5 text-uppercase">Driver
-                                                                                Registration</h3>
-
-                                                                        <div class="row">
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1m"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1m">First
-                                                                                                        name</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1n"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1n">Last
-                                                                                                        name</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1m1"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1m1">Username</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="col-md-6 mb-4">
-                                                                                        <div class="form-outline">
-                                                                                                <input type="text"
-                                                                                                        id="form3Example1n1"
-                                                                                                        class="form-control form-control-lg" />
-                                                                                                <label class="form-label"
-                                                                                                        for="form3Example1n1">Password</label>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-
-
-                                                                        <div
-                                                                                class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                                                                                <h6 class="mb-0 me-4 mx-5">Gender:
-                                                                                </h6>
-
-                                                                                <div
-                                                                                        class="form-check form-check-inline mb-0 me-4">
-                                                                                        <input class="form-check-input"
-                                                                                                type="radio"
-                                                                                                name="inlineRadioOptions"
-                                                                                                id="femaleGender"
-                                                                                                value="option1" />
-                                                                                        <label class="form-check-label"
-                                                                                                for="femaleGender">Female</label>
-                                                                                </div>
-
-                                                                                <div
-                                                                                        class="form-check form-check-inline mb-0 me-4">
-                                                                                        <input class="form-check-input"
-                                                                                                type="radio"
-                                                                                                name="inlineRadioOptions"
-                                                                                                id="maleGender"
-                                                                                                value="option2" />
-                                                                                        <label class="form-check-label"
-                                                                                                for="maleGender">Male</label>
-                                                                                </div>
-
-
-                                                                        </div>
-
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example9"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example9">DOB</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example90"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example90">Pincode</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example99"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example99">Course</label>
-                                                                        </div>
-
-                                                                        <div class="form-outline mb-4">
-                                                                                <input type="text" id="form3Example97"
-                                                                                        class="form-control form-control-lg" />
-                                                                                <label class="form-label"
-                                                                                        for="form3Example97">Email
-                                                                                        ID</label>
-                                                                        </div>
-
-                                                                        <div class="d-flex justify-content-end">
-                                                                                <button type="button"
-                                                                                        class="btn btn-light btn-lg">Reset
-                                                                                        all</button>
-                                                                                <button type="button"
-                                                                                        class="btn btn-light btn-lg">
-                                                                                        Submit form</button>
-                                                                        </div>
-
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-
         </section>
         <!-- user-bookings and account-->
-        <section class="ftco-section ftco-cart" id="user-bookings">
+        <section class="user-bookings ftco-section ftco-cart collapse" id="user-bookings">
                 <div class="account-details">
                         <div class="account-details d-flex justify-content-center">
                                 <h1 class="text-center">Account Details</h1>
@@ -2005,6 +1887,280 @@
                 </div>
         </section>
 
+        <section class="admin-car-management collapse">
+                <div class="header p-5">
+                        <h1>Car Management</h1>
+                </div>
+                <div class="car-search ml-3">
+                        <div class="input-group">
+                                <div class="form-outline">
+                                        <input id="search-focus" type="search" id="form1" class="form-control" />
+                                        <label class="form-label" for="form1">Search</label>
+
+                                </div>
+                        </div>
+                </div>
+                <div class="select-car d-flex">
+
+                        <div class="container">
+                                <section class="mx-auto my-5" style="max-width: 23rem;">
+
+                                        <div class="card">
+                                                <div class="bg-image hover-overlay ripple"
+                                                        data-mdb-ripple-color="light">
+                                                        <img src="./assets/images/car-10.jpg" class="img-fluid" />
+                                                        <a href="#!">
+                                                                <div class="mask"
+                                                                        style="background-color: rgba(251, 251, 251, 0.15);">
+                                                                </div>
+                                                        </a>
+                                                </div>
+                                                <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold"><a>Suzuki Alto</a></h5>
+                                                        <p class="mb-2">Petrol</p>
+                                                        <p class="card-text">
+                                                                Some quick example text to build on the card title and
+                                                                make up the bulk of the
+                                                                card's content.
+                                                        </p>
+                                                        <hr class="my-4" />
+                                                        <a href="#!"
+                                                                class="btn btn-link link-secondary p-md-1 mb-0">Update</a>
+                                                        <a href="#!"
+                                                                class="btn btn-link link-primary p-md-1 mb-0">Remove</a>
+                                                </div>
+                                        </div>
+
+                                </section>
+                        </div>
+                        <div class="container">
+                                <section class="mx-auto my-5" style="max-width: 23rem;">
+
+                                        <div class="card">
+                                                <div class="bg-image hover-overlay ripple"
+                                                        data-mdb-ripple-color="light">
+                                                        <img src="" class="img-fluid" />
+                                                        <a href="#!">
+                                                                <div class="mask"
+                                                                        style="background-color: rgba(251, 251, 251, 0.15);">
+                                                                </div>
+                                                        </a>
+                                                </div>
+                                                <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold"><a>La Sirena
+                                                                        restaurant</a></h5>
+                                                        <p class="mb-2">$ • American, Restaurant</p>
+                                                        <p class="card-text">
+                                                                Some quick example text to build on the card title and
+                                                                make up the bulk of the
+                                                                card's content.
+                                                        </p>
+                                                        <hr class="my-4" />
+                                                        <a href="#!"
+                                                                class="btn btn-link link-secondary p-md-1 mb-0">Update</a>
+                                                        <a href="#!"
+                                                                class="btn btn-link link-primary p-md-1 mb-0">Remove</a>
+                                                </div>
+                                        </div>
+
+                                </section>
+                        </div>
+                        <div class="container">
+                                <section class="mx-auto my-5" style="max-width: 23rem;">
+
+                                        <div class="card">
+                                                <div class="bg-image hover-overlay ripple"
+                                                        data-mdb-ripple-color="light">
+                                                        <img src="" class="img-fluid" />
+                                                        <a href="#!">
+                                                                <div class="mask"
+                                                                        style="background-color: rgba(251, 251, 251, 0.15);">
+                                                                </div>
+                                                        </a>
+                                                </div>
+                                                <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold"><a>La Sirena
+                                                                        restaurant</a></h5>
+                                                        <p class="mb-2">$ • American, Restaurant</p>
+                                                        <p class="card-text">
+                                                                Some quick example text to build on the card title and
+                                                                make up the bulk of the
+                                                                card's content.
+                                                        </p>
+                                                        <hr class="my-4" />
+                                                        <a href="#!"
+                                                                class="btn btn-link link-secondary p-md-1 mb-0">Update</a>
+                                                        <a href="#!"
+                                                                class="btn btn-link link-primary p-md-1 mb-0">Remove</a>
+                                                </div>
+                                        </div>
+
+                                </section>
+                        </div>
+                </div>
+                <div class="add-car d-flex justify-content-center">
+                        <form class="row g-3 w-50 p-2" id="carAdd">
+                                <div class="col-md-6">
+                                        <label for="inputEmail4" class="form-label">Reg. No</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="XXX-XXXX"
+                                                name="registrationNumber">
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label">Brand</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Suzuki"
+                                                name="brand">
+                                </div>
+                                <div class="col-12">
+                                        <label for="inputAddress" class="form-label">Model</label>
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="WagonR"
+                                                name="model">
+                                </div>
+                                <div class="col-md-4 p-4">
+                                        <label for="inputState" class="form-label">Type</label>
+                                        <select id="inputState" class="form-select" name="type">
+                                                <option>Luxury</option>
+                                                <option>Premium</option>
+                                                <option selected>General</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-4 p-4">
+                                        <label for="inputState" class="form-label">Passengers</label>
+                                        <select id="inputState" class="form-select" name="noOfPassengers">
+                                                <option>2</option>
+                                                <option>4</option>
+                                                <option selected>6</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-4 p-4">
+                                        <label for="inputState" class="form-label">Transmission</label>
+                                        <select id="inputState" class="form-select" name="transmissionType">
+                                                <option>Auto</option>
+                                                <option>Manual</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-4 p-4">
+                                        <label for="inputState" class="form-label">Fuel Type</label>
+                                        <select id="inputState" class="form-select" name="fuelType">
+                                                <option>Diesel</option>
+                                                <option>Petrol</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-2">
+                                        <label for="inputCity" class="form-label">Color</label>
+                                        <input type="color" class="form-control" id="inputCity" placeholder="5000"
+                                                name="color">
+                                </div>
+                                <div class="col-6">
+                                        <label for="inputAddress2" class="form-label">Mileage (km)</label>
+                                        <input type="text" class="form-control" id="inputAddress2" placeholder="10000"
+                                                name="mileage">
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="inputCity" class="form-label">Service Mileage (km)</label>
+                                        <input type="text" class="form-control" id="inputCity" placeholder="5000"
+                                                name="serviceMileage">
+                                </div>
+                                <div class="col-md-6">
+                                        <label for="inputCity" class="form-label">Extra Price (for km)</label>
+                                        <input type="text" class="form-control" id="inputCity" placeholder="5000"
+                                                name="priceForExtraKM">
+                                </div>
+
+                                <div class="input-group mb-3 col-12 mt-3">
+                                        <input type="text" class="form-control" placeholder="Daily Rate (Rs)"
+                                                aria-label="Username" name="dailyRate">
+                                        <span class="input-group-text">--</span>
+                                        <input type="text" class="form-control" placeholder="Free Mileage (km)"
+                                                aria-label="Server" name="freeMileageForDay">
+                                </div>
+                                <div class="input-group mb-3 col-12 mt-3">
+                                        <input type="text" class="form-control" placeholder="Monthly Rate (Rs)"
+                                                aria-label="Username" name="monthlyRate">
+                                        <span class="input-group-text">--</span>
+                                        <input type="text" class="form-control" placeholder="Free Mileage (km)"
+                                                aria-label="Server" name="freeMileageForMonth">
+                                </div>
+
+                                <div class="col-12 my-2">
+                                        <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="gridCheck"
+                                                        name="availability">
+                                                <label class="form-check-label" for="gridCheck">
+                                                        Available
+                                                </label>
+                                                <p>(car is available to hire or not)</p>
+                                        </div>
+                                </div>
+                                <div class="upload w-100">
+                                        <div class="frame">
+                                                <div class="center d-flex row">
+                                                        <div class="title col-12">
+                                                                <h5>Drop files to upload</h1>
+                                                        </div>
+
+                                                        <div
+                                                                class="single-upload col-6 d-flex justify-content-center p-5">
+                                                                <div class="dropzone">
+                                                                        <img src="http://100dayscss.com/codepen/upload.svg"
+                                                                                class="upload-icon" />
+                                                                        <input type="file" class="upload-input"
+                                                                                id="f-car-front" />
+                                                                        <p><b>car-front</b></p>
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div
+                                                                class="single-upload col-6 d-flex justify-content-center p-5">
+                                                                <div class="dropzone">
+                                                                        <img src="http://100dayscss.com/codepen/upload.svg"
+                                                                                class="upload-icon" />
+                                                                        <input type="file" class="upload-input"
+                                                                                id="f-car-back" />
+                                                                        <p><b>car-back</b></p>
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div
+                                                                class="single-upload col-6 d-flex justify-content-center p-5">
+                                                                <div class="dropzone">
+                                                                        <img src="http://100dayscss.com/codepen/upload.svg"
+                                                                                class="upload-icon" />
+                                                                        <input type="file" class="upload-input"
+                                                                                id="f-car-side" />
+                                                                        <p><b>car-side</b></p>
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div
+                                                                class="single-upload col-6 d-flex justify-content-center p-5">
+                                                                <div class="dropzone">
+                                                                        <img src="http://100dayscss.com/codepen/upload.svg"
+                                                                                class="upload-icon" />
+                                                                        <input type="file" class="upload-input"
+                                                                                id="f-car-interior" />
+                                                                        <p><b>car-interior</b></p>
+                                                                </div>
+
+
+
+                                                        </div>
+
+
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-12">
+                                        <button type="button" class="btn btn-primary" id="carSave">Save</button>
+                                        <button type="button" class="btn btn-primary" id="carUpdate">Update
+                                                Information</button>
+                                </div>
+                        </form>
+                </div>
+        </section>
+
         <!-- footer-default -->
         <section class="footer collapse ">
                 <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -2092,14 +2248,14 @@
                                         <div class="col-md-12 text-center">
 
                                                 <p>
-                                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
                                                         Copyright &copy;
                                                         <script>document.write(new Date().getFullYear());</script> All
                                                         rights reserved |
                                                         This template is made with <i class="icon-heart color-danger"
                                                                 aria-hidden="true"></i> by <a
-                                                                href="https://colorlib.com" target="_blank">Colorlib</a>
-                                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                                                href="https://colorlib.com" target="_blank">JayDumi</a>
+
                                                 </p>
                                         </div>
                                 </div>

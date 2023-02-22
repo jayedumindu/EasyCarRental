@@ -34,62 +34,102 @@ $(function () {
     $("#user-bookings"),
   ];
 
-  // $(".sticky-top .nav-link").each(
-  //   $(this).click(function () {
-  //     console.log("nav item clicked");
-  //   })
-  // );
-
-  // $(".boook-btn").each(
-  //   $(this).click(function () {
-  //     // to vehicle checkout
-  //     console.log("vehicle checkout");
-  //     $("#car-selection").addClass("collapse");
-  //     $("#car-single-selection").removeClass("collapse");
-  //   })
-  // );
-
   let baseURL = "http://localhost:8080/EasyCarRental_war/";
 
   // save customer
   $("form#userAdd").submit(function (e) {
     e.preventDefault();
-    var form = $("#userAdd").serializeArray(); // You need to use standard javascript object here
+    var form = $("#userAdd").serializeArray();
     var formData = new FormData();
 
     //Form data
     $.each(form, function (key, input) {
       formData.append(input.name, input.value);
     });
-    // formData.append("user", form.serialize());
 
-    // // var formData = $("#userAdd").serialize();
-    // // will generate a query String including form data
-    // console.log(form);
-
-    // formData.append($("#userAdd")[0]);
     formData.append("file1", $("#inputGroupFile02")[0].files[0]);
     formData.append("file2", $("#inputGroupFile01")[0].files[0]);
 
-    console.log(formData);
-
-    //send ajax request to the customer servlet
     $.ajax({
       url: baseURL + "user/add",
       method: "post",
       data: formData,
-      // mimeType: "multipart/form-data",
       dataType: "json",
       success: function (res) {
         alert(res.message);
-        // loadAllCustomers();
       },
       error: function (error) {
-        // var jsObject = JSON.parse(error.responseText);
-        // alert(jsObject.message);
+        var jsObject = JSON.parse(error.responseText);
+        alert(jsObject.message);
       },
       processData: false,
       contentType: false,
     });
   });
+
+  // -------------------- save/update car ------------------------------------
+
+  function prepareCarForm(url, method) {
+    var form = $("#carAdd").serializeArray();
+    var formData = new FormData();
+    $.each(form, function (key, input) {
+      formData.append(input.name, input.value);
+    });
+
+    formData.append("file1", $("#f-car-front")[0].files[0]);
+    formData.append("file2", $("#f-car-back")[0].files[0]);
+    formData.append("file3", $("#f-car-side")[0].files[0]);
+    formData.append("file4", $("#f-car-interior")[0].files[0]);
+    $.ajax({
+      url: baseURL + url,
+      method: method,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      data: formData,
+      success: function (res) {
+        alert(res.message);
+      },
+      error: function (error) {
+        var jsObject = JSON.parse(error.responseText);
+        alert(jsObject.message);
+      },
+    });
+  }
+  // car-add
+  $("#carSave").click(function () {
+    prepareCarForm("car/save", "post");
+  });
+  // car-update
+  $("#carUpdate").click(function () {
+    prepareCarForm("car/update", "put");
+  });
+  function loadAllCars() {
+    $(".select-car").empty();
+    $.ajax({
+      url: baseURL + "car/getAll",
+      dataType: "json",
+      success: function (resp) {
+        console.log(resp);
+        //  for (let cus of resp.data) {
+        //    var row =
+        //      "<tr><td>" +
+        //      cus.id +
+        //      "</td><td>" +
+        //      cus.name +
+        //      "</td><td>" +
+        //      cus.address +
+        //      "</td><td>" +
+        //      cus.salary +
+        //      "</td></tr>";
+        //    $("#tblCustomer").append(row);
+        //  }
+        //  bindRowClickEvents();
+        //  setTextFieldValues("", "", "", "");
+        //  $("#txtCustomerID").focus();
+      },
+    });
+  }
+  loadAllCars();
+  // ------------------------- end ------------------------------
 });

@@ -105,3 +105,14 @@ tr {
 .ftco-section {
   padding: 0 !important;
 }
+
+.select-car {
+  height: 50vh;
+  background-color: #a1c4fd;
+  overflow-y: scroll;
+}
+
+.driver-img {
+  width: 250px;
+  height: 300px;
+}

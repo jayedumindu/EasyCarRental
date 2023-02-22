@@ -11,7 +11,6 @@ import service.userService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -48,16 +47,13 @@ public class userServiceImpl implements userService {
     }
 
     @Override
+    public void saveOrUpdate(userDTO dto) {
+        repo.save(mapper.map(dto, User.class));
+    }
+
+    @Override
     public ArrayList<userDTO> getAllUser() {
         return mapper.map(repo.findAll(),new TypeToken<ArrayList<userDTO>>(){}.getType());
     }
 
-    @Override
-    public userDTO searchUserWithUsername(String username) {
-        Optional<User> customer = repo.findById(username);
-        if (customer.isPresent()) {
-            return mapper.map(customer,userDTO.class);
-        }
-        return null;
-    }
 }
