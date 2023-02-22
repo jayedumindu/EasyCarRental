@@ -59,4 +59,10 @@ public class driverController {
         return new ResponseUtil("OK","Successful!",data);
     }
 
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseUtil getDriverById(@RequestParam String username){
+        driverDTO data = driverService.findDriverByUsername(username);
+        return new ResponseUtil("OK","Successful!",data);
+    }
+
 }

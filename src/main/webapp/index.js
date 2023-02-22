@@ -135,6 +135,7 @@ $(function () {
       dataType: "json",
       data: formData,
       success: function (res) {
+        loadAllDrivers();
         alert(res.message);
       },
       error: function (error) {
@@ -171,11 +172,66 @@ $(function () {
             driver.contactNo +
             "</td><td>" +
             driver.license +
+            "</td><td>" +
+            "<i class='fa-sharp fa-solid fa-trash del driver-del'></i>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "<i class='fa-solid fa-pen-to-square driver-up'></i>" +
             "</td></tr>";
           $("#driver-tb").append(row);
         }
+        $(".driver-del").click(function () {
+          let username = $(this).parent().parent().children(":eq(1)").text();
+          console.log(username);
+          $.ajax({
+            url: baseURL + "driver/remove?username=" + username,
+            method: "delete",
+            dataType: "json",
+            success: function (res) {
+              alert(res.message);
+              // load
+              loadAllDrivers();
+            },
+            error: function (error) {
+              var jsObject = JSON.parse(error.responseText);
+              alert(jsObject.message);
+            },
+          });
+        });
+        $(".driver-up").click(function () {
+          let username = $(this).parent().parent().children(":eq(1)").text();
+          console.log(username);
+          $.ajax({
+            url: baseURL + "driver/find?username=" + username,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+              console.log(res.data);
+              let {
+                username,
+                password,
+                fname,
+                lname,
+                contactNo,
+                profile,
+                license,
+              } = res.data;
+              $("#dUsername").val(username);
+              $("#dPassword").val(password);
+              $("#dRptPassword").val(password);
+              $("#dLname").val(lname);
+              $("#dFname").val(fname);
+              $("#dContact").val(contactNo);
+              $("#dLicense").val(license);
+            },
+            error: function (error) {
+              var jsObject = JSON.parse(error.responseText);
+              alert(jsObject.message);
+            },
+          });
+        });
       },
     });
   }
+
   loadAllDrivers();
 });

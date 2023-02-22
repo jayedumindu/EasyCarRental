@@ -152,4 +152,54 @@ $(function () {
   $("button#driverUpdate").click(function () {
     prepareDriverForm("driver/update", "put");
   });
+  function loadAllDrivers() {
+    $("#driver-tb").empty();
+    $.ajax({
+      url: baseURL + "driver/getAll",
+      dataType: "json",
+      success: function (resp) {
+        console.log(resp);
+        for (let driver of resp.data) {
+          var row =
+            "<tr><td>" +
+            driver.fname +
+            " " +
+            driver.lname +
+            "</td><td>" +
+            driver.username +
+            "</td><td>" +
+            driver.contactNo +
+            "</td><td>" +
+            driver.license +
+            "</td></tr>";
+          $("#driver-tb").append(row);
+        }
+        bindRowClickEvents();
+      },
+    });
+  }
+  loadAllDrivers();
+  function bindRowClickEvents() {
+    $("#driver-tb>tr").click(function () {
+      $.ajax({
+        url: baseURL + "driver/find",
+        method: "get",
+        dataType: "json",
+        success: function (res) {
+          alert(res.message);
+          // let {fname , lname, username, } = res.data
+        },
+        error: function (error) {
+          var jsObject = JSON.parse(error.responseText);
+          alert(jsObject.message);
+        },
+      });
+
+      //setting table details values to text fields
+      // $("#txtCustomerID").val(id);
+      // $("#txtCustomerName").val(name);
+      // $("#txtCustomerAddress").val(address);
+      // $("#txtCustomerSalary").val(salary);
+    });
+  }
 });
