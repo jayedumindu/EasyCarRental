@@ -9,5 +9,6 @@ public interface userService {
     void deleteUser(String username);
     void updateUser(userDTO dto);
     void saveOrUpdate(userDTO dto);
+    userDTO findUserByUsername(String username);
     ArrayList<userDTO> getAllUser();
 }

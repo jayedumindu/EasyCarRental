@@ -80,11 +80,11 @@ svg {
   height: 100%;
 }
 
-#car-selection {
+/* #car-selection {
   z-index: 1;
   position: sticky;
   top: 63px;
-}
+} */
 
 tr {
   text-align: center;
@@ -94,12 +94,8 @@ tr {
   width: 50%;
 }
 
-.nav-link {
-  color: azure;
-}
-
 .navbar {
-  background-color: #a1c4fd;
+  background-color: #bac7dc;
 }
 
 .ftco-section {
@@ -108,7 +104,7 @@ tr {
 
 .select-car {
   height: 50vh;
-  background-color: #a1c4fd;
+  background-color: #c9cfda;
   overflow-y: scroll;
 }
 
@@ -120,4 +116,8 @@ tr {
 .driver-pro {
   position: relative;
   left: 50px;
+}
+
+#car-selection .dropdown-toggle {
+  color: aliceblue;
 }

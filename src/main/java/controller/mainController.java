@@ -2,33 +2,31 @@ package controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/")
 public class mainController {
 
     public mainController() {
-        System.out.println("controller instantiated");
+        System.out.println("main controller instantiated");
     }
 
-    @GetMapping("/index")
-    public String returnIndex(){
-//        System.out.println("index returned");
-//        ModelAndView view = new ModelAndView();
-//        view.setViewName("index.jsp");
-        return "index.html";
+    @GetMapping("index")
+    public String getHomePage(){
+        System.out.println("index page called");
+        return "index";
     }
 
-    @ResponseBody
-    @GetMapping("/customer")
+    @GetMapping("admin")
     public String getCustomer(){
-        return "customer";
+        System.out.println("admin page called");
+//        ModelAndView view = new ModelAndView();
+//        view.setViewName("admin");
+        return "admin";
     }
 
-//    @ResponseBody
-//    @GetMapping("/index")
-//    public String getIndex(){
-//        return "index";
-//    }
 
 }

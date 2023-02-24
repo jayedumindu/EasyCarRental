@@ -1,41 +1,66 @@
 $(function () {
-  let activeTab = $("#home");
+  //  navigation
+  $(document).ready(function () {
+    $("body>section").hide();
+    $("section#home").show();
+  });
+
+  function changeActiveTab(tab) {
+    $("body>section").hide();
+    $(tab).show();
+  }
+
+  // for all nav links
+  $(".navbar-main .nav-item").click(function () {
+    let path = $(this).children("a").attr("href");
+    console.log(path);
+    changeActiveTab(path);
+  });
 
   $(".datepicker").datepicker();
-  console.log("date updated");
+  // console.log("date updated");
 
-  $("#tab-register").click(function () {
-    $("#tab-login").removeClass("active");
-    $(this).addClass("active");
-    $("#pills-login").fadeOut();
-    $("#pills-register").fadeIn();
-  });
+  // $("#tab-register").click(function () {
+  //   $("#tab-login").removeClass("active");
+  //   $(this).addClass("active");
+  //   $("#pills-login").fadeOut();
+  //   $("#pills-register").fadeIn();
+  // });
 
-  $("#tab-login").click(function () {
-    $("#tab-register").removeClass("active");
-    $(this).addClass("active");
-    $("#pills-register").fadeOut();
-    $("#pills-login").fadeIn();
-  });
-
-  // tab navigation
-  var navButtons = [
-    $("#navToItems"),
-    $("#navToCustomers"),
-    $("#navToOrders"),
-    $("#navToHome"),
-    $("#navToViewOrderDetails"),
-  ];
-  var sections = [
-    $("#car-selections"),
-    $("#home"),
-    $("#car-single-selection"),
-    $("#driver-management"),
-    $("#user-bookings"),
-  ];
+  // $("#tab-login").click(function () {
+  //   $("#tab-register").removeClass("active");
+  //   $(this).addClass("active");
+  //   $("#pills-register").fadeOut();
+  //   $("#pills-login").fadeIn();
+  // });
 
   let baseURL = "http://localhost:8080/EasyCarRental_war/";
 
+  // ------------------------------------- user ----------------------------------------------
+  // user login
+  $("#user-login").click(function () {
+    let [uname, pwd] = [$("#loginUsername").val(), $("#loginPassword").val()];
+    // ajax
+    $.ajax({
+      url: baseURL + "user/find?username=" + uname,
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        console.log(res.data);
+        alert(res.message);
+        if (pwd === res.data.pwd) {
+          // adding cookies
+          $.cookie("userLoggedIn", true, { path: "/" });
+          alert("login sucessful " + $.cookie("userLoggedIn"));
+        } else {
+          alert("wrong credentials");
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  });
   // save customer
   $("form#userAdd").submit(function (e) {
     e.preventDefault();
@@ -89,10 +114,11 @@ $(function () {
       data: formData,
       success: function (res) {
         alert(res.message);
+        loadAllCars();
       },
       error: function (error) {
-        var jsObject = JSON.parse(error.responseText);
-        alert(jsObject.message);
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
       },
     });
   }
@@ -102,7 +128,7 @@ $(function () {
   });
   // car-update
   $("#carUpdate").click(function () {
-    prepareCarForm("car/update", "put");
+    prepareCarForm("car/update", "post");
   });
   function loadAllCars() {
     $(".select-car").empty();
@@ -110,12 +136,176 @@ $(function () {
       url: baseURL + "car/getAll",
       dataType: "json",
       success: function (resp) {
-        console.log(resp);
-        //  load cards
+        console.log(resp.data);
+        resp.data.forEach((car) => {
+          let { brand, model, fuelType, registrationNumber } = car;
+          $(".select-car").append(
+            '<div class="container"> ' +
+              '<section class="mx-auto my-5" style="max-width: 23rem;"> ' +
+              '<div class="card">' +
+              '<div class="bg-image hover-overlay ripple" ' +
+              'data-mdb-ripple-color="light"> ' +
+              '<img src="./assets/images/car-10.jpg" ' +
+              'class="img-fluid" />' +
+              '<a href="#!">' +
+              '<div class="mask"' +
+              'style="background-color: rgba(251, 251,' +
+              '251, 0.15);">' +
+              "</div>" +
+              "</a>" +
+              "</div>" +
+              '<div class="card-body">' +
+              '<h5 class="card-title font-weight-bold" id="lblCarBrand">' +
+              "<a>" +
+              brand +
+              " " +
+              model +
+              "</a></h5>" +
+              '<p class="mb-2" id="lblCarFuelType">' +
+              fuelType +
+              "</p>" +
+              '<p class="mb-2" id="lblCarRegNo">' +
+              registrationNumber +
+              "</p>" +
+              '<hr class="my-4" />' +
+              '<a href="#!"' +
+              'class="btn btn-link link-secondary p-md-1 mb-0 car-up">Update</a>' +
+              '<a href="#!"' +
+              'class="btn btn-link link-primary p-md-1 mb-0 car-del">Remove</a>' +
+              "</div>" +
+              "</div>" +
+              "</section>" +
+              "</div>"
+          );
+        });
+        // button functionalities
+        $(".car-up").click(function () {
+          let regNo = $(this).parent().children("p#lblCarRegNo").text();
+          $.ajax({
+            url: baseURL + "car/find?registrationNumber=" + regNo,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+              let values = res.data;
+              console.log(values);
+              var inputs = $("#carAdd").find(":input");
+              console.dir(inputs);
+              inputs.each(function () {
+                $(this).val(values[this.name]);
+              });
+              // loadAllCars();
+            },
+            error: function (error) {
+              // var jsObject = JSON.parse(error.responseText);
+              // alert(jsObject.message);
+            },
+          });
+        });
+        // delete
+        $(".car-del").click(function () {
+          let regNo = $(this).parent().children("p#lblCarRegNo").text();
+          $.ajax({
+            url: baseURL + "car/remove?registrationNumber=" + regNo,
+            method: "delete",
+            dataType: "json",
+            success: function (res) {
+              alert(res.message);
+              loadAllCars();
+            },
+            error: function (error) {
+              // var jsObject = JSON.parse(error.responseText);
+              // alert(jsObject.message);
+            },
+          });
+        });
       },
     });
   }
   loadAllCars();
+
+  // ------------------------------- car-single -------------------
+  function findCar(regNo) {}
+  // load car cards
+  function loadAllCarsForSelection() {
+    $("#car-selection-row").empty();
+    $.ajax({
+      url: baseURL + "car/getAll",
+      dataType: "json",
+      success: function (resp) {
+        console.log(resp.data);
+        resp.data.forEach((car) => {
+          let {
+            brand,
+            model,
+            fuelType,
+            monthlyRate,
+            dailyRate,
+            registrationNumber,
+          } = car;
+          $("#car-selection-row").append(
+            '<div class="col-md-4">' +
+              '<div class="car-wrap rounded ">' +
+              '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
+              "</div>" +
+              '<div class="text">' +
+              '<h2 class="mb-0">' +
+              "<a>" +
+              brand +
+              " " +
+              model +
+              " (" +
+              fuelType +
+              ")" +
+              "</a>" +
+              "</h2>" +
+              '<h6 class="car-reg-no">' +
+              registrationNumber +
+              "</h6>" +
+              '<div class="d-flex mb-3">' +
+              '<br><p class="price ml-auto">' +
+              dailyRate +
+              "<span>/day</span>" +
+              "</p>" +
+              '<br><p class="price ml-auto">' +
+              monthlyRate +
+              "<span>/month</span>" +
+              "</p>" +
+              "</div>" +
+              '<p class="d-flex mb-0 d-block">' +
+              '<a class="btn btn-primary py-2 mr-1 book-btn">' +
+              "Book now" +
+              "</a>" +
+              "</p>" +
+              "</div>" +
+              "</div>" +
+              "</div>"
+          );
+        });
+        // button functionalities
+        $(".book-btn").click(function () {
+          let regNo = $(this).parent().parent().children(".car-reg-no").text();
+          $.ajax({
+            url: baseURL + "car/find?registrationNumber=" + regNo,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+              let car = res.data;
+              $("#car-single-selection span[id]").each(function () {
+                $(this).text(car[$(this).attr("id")]);
+              });
+              changeActiveTab("#car-single-selection");
+            },
+            error: function () {
+              return null;
+            },
+          });
+        });
+      },
+    });
+  }
+
+  loadAllCarsForSelection();
+
   // ------------------------- driver ------------------------------
 
   function prepareDriverForm(url, method) {
@@ -135,6 +325,7 @@ $(function () {
       dataType: "json",
       data: formData,
       success: function (res) {
+        loadAllDrivers();
         alert(res.message);
       },
       error: function (error) {
@@ -171,35 +362,68 @@ $(function () {
             driver.contactNo +
             "</td><td>" +
             driver.license +
+            "</td><td>" +
+            "<i class='fa-sharp fa-solid fa-trash del driver-del'></i>" +
+            "&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "<i class='fa-solid fa-pen-to-square driver-up'></i>" +
             "</td></tr>";
           $("#driver-tb").append(row);
         }
-        bindRowClickEvents();
+        $(".driver-del").click(function () {
+          let username = $(this).parent().parent().children(":eq(1)").text();
+          console.log(username);
+          $.ajax({
+            url: baseURL + "driver/remove?username=" + username,
+            method: "delete",
+            dataType: "json",
+            success: function (res) {
+              alert(res.message);
+              // load
+              loadAllDrivers();
+            },
+            error: function (error) {
+              var jsObject = JSON.parse(error.responseText);
+              alert(jsObject.message);
+            },
+          });
+        });
+        $(".driver-up").click(function () {
+          let username = $(this).parent().parent().children(":eq(1)").text();
+          console.log(username);
+          $.ajax({
+            url: baseURL + "driver/find?username=" + username,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+              console.log(res.data);
+              let {
+                username,
+                password,
+                fname,
+                lname,
+                contactNo,
+                profile,
+                license,
+              } = res.data;
+              $("#dUsername").val(username);
+              $("#dPassword").val(password);
+              $("#dRptPassword").val(password);
+              $("#dLname").val(lname);
+              $("#dFname").val(fname);
+              $("#dContact").val(contactNo);
+              $("#dLicense").val(license);
+            },
+            error: function (error) {
+              var jsObject = JSON.parse(error.responseText);
+              alert(jsObject.message);
+            },
+          });
+        });
       },
     });
   }
-  loadAllDrivers();
-  function bindRowClickEvents() {
-    $("#driver-tb>tr").click(function () {
-      $.ajax({
-        url: baseURL + "driver/find",
-        method: "get",
-        dataType: "json",
-        success: function (res) {
-          alert(res.message);
-          // let {fname , lname, username, } = res.data
-        },
-        error: function (error) {
-          var jsObject = JSON.parse(error.responseText);
-          alert(jsObject.message);
-        },
-      });
 
-      //setting table details values to text fields
-      // $("#txtCustomerID").val(id);
-      // $("#txtCustomerName").val(name);
-      // $("#txtCustomerAddress").val(address);
-      // $("#txtCustomerSalary").val(salary);
-    });
-  }
+  loadAllDrivers();
 });
+
+// $("#car-single-selection").show();

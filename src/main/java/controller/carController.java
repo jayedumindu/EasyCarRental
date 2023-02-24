@@ -49,7 +49,7 @@ public class carController {
 
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "multipart/form-data")
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "multipart/form-data")
     public ResponseUtil updateCar(
                                         @RequestParam String registrationNumber,
                                         @RequestParam String brand,
@@ -66,11 +66,11 @@ public class carController {
                                         @RequestParam int freeMileageForDay,
                                         @RequestParam BigDecimal priceForExtraKM,
                                         @RequestParam String color,
-                                        @RequestParam boolean availability,
-                                        @RequestPart("file1") MultipartFile file1,
-                                        @RequestPart("file2") MultipartFile file2,
-                                        @RequestPart("file3") MultipartFile file3,
-                                        @RequestPart("file4") MultipartFile file4
+                                        @RequestPart boolean availability,
+                                        @RequestPart(name = "file1", required = false) MultipartFile file1,
+                                        @RequestPart(name = "file2",required = false) MultipartFile file2,
+                                        @RequestPart(name = "file3",required = false) MultipartFile file3,
+                                        @RequestPart(name = "file4",required = false) MultipartFile file4
                                         ) throws IOException {
 
         carDTO dto = new carDTO(registrationNumber,brand,model,type,noOfPassengers,mileage,serviceMileage,transmissionType,fuelType,dailyRate,monthlyRate,freeMileageForMonth,freeMileageForDay,priceForExtraKM,color,availability,file1.getBytes(),file2.getBytes(),file3.getBytes(),file4.getBytes());
@@ -88,6 +88,12 @@ public class carController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseUtil getAllCar(){
         ArrayList<carDTO> data = carService.getAllCar();
+        return new ResponseUtil("OK","Successful!",data);
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseUtil getAllCar(@RequestParam String registrationNumber){
+        carDTO data = carService.findCarByRegNo(registrationNumber);
         return new ResponseUtil("OK","Successful!",data);
     }
 

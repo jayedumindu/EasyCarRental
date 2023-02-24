@@ -54,6 +54,12 @@ public class userController {
         return new ResponseUtil("OK","Successfully Deleted.!",null);
     }
 
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseUtil getUser(@RequestParam String username){
+        userDTO dto = userService.findUserByUsername(username);
+        return new ResponseUtil("OK","Successful!",dto);
+    }
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseUtil getAllUser(){
         ArrayList<userDTO> data = userService.getAllUser();

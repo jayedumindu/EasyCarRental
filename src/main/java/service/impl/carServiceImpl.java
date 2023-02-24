@@ -48,6 +48,11 @@ public class carServiceImpl implements carService {
     }
 
     @Override
+    public carDTO findCarByRegNo(String regNo) {
+        return mapper.map(repo.findCarByRegistrationNumber(regNo),carDTO.class);
+    }
+
+    @Override
     public ArrayList<carDTO> getAllCar() {
         return mapper.map(repo.findAll(),new TypeToken<ArrayList<carDTO>>(){}.getType());
     }

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- admin-driver management -->
+    <section class="h-100 bg-dark driver-management " id="driver-management">
+        <div class="driver-management-heading text-center p-5 bg-secondary">
+            <h2><i class="fa-solid fa-user">&nbsp;</i>Driver Managament</h2>
+            <p>Add Remove and Update Drivers</p>
+        </div>
+        <div class="container py-5 h-100">
+            <div class="table-responsive">
+                <table class="table table-dark table-borderless text-white mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Contact Number</th>
+                            <th scope="col">License Number</th>
+                            <th scope="col">Options</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="driver-tb">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container py-5 h-100">
+            <!-- driver info update (hidden) -->
+            <div class="container py-5 h-100 driver-update">
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-6 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                <img class="driver-img mt-5" src="...">
+
+                                <div class="mt-5 d-flex flex-column justify-content-start">
+                                    <h6>Add a profile picture</h6>
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;
+                                    <div class="driver-pro">
+                                        <input type="file" id="driver-pro">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 border-right">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Driver Information
+                                    </h4>
+                                </div>
+                                <form id="driver">
+                                    <div class="row mt-2">
+                                        <div class="col-md-6"><label class="labels">firstname</label><input type="text"
+                                                class="form-control" name="fName" id="dFname">
+                                        </div>
+                                        <div class="col-md-6"><label class="labels">lastname</label><input type="text"
+                                                class="form-control" name="lName" id="dLname">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12"><input type="text" class="form-control" name="username"
+                                                id="dUsername">
+                                            <label class="labels">Username</label>
+                                        </div>
+                                        <div class="col-md-12"><input type="password" class="form-control"
+                                                name="password" id="dPassword">
+                                            <label class="labels">Password</label>
+                                        </div>
+                                        <div class="col-md-12"><input type="password" class="form-control"
+                                                id="dRptPassword">
+                                            <label class="labels">Repeat
+                                                Password</label>
+                                        </div>
+                                        <div class="col-md-12"><input type="text" class="form-control" name="contactNo"
+                                                id="dContact">
+                                            <label class="labels">Contact
+                                                No</label>
+                                        </div>
+                                        <div class="col-md-12"><input type="text" class="form-control" name="license"
+                                                id="dLicense">
+                                            <label class="labels">License</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
+                                            type="button" id="driverSave">Save
+                                            Profile</button>
+                                        <button class="btn btn-primary profile-button" type="button"
+                                            id="driverUpdate">Update</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- admin - car management -->
+    <section class="admin-car-management ">
+        <div class=" header p-5">
+            <h1>Car Management</h1>
+        </div>
+        <div class="car-search ml-3">
+            <div class="input-group">
+                <div class="form-outline">
+                    <input id="search-focus" type="search" id="form1" class="form-control" />
+                    <label class="form-label" for="form1">Search</label>
+
+                </div>
+            </div>
+        </div>
+        <div class="select-car d-flex">
+
+        </div>
+        <div class="add-car d-flex justify-content-center">
+            <form class="row g-3 w-50 p-2" id="carAdd">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Reg. No</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="XXX-XXXX"
+                        name="registrationNumber">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Brand</label>
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Suzuki" name="brand">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="WagonR" name="model">
+                </div>
+                <div class="col-md-4 p-4">
+                    <label for="inputState" class="form-label">Type</label>
+                    <select id="inputState" class="form-select" name="type">
+                        <option>Luxury</option>
+                        <option>Premium</option>
+                        <option selected>General</option>
+                    </select>
+                </div>
+                <div class="col-md-4 p-4">
+                    <label for="inputState" class="form-label">Passengers</label>
+                    <select id="inputState" class="form-select" name="noOfPassengers">
+                        <option>2</option>
+                        <option>4</option>
+                        <option selected>6</option>
+                    </select>
+                </div>
+                <div class="col-md-4 p-4">
+                    <label for="inputState" class="form-label">Transmission</label>
+                    <select id="inputState" class="form-select" name="transmissionType">
+                        <option>Auto</option>
+                        <option>Manual</option>
+                    </select>
+                </div>
+                <div class="col-md-4 p-4">
+                    <label for="inputState" class="form-label">Fuel Type</label>
+                    <select id="inputState" class="form-select" name="fuelType">
+                        <option>Diesel</option>
+                        <option>Petrol</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputCity" class="form-label">Color</label>
+                    <input type="color" class="form-control" id="inputCity" placeholder="5000" name="color">
+                </div>
+                <div class="col-6">
+                    <label for="inputAddress2" class="form-label">Mileage (km)</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="10000" name="mileage">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Service Mileage (km)</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder="5000" name="serviceMileage">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Extra Price (for km)</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder="5000" name="priceForExtraKM">
+                </div>
+
+                <div class="input-group mb-3 col-12 mt-3">
+                    <input type="text" class="form-control" placeholder="Daily Rate (Rs)" aria-label="Username"
+                        name="dailyRate">
+                    <span class="input-group-text">--</span>
+                    <input type="text" class="form-control" placeholder="Free Mileage (km)" aria-label="Server"
+                        name="freeMileageForDay">
+                </div>
+                <div class="input-group mb-3 col-12 mt-3">
+                    <input type="text" class="form-control" placeholder="Monthly Rate (Rs)" aria-label="Username"
+                        name="monthlyRate">
+                    <span class="input-group-text">--</span>
+                    <input type="text" class="form-control" placeholder="Free Mileage (km)" aria-label="Server"
+                        name="freeMileageForMonth">
+                </div>
+
+                <div class="col-12 my-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="availability">
+                        <label class="form-check-label" for="gridCheck">
+                            Available
+                        </label>
+                        <p>(car is available to hire or not)</p>
+                    </div>
+                </div>
+                <div class="upload w-100">
+                    <div class="frame">
+                        <div class="center d-flex row">
+                            <div class="title col-12">
+                                <h5>Drop files to upload</h1>
+                            </div>
+
+                            <div class="single-upload col-6 d-flex justify-content-center p-5">
+                                <div class="dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="f-car-front" />
+                                    <p><b>car-front</b></p>
+                                </div>
+
+
+                            </div>
+                            <div class="single-upload col-6 d-flex justify-content-center p-5">
+                                <div class="dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="f-car-back" />
+                                    <p><b>car-back</b></p>
+                                </div>
+
+
+                            </div>
+                            <div class="single-upload col-6 d-flex justify-content-center p-5">
+                                <div class="dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="f-car-side" />
+                                    <p><b>car-side</b></p>
+                                </div>
+
+
+                            </div>
+                            <div class="single-upload col-6 d-flex justify-content-center p-5">
+                                <div class="dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="f-car-interior" />
+                                    <p><b>car-interior</b></p>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary" id="carSave">Save</button>
+                    <button type="button" class="btn btn-primary" id="carUpdate">Update
+                        Information</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+</body>
+
+</html>
