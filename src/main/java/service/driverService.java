@@ -11,4 +11,6 @@ public interface driverService {
     driverDTO findDriverByUsername(String username);
     ArrayList<driverDTO> getAllDriver();
     driverDTO findDriverRandomly();
+    int getNoOfOccupiedDrivers();
+    int getNoOfAvailableDrivers();
 }

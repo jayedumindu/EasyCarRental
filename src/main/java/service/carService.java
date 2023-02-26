@@ -10,4 +10,6 @@ public interface carService {
     void updateCar(carDTO dto);
     carDTO findCarByRegNo(String regNo);
     ArrayList<carDTO> getAllCar();
+    int countCarsByAvailabilityIsTrue();
+    int countCarsScheduled();
 }

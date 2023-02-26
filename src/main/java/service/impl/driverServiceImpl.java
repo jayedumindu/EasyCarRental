@@ -61,4 +61,14 @@ public class driverServiceImpl implements driverService {
         return mapper.map(repo.selectDriverRandomly(),driverDTO.class);
 
     }
+
+    @Override
+    public int getNoOfOccupiedDrivers() {
+        return repo.getNoOfOccupiedDrivers();
+    }
+
+    @Override
+    public int getNoOfAvailableDrivers() {
+        return repo.getNoOfAvailableDrivers();
+    }
 }

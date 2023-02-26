@@ -71,4 +71,17 @@ public class driverController {
         return new ResponseUtil("OK","Successful!",data);
     }
 
+    @RequestMapping(value = "/getNoOfOccupiedDrivers", method = RequestMethod.GET)
+    public ResponseUtil getNoOfOccupiedDrivers(){
+        int data = driverService.getNoOfOccupiedDrivers();
+        return new ResponseUtil("OK","Successful!",data);
+    }
+
+    @RequestMapping(value = "/getNoOfAvailableDrivers", method = RequestMethod.GET)
+    public ResponseUtil getNoOfAvailableDrivers(){
+        int data = driverService.getNoOfAvailableDrivers();
+
+        return new ResponseUtil("OK","Successful!",data);
+    }
+
 }

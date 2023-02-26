@@ -5,6 +5,7 @@ import dto.paymentDTO;
 import entity.Booking;
 import entity.Payment;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repo.bookingRepo;
@@ -12,6 +13,7 @@ import repo.paymentRepo;
 import service.bookingService;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 
 
 @Service
@@ -36,5 +38,21 @@ public class bookingServiceImpl implements bookingService {
     @Override
     public String getLastBookingId() {
         return bookingRepo.getLastBookingId();
+    }
+
+    @Override
+    public int getBookingActiveToday() {
+        return bookingRepo.getBookingActiveToday();
+    }
+
+    @Override
+    public int getBookingsForToday() {
+        return bookingRepo.getBookingsForToday();
+    }
+
+    @Override
+    public Collection<bookingDTO> getBookingsByAcceptedFalse() {
+        return mapper.map(bookingRepo.getBookingsByAcceptedFalse(),new TypeToken<Collection<bookingDTO>>(){}.getType());
+
     }
 }

@@ -97,5 +97,15 @@ public class carController {
         return new ResponseUtil("OK","Successful!",data);
     }
 
+    @RequestMapping(value = "/countCarsByAvailabilityIsTrue", method = RequestMethod.GET)
+    public ResponseUtil countCarsByAvailabilityIsTrue(){
+        return new ResponseUtil("OK","Successful!",carService.countCarsByAvailabilityIsTrue());
+    }
+
+    @RequestMapping(value = "/countCarsScheduled", method = RequestMethod.GET)
+    public ResponseUtil countCarsScheduled(){
+        return new ResponseUtil("OK","Successful!",carService.countCarsScheduled());
+    }
+
 
 }

@@ -4,14 +4,15 @@
 // - The number of available and reserved cars.
 // - The number of bookings active for the day.
 // - The number of available and occupied drivers.
-function name(params) {}
+
 $(document).ready(function () {
   $("body>section").hide();
-  $("section#dashboard").show();
+  $("section#booking").show();
   $(".nav-link").click(function () {
     changeActiveTab($(this).attr("href"));
     console.log("clicked");
   });
+  $(".datepicker").datepicker();
 });
 
 function changeActiveTab(tab) {
@@ -19,13 +20,42 @@ function changeActiveTab(tab) {
   $(tab).show();
 }
 
-// ------------------------- driver ------------------------------
-
 let baseURL = "http://localhost:8080/EasyCarRental_war/";
+
+// -------------------------------dashboard------------------------------------
+
+async function loadDashboardData() {
+  let occupiedDrivers = await $.get(baseURL + "driver/getNoOfOccupiedDrivers");
+  let availableDrivers = await $.get(
+    baseURL + "driver/getNoOfAvailableDrivers"
+  );
+  let activeBookings = await $.get(baseURL + "booking/getBookingActiveToday");
+  let bookingsForToday = await $.get(baseURL + "booking/getBookingsForToday");
+  let availableCars = await $.get(
+    baseURL + "car/countCarsByAvailabilityIsTrue"
+  );
+  let scheduledCars = await $.get(baseURL + "car/countCarsScheduled");
+  console.log(
+    occupiedDrivers,
+    availableDrivers,
+    activeBookings,
+    bookingsForToday,
+    availableCars,
+    scheduledCars
+  );
+}
+
+loadDashboardData();
+
+// ------------------------- driver ------------------------------
 
 function prepareDriverForm(url, method) {
   var form = $("form#driver").serializeArray();
   var formData = new FormData();
+  // let DATA = {}
+  // $.each(form, function (key, input) {
+  //   DATA[input.name]=input.value;
+  // });
   $.each(form, function (key, input) {
     formData.append(input.name, input.value);
   });

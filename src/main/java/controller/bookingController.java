@@ -14,7 +14,6 @@ import util.ResponseUtil;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 
 @CrossOrigin
 @RestController
@@ -42,7 +41,7 @@ public class bookingController {
                                   @RequestParam boolean isAccepted,
                                   @RequestPart("paymentConfirmation") byte[] conf,
                                   @RequestParam String user,
-                                  @RequestParam String driver,
+                                  @RequestParam(required = false) String driver,
                                   @RequestParam String car,
                                   @RequestParam BigDecimal rent
                                   ) {
@@ -52,22 +51,37 @@ public class bookingController {
         System.out.println("start");
         bookingDTO dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),drService.findDriverByUsername(driver), uService.findUserByUsername(user));
         paymentDTO dto2 = new paymentDTO(dto1,rent);
-//        System.out.println(dto1);
         bkService.placeBooking(dto1,dto2);
         return new ResponseUtil("OK","Successfully Added.!",null);
     }
 
     @RequestMapping(value = "/lastId", method = RequestMethod.GET)
     public ResponseUtil getLastBookingId(){
-        System.out.println("method called");
         return new ResponseUtil("OK","Successful!", bkService.getLastBookingId());
+    }
+
+    @RequestMapping(value = "/getBookingActiveToday", method = RequestMethod.GET)
+    public ResponseUtil getBookingActiveToday(){
+        System.out.println("method called");
+        return new ResponseUtil("OK","Successful!", bkService.getBookingActiveToday());
+    }
+
+    @RequestMapping(value = "/getBookingsForToday", method = RequestMethod.GET)
+    public ResponseUtil getBookingsForToday(){
+        System.out.println("method called");
+        return new ResponseUtil("OK","Successful!", bkService.getBookingsForToday());
+    }
+
+    @RequestMapping(value = "/getBookingsByAcceptedFalse", method = RequestMethod.GET)
+    public ResponseUtil getBookingsByAcceptedFalse(){
+        System.out.println("method called");
+        return new ResponseUtil("OK","Successful!", bkService.getBookingsByAcceptedFalse());
     }
 
     @RequestMapping(value = "/pending", method = RequestMethod.GET)
     @ResponseBody
     public ResponseUtil getPendingBookings(@RequestParam String username){
         userDTO dto = uService.findUserByUsername(username);
-//        Collection<bookingDTO> data = dto.getBookings();
         return new ResponseUtil("OK","Successful!", dto);
     }
 

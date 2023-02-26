@@ -121,3 +121,7 @@ tr {
 #car-selection .dropdown-toggle {
   color: aliceblue;
 }
+
+.card-body h5 {
+  font-size: 15px;
+}
