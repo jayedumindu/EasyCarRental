@@ -23,8 +23,6 @@ public class mainController {
     @GetMapping("admin")
     public String getCustomer(){
         System.out.println("admin page called");
-//        ModelAndView view = new ModelAndView();
-//        view.setViewName("admin");
         return "admin";
     }
 

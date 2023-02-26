@@ -20,16 +20,14 @@ public class Payment {
     @Column(name = "booking_id")
     private String bookingId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "booking_id",referencedColumnName="bookingId")
     private Booking booking;
-
 
     private BigDecimal rent;
     private String account;
     private String payment_method;
     private BigDecimal deduction;
     private LocalDateTime returnDateTime;
-
 
 }

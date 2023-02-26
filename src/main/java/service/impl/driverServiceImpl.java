@@ -55,4 +55,10 @@ public class driverServiceImpl implements driverService {
     public ArrayList<driverDTO> getAllDriver() {
         return mapper.map(repo.findAll(),new TypeToken<ArrayList<driverDTO>>(){}.getType());
     }
+
+    @Override
+    public driverDTO findDriverRandomly() {
+        return mapper.map(repo.selectDriverRandomly(),driverDTO.class);
+
+    }
 }

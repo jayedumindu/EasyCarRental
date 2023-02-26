@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -17,24 +18,23 @@ import java.time.LocalDateTime;
 public class Booking {
     @Id
     private String bookingId;
-    private LocalDateTime currenDateTime;
-    private LocalDateTime dueDateTime;
+    private LocalDate currenDateTime;
+    private LocalDate dueDateTime;
     private BigDecimal advancePayment;
-    private String pickupLocation;
-    private String returnLocation;
     @Lob
     private byte[] paymentConfirmation;
     private boolean isAccepted;
 
     @ManyToOne
+    @JsonBackReference
     private Car car;
     @ManyToOne
+    @JsonBackReference
     private Driver driver;
-
     @ManyToOne
+    @JsonBackReference
     private Admin admin;
-
     @ManyToOne
+    @JsonBackReference
     private User user;
-
 }

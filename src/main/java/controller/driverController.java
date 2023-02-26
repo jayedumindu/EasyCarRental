@@ -8,7 +8,6 @@ import service.driverService;
 import util.ResponseUtil;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @CrossOrigin
@@ -62,6 +61,13 @@ public class driverController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public ResponseUtil getDriverById(@RequestParam String username){
         driverDTO data = driverService.findDriverByUsername(username);
+        return new ResponseUtil("OK","Successful!",data);
+
+    }
+
+    @RequestMapping(value = "/findRandom", method = RequestMethod.GET)
+    public ResponseUtil getDriverRandomly(){
+        driverDTO data = driverService.findDriverRandomly();
         return new ResponseUtil("OK","Successful!",data);
     }
 

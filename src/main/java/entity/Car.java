@@ -47,4 +47,8 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private Collection<Booking> bookings = new ArrayList<>();
+
+    public Car(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
 }

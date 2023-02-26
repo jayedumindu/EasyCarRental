@@ -1,10 +1,7 @@
 package config;
 
 import advisor.AppWideExceptionHandler;
-import controller.carController;
-import controller.driverController;
-import controller.mainController;
-import controller.userController;
+import controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {AppWideExceptionHandler.class, mainController.class, userController.class, carController.class, driverController.class})
+@ComponentScan(basePackageClasses = {AppWideExceptionHandler.class, mainController.class, userController.class, carController.class, driverController.class, bookingController.class})
 public class WebAppConfig {
     public WebAppConfig() {
         System.out.println("web-config instantiated");

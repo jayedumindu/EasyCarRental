@@ -10,4 +10,5 @@ public interface driverService {
     void updateDriver(driverDTO dto);
     driverDTO findDriverByUsername(String username);
     ArrayList<driverDTO> getAllDriver();
+    driverDTO findDriverRandomly();
 }

@@ -1,8 +1,12 @@
 $(function () {
   //  navigation
+  var cookieTable = {};
   $(document).ready(function () {
     $("body>section").hide();
     $("section#home").show();
+    $(".datepicker").datepicker({
+      onSelect: calculateValueOnDateChange,
+    });
   });
 
   function changeActiveTab(tab) {
@@ -17,7 +21,6 @@ $(function () {
     changeActiveTab(path);
   });
 
-  $(".datepicker").datepicker();
   // console.log("date updated");
 
   // $("#tab-register").click(function () {
@@ -51,6 +54,7 @@ $(function () {
         if (pwd === res.data.pwd) {
           // adding cookies
           $.cookie("userLoggedIn", true, { path: "/" });
+          cookieTable.user = res.data;
           alert("login sucessful " + $.cookie("userLoggedIn"));
         } else {
           alert("wrong credentials");
@@ -224,7 +228,6 @@ $(function () {
   loadAllCars();
 
   // ------------------------------- car-single -------------------
-  function findCar(regNo) {}
   // load car cards
   function loadAllCarsForSelection() {
     $("#car-selection-row").empty();
@@ -293,6 +296,19 @@ $(function () {
               $("#car-single-selection span[id]").each(function () {
                 $(this).text(car[$(this).attr("id")]);
               });
+              let advance = 0.0;
+              switch (car.type) {
+                case "General":
+                  advance = 10000.0;
+                  break;
+                case "Premium":
+                  advance = 15000.0;
+                  break;
+                case "Luxury":
+                  advance = 20000.0;
+                  break;
+              }
+              $("span#advancePayment").text(advance);
               changeActiveTab("#car-single-selection");
             },
             error: function () {
@@ -305,7 +321,56 @@ $(function () {
   }
 
   loadAllCarsForSelection();
-
+  // on date change
+  function calculateValueOnDateChange(dateText) {
+    let startDay = new Date($("#datepicker1").val());
+    let endDay = new Date($("#datepicker2").val());
+    let total = 0.0;
+    try {
+      var millisBetween = startDay.getTime() - endDay.getTime();
+    } finally {
+      let totalDays = Math.round(Math.abs(millisBetween / (1000 * 3600 * 24)));
+      let dailyRate = parseInt($("span#dailyRate").text());
+      if (totalDays >= 30) {
+        let monthlyRate = parseInt($("span#monthlyRate").text());
+        let months = Math.round(totalDays / 30);
+        let days = totalDays % 30;
+        total += days * dailyRate + months * monthlyRate;
+      } else {
+        total += dailyRate * totalDays;
+      }
+    }
+    $("span#total").text(total);
+  }
+  // add a driver randomly
+  $("input#driverCheck").change(function () {
+    if ($(this).is(":checked")) {
+      // get a driver randomly
+      $.ajax({
+        url: baseURL + "driver/findRandom",
+        method: "get",
+        dataType: "json",
+        success: function (res) {
+          let driver = res.data;
+          $.cookie("driverAssigned", true, { path: "/" });
+          cookieTable.driver = res.data;
+          // setting values
+          $("#driver-details span[id]").each(function () {
+            $(this).text(driver[$(this).attr("id")]);
+          });
+        },
+        error: function () {
+          return null;
+        },
+      });
+    } else {
+      $.cookie("driverAssigned", false, { path: "/" });
+      $.cookie("driver", null);
+      $("#driver-details span[id]").each(function () {
+        $(this).text("");
+      });
+    }
+  });
   // ------------------------- driver ------------------------------
 
   function prepareDriverForm(url, method) {
@@ -424,6 +489,84 @@ $(function () {
   }
 
   loadAllDrivers();
-});
 
-// $("#car-single-selection").show();
+  // function manageCookies(params) {
+  //   console.dir($.cookie("user"));
+  //   console.dir($.cookie("driver"));
+  // }
+  // manageCookies();
+
+  // ------------------------------------booking---------------------------------------
+  function placeBooking(id) {
+    var user,
+      driver = {};
+    if ($.cookie("userLoggedIn")) {
+      user = cookieTable["user"];
+      console.dir(user);
+    }
+    if ($.cookie("driverAssigned")) {
+      driver = cookieTable["driver"];
+      console.dir(driver);
+    }
+    var formData = new FormData();
+    formData.append(
+      "advancePayment",
+      parseFloat($("span#advancePayment").text())
+    );
+
+    // let id = await generateNextId();
+    formData.append("isAccepted", false);
+    formData.append("bookingId", id);
+    formData.append("rent", parseFloat($("span#total").text()));
+    formData.append("dueDateTime", $("#datepicker2").val());
+    formData.append("currentDateTime", $("#datepicker1").val());
+    formData.append("car", $("span#registrationNumber").text());
+    formData.append("driver", driver.username);
+    formData.append("user", user.username);
+    formData.append("paymentConfirmation", $("#bookingAdvance")[0].files[0]);
+    $.ajax({
+      url: baseURL + "booking/place",
+      method: "post",
+      data: formData,
+      dataType: "json",
+      success: function (res) {
+        alert(res.message);
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+      processData: false,
+      contentType: false,
+    });
+  }
+  $("#placeBooking").click(generateNextId);
+
+  function generateNextId() {
+    $.ajax({
+      url: baseURL + "booking/lastId",
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        let prevId = res.data;
+        let nextId;
+        if (prevId) {
+          let [prefix, suffix] = prevId.split("-");
+          val = parseInt(suffix);
+          nextId = prefix + "-" + (val + 1);
+        } else {
+          nextId = "BK-1";
+        }
+        placeBooking(nextId);
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
+  }
+
+  function loadPendingOrdersForCustomer() {}
+
+  // $("#car-single-selection").show();
+});

@@ -12,8 +12,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import repo.carRepo;
-import repo.userRepo;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,7 @@ public class User {
     private byte[] licenseVerification;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Collection<Booking> bookings = new ArrayList<>();
+
 }

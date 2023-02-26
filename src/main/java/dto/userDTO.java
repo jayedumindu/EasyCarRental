@@ -1,5 +1,6 @@
 package dto;
 
+import entity.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,17 @@ public class userDTO {
     private String license;
     private byte[] nicVerification;
     private byte[] licenseVerification;
+    private Collection<bookingDTO> bookings;
 
+    public userDTO(String username, String pwd, String name, String address, String contact, String nic, String license, byte[] nicVerification, byte[] licenseVerification) {
+        this.username = username;
+        this.pwd = pwd;
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.nic = nic;
+        this.license = license;
+        this.nicVerification = nicVerification;
+        this.licenseVerification = licenseVerification;
+    }
 }

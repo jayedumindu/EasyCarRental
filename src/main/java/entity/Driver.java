@@ -32,5 +32,7 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     private Collection<Booking> bookings = new ArrayList<>();
 
-
+    public Driver(String username) {
+        this.username = username;
+    }
 }

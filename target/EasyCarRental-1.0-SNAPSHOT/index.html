@@ -743,7 +743,7 @@
                                         </div>
                                 </div>
                         </div>
-                        <div class="row">
+                        <div class="row main">
                                 <div class=" d-flex align-self-stretch col-4 d-flex justify-content-center">
                                         <div class="media block-6 services">
                                                 <div class="media-body py-md-4">
@@ -897,6 +897,44 @@
                                                 </div>
                                         </div>
                                 </div>
+                                <div class="col-md d-flex align-self-stretch col-6 d-flex justify-content-center">
+                                        <div class="media block-6 services">
+                                                <div class="media-body py-md-4">
+                                                        <div class="d-flex mb-3 align-items-center">
+                                                                <div
+                                                                        class=" d-flex align-items-center justify-content-center">
+                                                                        <i class="fa-solid fa-coins" style="color: rgb(37, 150, 190);
+                                                                                font-size: 30px;"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                        <h3 class="heading mb-0 pl-3">
+                                                                                Daily Rate (Rs)
+                                                                                <span id="dailyRate"></span>
+                                                                        </h3>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-md d-flex align-self-stretch col-6 d-flex justify-content-center">
+                                        <div class="media block-6 services">
+                                                <div class="media-body py-md-4">
+                                                        <div class="d-flex mb-3 align-items-center">
+                                                                <div
+                                                                        class=" d-flex align-items-center justify-content-center">
+                                                                        <i class="fa-solid fa-coins"
+                                                                                style="color: rgb(37, 150, 190); font-size: 30px;"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                        <h3 class="heading mb-0 pl-3">
+                                                                                Monthly Rate (Rs)
+                                                                                <span id="monthlyRate"></span>
+                                                                        </h3>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
                         </div>
                         <div class="row">
                                 <div class="col-md-12 pills">
@@ -922,7 +960,7 @@
                                                                 role="tabpanel" aria-labelledby="pills-description-tab">
                                                                 <div class="row">
                                                                         <div class="col-12">
-                                                                                <form class="row g-3">
+                                                                                <form class="row g-3" id="booking">
                                                                                         <div class="col-12">
                                                                                                 <h5>Choose date from
                                                                                                         below to
@@ -947,6 +985,11 @@
                                                                                         </div>
                                                                                         <hr>
                                                                                         <div class="mt-5 mb-3">
+                                                                                                <h6><span
+                                                                                                                id="type"></span>
+                                                                                                        : <span
+                                                                                                                id="advancePayment"></span>
+                                                                                                </h6>
                                                                                                 <label for="formFile"
                                                                                                         class="form-label">Confirm
                                                                                                         payment by
@@ -954,24 +997,30 @@
                                                                                                         (images/PDF)</label>
                                                                                                 <input class="form-control"
                                                                                                         type="file"
-                                                                                                        id="formFile">
+                                                                                                        id="bookingAdvance">
                                                                                         </div>
-
                                                                                         <div class="col-12 mt-3">
                                                                                                 <div class="form-check">
                                                                                                         <input class="form-check-input"
                                                                                                                 type="checkbox"
-                                                                                                                id="gridCheck">
+                                                                                                                id="driverCheck">
                                                                                                         <label class="form-check-label"
-                                                                                                                for="gridCheck">
+                                                                                                                for="driverCheck">
                                                                                                                 Include
                                                                                                                 a driver
                                                                                                         </label>
                                                                                                 </div>
                                                                                         </div>
+                                                                                        <div
+                                                                                                class="col-12 d-flex p-5 text-center">
+                                                                                                <h2>Total for : <span
+                                                                                                                id="total"></span>
+                                                                                                </h2>
+                                                                                        </div>
                                                                                         <div class="col-12 mt-5">
-                                                                                                <button type="submit"
-                                                                                                        class="btn btn-primary">Checkout</button>
+                                                                                                <button type="button"
+                                                                                                        class="btn btn-primary"
+                                                                                                        id="placeBooking">Checkout</button>
                                                                                         </div>
                                                                                 </form>
                                                                         </div>
@@ -980,28 +1029,21 @@
 
                                                         <div class="tab-pane fade" id="pills-driver" role="tabpanel"
                                                                 aria-labelledby="pills-manufacturer-tab">
-
-                                                        </div>
-
-                                                        <!-- <div class="tab-pane fade" id="pills-review" role="tabpanel"
-                                                                aria-labelledby="pills-review-tab">
-                                                                <div class="row">
-                                                                        <div class="col-md-6">
-                                                                                <h5><span id="freeMileageForDay"></span>
-                                                                                </h5>
+                                                                <div class="row ">
+                                                                        <div class="col-6">
+                                                                                <h1>Profile Picture</h1>
+                                                                                <img src="" alt="">
                                                                         </div>
-                                                                        <div class="col-md-6">
-                                                                                <h5><span
-                                                                                                id="freeMileageForMonth"></span>
-                                                                                </h5>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                                <h5><span
-                                                                                                id="freeMileageForMonth"></span>
-                                                                                </h5>
+                                                                        <div class="col-6" id="driver-details">
+                                                                                <h1><span id="fname"></span>&nbsp;<span
+                                                                                                id="lname"></span></h1>
+                                                                                <p>contact number</p>
+                                                                                <h1><span id="contactNo"></span></h1>
+                                                                                <p>license number</p>
+                                                                                <h1><span id="license"></span></h1>
                                                                         </div>
                                                                 </div>
-                                                        </div> -->
+                                                        </div>
                                                 </div>
                                         </div>
                                 </div>
@@ -1367,10 +1409,7 @@
                 crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
                 integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-
-        <!-- <script src="https://use.fontawesome.com/c7cb64ec51.js"></script> -->
         <script src="https://kit.fontawesome.com/771f6b37f4.js" crossorigin="anonymous"></script>
-
         <script src="./index.js"></script>
 </body>
 
