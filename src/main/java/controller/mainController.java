@@ -15,16 +15,30 @@ public class mainController {
     }
 
     @GetMapping("index")
-    public String getHomePage(){
-        System.out.println("index page called");
-        return "index";
+    public ModelAndView getHomePage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
     }
+//
+//    @GetMapping("index")
+//    public String getHomePage(){
+//        System.out.println("index called");
+//        return "index";
+//    }
 
     @GetMapping("admin")
-    public String getCustomer(){
-        System.out.println("admin page called");
-        return "admin";
+    public ModelAndView getCustomer(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin");
+        return modelAndView;
     }
+
+//    @GetMapping("admin")
+//    public String getCustomer(){
+//        System.out.println("called admin");
+//        return "admin";
+//    }
 
 
 }

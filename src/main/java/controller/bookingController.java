@@ -82,7 +82,28 @@ public class bookingController {
     @ResponseBody
     public ResponseUtil getPendingBookings(@RequestParam String username){
         userDTO dto = uService.findUserByUsername(username);
-        return new ResponseUtil("OK","Successful!", dto);
+        return new ResponseUtil("OK","Successful!", dto.getBookings());
     }
+
+    @RequestMapping(value = "/payment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseUtil doPayment(
+            @RequestParam BigDecimal rent,
+            @RequestParam String account,
+            @RequestParam BigDecimal deduction,
+            @RequestParam String method,
+            @RequestParam String date,
+            @RequestParam String id
+                                  ){
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate returnDate = LocalDate.parse(date,dateTimeFormatter);
+        paymentDTO dto = new paymentDTO(rent,account,method,deduction,returnDate);
+        System.out.println(date);
+        bkService.upDatePayment(dto,id);
+        return new ResponseUtil("OK","Successful!", null);
+    }
+
+
 
 }

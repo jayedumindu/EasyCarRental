@@ -3,7 +3,10 @@ package repo;
 import entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 
 public interface bookingRepo extends JpaRepository<Booking,String> {
@@ -15,4 +18,5 @@ public interface bookingRepo extends JpaRepository<Booking,String> {
     int getBookingsForToday();
 @Query(value = "select * from Booking where isAccepted = false", nativeQuery = true)
     Collection<Booking> getBookingsByAcceptedFalse();
+
 }
