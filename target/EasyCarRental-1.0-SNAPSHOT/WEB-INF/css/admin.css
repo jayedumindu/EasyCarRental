@@ -123,3 +123,62 @@ body > section {
 .select-car {
   height: 50vh;
 }
+
+div#login {
+  display: flex;
+  z-index: 50;
+  height: 80vh;
+  border-radius: 5pt;
+  opacity: 0.3;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/about.jpg);
+}
+
+.admin-logo {
+  margin-top: 10pt;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-form {
+  width: 350pt;
+  height: auto;
+  margin: auto;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20pt;
+  background-color: rgba(252, 252, 252, 0.781);
+  position: absolute;
+}
+
+.logo-main {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: url(../assets/images/logo.png);
+}
+
+/* div#nav-brand {
+  border-radius: 50%;
+  height: 80pt;
+  width: 80pt;
+  background-image: url(../assets/images/logo.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
+
+.admin-nav li {
+  /* background-color: #bdc3c7; */
+  margin-top: 30pt;
+  height: 100pt;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: larger;
+}
+
+.admin-nav li:hover {
+  background-color: azure;
+}
