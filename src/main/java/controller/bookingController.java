@@ -10,7 +10,6 @@ import service.carService;
 import service.driverService;
 import service.userService;
 import util.ResponseUtil;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 @RestController
 @RequestMapping("/booking")
 public class bookingController {
-
     @Autowired
     bookingService bkService;
 
@@ -50,7 +48,7 @@ public class bookingController {
         LocalDate dt = LocalDate.parse(dueDateTime,dateTimeFormatter);
         System.out.println("start");
         bookingDTO dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),drService.findDriverByUsername(driver), uService.findUserByUsername(user));
-        paymentDTO dto2 = new paymentDTO(dto1,rent);
+        paymentDTO dto2 = new paymentDTO(dto1.getBookingId(),dto1,rent);
         bkService.placeBooking(dto1,dto2);
         return new ResponseUtil("OK","Successfully Added.!",null);
     }
@@ -85,6 +83,20 @@ public class bookingController {
         return new ResponseUtil("OK","Successful!", dto.getBookings());
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseUtil deleteBooking(@RequestParam String id){
+        bkService.removeBooking(id);
+        return new ResponseUtil("OK","Successful!", null);
+    }
+
+    @RequestMapping(value = "/accept", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseUtil acceptBooking(@RequestParam String id){
+        bkService.acceptBooking(id);
+        return new ResponseUtil("OK","Successful!", null);
+    }
+
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseUtil doPayment(
@@ -103,7 +115,4 @@ public class bookingController {
         bkService.upDatePayment(dto,id);
         return new ResponseUtil("OK","Successful!", null);
     }
-
-
-
 }

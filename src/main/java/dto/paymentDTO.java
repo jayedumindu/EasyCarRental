@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 public class paymentDTO {
+    private String bookingId;
     private bookingDTO booking;
     private BigDecimal rent;
     private String account;
@@ -26,6 +27,12 @@ public class paymentDTO {
         this.rent = rent;
     }
 
+    public paymentDTO(String bookingId, bookingDTO booking, BigDecimal rent) {
+        this.bookingId = bookingId;
+        this.booking = booking;
+        this.rent = rent;
+    }
+
     public paymentDTO(BigDecimal rent, String account, String payment_method, BigDecimal deduction, LocalDate returnDateTime) {
         this.rent = rent;
         this.account = account;
@@ -33,4 +40,5 @@ public class paymentDTO {
         this.deduction = deduction;
         this.returnDateTime = returnDateTime;
     }
+
 }

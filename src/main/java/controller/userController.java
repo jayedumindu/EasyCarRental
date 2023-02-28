@@ -1,5 +1,6 @@
 package controller;
 
+import dto.adminDTO;
 import dto.userDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +65,21 @@ public class userController {
     public ResponseUtil getAllUser(){
         ArrayList<userDTO> data = userService.getAllUser();
         return new ResponseUtil("OK","Successful!",data);
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public ResponseUtil validateAdmin(@RequestParam String pwd,@RequestParam String username){
+        adminDTO data = userService.validateAdmin(username);
+        if(data!=null){
+            if(data.getPassword().equals(pwd)){
+                return new ResponseUtil("OK","Successful!",1);
+            }else {
+                return new ResponseUtil("OK","Successful!",0);
+            }
+        }else {
+            return new ResponseUtil("OK","Successful!",0);
+        }
+
     }
 
 }

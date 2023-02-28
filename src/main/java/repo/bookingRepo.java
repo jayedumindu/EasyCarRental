@@ -3,6 +3,7 @@ package repo;
 import entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
@@ -18,4 +19,6 @@ public interface bookingRepo extends JpaRepository<Booking,String> {
 //@Query(value = "select b.bookingId,b.user_username,b.car_registrationNumber,b.driver_username,b.admin_username from Booking b where isAccepted = false", nativeQuery = true)
     Collection<Booking> getGroupDetails();
 
+    @Query(value = "UPDATE Booking p SET p.isAccepted=true  WHERE p.bookingId=:id",nativeQuery = true)
+    void acceptBooking(@Param("id") String id);
 }

@@ -7,7 +7,7 @@
 
 $(document).ready(function () {
   $("body>section").hide();
-  $("section#booking").show();
+  $("section#admin").show();
   // $(".nav-link").click(function () {
   //   changeActiveTab($(this).attr("id"));
   //   console.log($(this).attr("id"));
@@ -52,7 +52,29 @@ async function loadDashboardData() {
 }
 
 loadDashboardData();
+// ------------------------- admin --------------------------------
 
+$("#admin-login").click(function () {
+  console.log("clicked");
+  let data = $("#adminLogin").serialize();
+  $.ajax({
+    url: baseURL + "admin/sign",
+    method: "post",
+    dataType: "json",
+    data: data,
+    success: function (res) {
+      if (res.data) {
+        // login success
+      }
+    },
+    error: function (error) {
+      var jsObject = JSON.parse(error.responseText);
+      alert(jsObject.message);
+    },
+  });
+  // clear form
+  $("#adminLogin")[0].reset();
+});
 // ------------------------- driver ------------------------------
 
 function clearDriverForm() {
@@ -324,23 +346,76 @@ async function loadAllBookingsToBeAccepted() {
     success: function (res) {
       let bookings = res.data;
       console.dir(bookings);
-      bookings.data.forEach((data) => {
-        $("#booking-row").append(
-          ' <div class="card-body col-6"> ' +
-            +'<h5 class="card-title">Booked By : <span id="bookingId"></span></h5> ' +
-            +'<h5 class="card-title">Driver : <span id="bookingId"></span></h5>' +
-            +'<h5 class="card-title">Car Assigned : <span id="bookingId"></span></h5>' +
-            +'<a href="#" class="btn btn-primary">Accept</a>' +
-            +'<a href="#" class="btn btn-secondary">Decline</a>' +
-            +"</div>" +
-            +'<div class="card-body col-6 d-flex justify-content-center flex-wrap">' +
-            +'<h5 class="card-title">booking Confirmation</span></h5>' +
-            +"<div" +
-            +'style="width: 250px; height: 100px; background-color: rgba(127, 255, 212, 0.499); border-radius: 5pt;">' +
-            +'<a href="#" class="btn btn-secondary mt-4">View</a>' +
-            +"</div>" +
-            +"</div>"
+      $("div#booking-row").empty();
+      bookings.forEach((data) => {
+        console.log("run run");
+        $("div#booking-row").append(
+          '<div class="card text-center col-6">' +
+            '<div class="card-header">' +
+            '<span id="bookingId">' +
+            data.bookingId +
+            "</span>" +
+            "</div>" +
+            '<div class="row booking-row">' +
+            '<div class="card-body col-6">' +
+            '<h5 class="card-title">Booked By : <span id="user"> ' +
+            data.userId +
+            "</span></h5>" +
+            '<h5 class="card-title">Driver : <span id="driver">' +
+            data.carId +
+            "</span></h5>" +
+            '<h5 class="card-title">Car Assigned : <span id="car">' +
+            data.driverId +
+            "</span></h5>" +
+            '<a href="#" class="btn btn-primary" id="bkAccept">Accept</a> &nbsp;&nbsp;' +
+            '<a href="#" class="btn btn-secondary" id="bkdecline">Decline</a>' +
+            "</div>" +
+            '<div class="card-body col-6 d-flex justify-content-center flex-wrap">' +
+            '<h5 class="card-title">booking Confirmation</span></h5>' +
+            "<div" +
+            'style="width: 250px; height: 100px; background-color: rgba(127, 255, 212, 0.499); border-radius: 5pt;">' +
+            '<a href="#" class="btn btn-secondary mt-4">View</a>' +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>"
         );
+        // add button functionalities
+        $("#bkAccept").click(function () {
+          let id = data.bookingId;
+
+          $.ajax({
+            url: baseURL + "booking/accept?id=" + id,
+            method: "post",
+            dataType: "json",
+            success: function (res) {
+              console.log(res.messege);
+              alert(res.message);
+              loadAllBookingsToBeAccepted();
+            },
+            error: function (error) {
+              // var jsObject = JSON.parse(error.responseText);
+              // alert(jsObject.message);
+            },
+          });
+        });
+        $("#bkdecline").click(async function () {
+          let id = data.bookingId;
+          $.ajax({
+            url: baseURL + "booking/delete?id=" + id,
+            method: "delete",
+            dataType: "json",
+            success: function (res) {
+              console.log(res.messege);
+              alert(res.message);
+              loadAllBookingsToBeAccepted();
+            },
+            error: function (error) {
+              // var jsObject = JSON.parse(error.responseText);
+              // alert(jsObject.message);
+            },
+          });
+        });
       });
     },
     error: function (error) {

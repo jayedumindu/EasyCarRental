@@ -1,6 +1,5 @@
 package entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -34,4 +32,17 @@ public class Payment {
     private BigDecimal deduction;
     private LocalDate returnDateTime;
 
+    public Payment(Booking booking, BigDecimal rent, String account, String payment_method, BigDecimal deduction, LocalDate returnDateTime) {
+        this.booking = booking;
+        this.rent = rent;
+        this.account = account;
+        this.payment_method = payment_method;
+        this.deduction = deduction;
+        this.returnDateTime = returnDateTime;
+    }
+
+    public Payment(Booking booking, BigDecimal rent) {
+        this.booking = booking;
+        this.rent = rent;
+    }
 }

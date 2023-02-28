@@ -1,11 +1,13 @@
 package service.impl;
 
+import dto.adminDTO;
 import dto.userDTO;
 import entity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import repo.adminRepo;
 import repo.userRepo;
 import service.userService;
 
@@ -18,6 +20,9 @@ public class userServiceImpl implements userService {
 
     @Autowired
     private userRepo repo;
+
+    @Autowired
+    private adminRepo adminRepo;
 
     @Autowired
     private ModelMapper mapper;
@@ -60,5 +65,11 @@ public class userServiceImpl implements userService {
     public ArrayList<userDTO> getAllUser() {
         return mapper.map(repo.findAll(),new TypeToken<ArrayList<userDTO>>(){}.getType());
     }
+
+    @Override
+    public adminDTO validateAdmin(String id) {
+        return mapper.map(adminRepo.findById(id),adminDTO.class);
+    }
+
 
 }

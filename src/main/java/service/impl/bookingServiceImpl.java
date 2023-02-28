@@ -64,5 +64,15 @@ public class bookingServiceImpl implements bookingService {
 paymentRepo.updatePayment(dto.getRent(),dto.getAccount(),dto.getDeduction(),dto.getPayment_method(),dto.getReturnDateTime(),bId);
     }
 
+    @Override
+    public void removeBooking(String id) {
+        bookingRepo.deleteById(id);
+    }
+
+    @Override
+    public void acceptBooking(String id) {
+        bookingRepo.acceptBooking(id);
+    }
+
 
 }

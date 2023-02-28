@@ -12,4 +12,6 @@ public interface bookingService {
     int getBookingsForToday();
     Collection<bookingDTO> getBookingsByAcceptedFalse();
 void upDatePayment(paymentDTO dto, String bId);
+void removeBooking(String id);
+void acceptBooking(String id);
 }
