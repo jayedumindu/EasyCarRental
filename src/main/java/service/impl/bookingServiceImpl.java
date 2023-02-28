@@ -55,7 +55,7 @@ public class bookingServiceImpl implements bookingService {
 
     @Override
     public Collection<bookingDTO> getBookingsByAcceptedFalse() {
-        return mapper.map(bookingRepo.getBookingsByAcceptedFalse(),new TypeToken<Collection<bookingDTO>>(){}.getType());
+        return mapper.map(bookingRepo.getGroupDetails(),new TypeToken<Collection<bookingDTO>>(){}.getType());
 
     }
 

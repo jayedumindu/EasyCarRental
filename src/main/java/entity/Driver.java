@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class Driver {
     private String license;
 
     @OneToMany(mappedBy = "driver")
+    @JsonManagedReference
     private Collection<Booking> bookings = new ArrayList<>();
 
     public Driver(String username) {

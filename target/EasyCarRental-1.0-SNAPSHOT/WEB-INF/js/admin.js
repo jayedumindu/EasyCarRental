@@ -55,6 +55,9 @@ loadDashboardData();
 
 // ------------------------- driver ------------------------------
 
+function clearDriverForm() {
+  $("form#driver")[0].reset();
+}
 function prepareDriverForm(url, method) {
   var form = $("form#driver").serializeArray();
   var formData = new FormData();
@@ -76,6 +79,7 @@ function prepareDriverForm(url, method) {
     dataType: "json",
     data: formData,
     success: function (res) {
+      clearDriverForm();
       loadAllDrivers();
       alert(res.message);
     },
@@ -92,7 +96,7 @@ $("button#driverSave").click(function () {
 });
 
 $("button#driverUpdate").click(function () {
-  prepareDriverForm("driver/update", "put");
+  prepareDriverForm("driver/update", "post");
 });
 function loadAllDrivers() {
   $("#driver-tb").empty();
@@ -178,6 +182,9 @@ loadAllDrivers();
 
 // --------------------  car ------------------------------------
 
+function clearCarRegister() {
+  $("form#carAdd")[0].reset();
+}
 function prepareCarForm(url, method) {
   var form = $("#carAdd").serializeArray();
   var formData = new FormData();
@@ -198,11 +205,11 @@ function prepareCarForm(url, method) {
     data: formData,
     success: function (res) {
       alert(res.message);
+      clearCarRegister();
       loadAllCars();
     },
     error: function (error) {
-      // var jsObject = JSON.parse(error.responseText);
-      // alert(jsObject.message);
+      alert(error);
     },
   });
 }
@@ -343,7 +350,7 @@ async function loadAllBookingsToBeAccepted() {
   });
 }
 
-// loadAllBookingsToBeAccepted();
+loadAllBookingsToBeAccepted();
 
 $("#payBtn").click(function () {
   let paymentDetails = $("form#paymentForm").serialize();

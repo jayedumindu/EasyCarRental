@@ -33,7 +33,7 @@ public class driverController {
         return new ResponseUtil("OK","Successfully Registered.!",null);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "multipart/form-data")
+    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "multipart/form-data")
     public ResponseUtil updateDriver( @RequestParam String username,
                                     @RequestParam String password,
                                     @RequestParam String fName,

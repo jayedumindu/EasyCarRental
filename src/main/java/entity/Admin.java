@@ -1,5 +1,8 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,7 @@ public class Admin {
     private String password;
     private String name;
     @OneToMany(mappedBy = "admin")
+    @JsonManagedReference
     private Collection<Booking> bookings = new ArrayList<>();
 
 }

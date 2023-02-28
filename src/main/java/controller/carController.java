@@ -66,7 +66,7 @@ public class carController {
                                         @RequestParam int freeMileageForDay,
                                         @RequestParam BigDecimal priceForExtraKM,
                                         @RequestParam String color,
-                                        @RequestPart boolean availability,
+                                        @RequestParam boolean availability,
                                         @RequestPart(name = "file1", required = false) MultipartFile file1,
                                         @RequestPart(name = "file2",required = false) MultipartFile file2,
                                         @RequestPart(name = "file3",required = false) MultipartFile file3,

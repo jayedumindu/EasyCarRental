@@ -1,4 +1,7 @@
 $(function () {
+  // UNDO
+  // cookieTable.user = true;
+
   //  navigation
   var cookieTable = {};
   $(document).ready(function () {
@@ -112,7 +115,6 @@ $(function () {
   $("form#userAdd").submit(function (e) {
     e.preventDefault();
     var form = $("#userAdd").serializeArray();
-    clearRegister();
     var formData = new FormData();
 
     //Form data
@@ -123,6 +125,7 @@ $(function () {
     formData.append("file1", $("#inputGroupFile02")[0].files[0]);
     formData.append("file2", $("#inputGroupFile01")[0].files[0]);
 
+    clearRegister();
     $.ajax({
       url: baseURL + "user/add",
       method: "post",
@@ -132,13 +135,15 @@ $(function () {
         alert(res.message);
       },
       error: function (error) {
-        var jsObject = JSON.parse(error.responseText);
-        alert(jsObject.message);
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
       },
       processData: false,
       contentType: false,
     });
   });
+
+  function loadUserData() {}
 
   // ------------------------------- car-single -------------------
   // load car cards
@@ -199,35 +204,44 @@ $(function () {
         });
         // button functionalities
         $(".book-btn").click(function () {
-          let regNo = $(this).parent().parent().children(".car-reg-no").text();
-          $.ajax({
-            url: baseURL + "car/find?registrationNumber=" + regNo,
-            method: "get",
-            dataType: "json",
-            success: function (res) {
-              let car = res.data;
-              $("#car-single-selection span[id]").each(function () {
-                $(this).text(car[$(this).attr("id")]);
-              });
-              let advance = 0.0;
-              switch (car.type) {
-                case "General":
-                  advance = 10000.0;
-                  break;
-                case "Premium":
-                  advance = 15000.0;
-                  break;
-                case "Luxury":
-                  advance = 20000.0;
-                  break;
-              }
-              $("span#advancePayment").text(advance);
-              changeActiveTab("#car-single-selection");
-            },
-            error: function () {
-              return null;
-            },
-          });
+          // is user is logged in
+          if (cookieTable.user) {
+            let regNo = $(this)
+              .parent()
+              .parent()
+              .children(".car-reg-no")
+              .text();
+            $.ajax({
+              url: baseURL + "car/find?registrationNumber=" + regNo,
+              method: "get",
+              dataType: "json",
+              success: function (res) {
+                let car = res.data;
+                $("#car-single-selection span[id]").each(function () {
+                  $(this).text(car[$(this).attr("id")]);
+                });
+                let advance = 0.0;
+                switch (car.type) {
+                  case "General":
+                    advance = 10000.0;
+                    break;
+                  case "Premium":
+                    advance = 15000.0;
+                    break;
+                  case "Luxury":
+                    advance = 20000.0;
+                    break;
+                }
+                $("span#advancePayment").text(advance);
+                changeActiveTab("#car-single-selection");
+              },
+              error: function () {
+                return null;
+              },
+            });
+          } else {
+            alert("please Login to proceed!");
+          }
         });
       },
     });
