@@ -16,6 +16,11 @@ public interface bookingRepo extends JpaRepository<Booking,String> {
     @Query(value = "select COUNT(*) from Booking where CURDATE() = currenDateTime;",nativeQuery = true)
     int getBookingsForToday();
 
+    @Query(value = "SELECT * from Booking b WHERE b.user_username=:id", nativeQuery = true)
+    Collection<Booking> findBookingsForUser(@Param("id") String id);
+
+
+
 //@Query(value = "select b.bookingId,b.user_username,b.car_registrationNumber,b.driver_username,b.admin_username from Booking b where isAccepted = false", nativeQuery = true)
     Collection<Booking> getGroupDetails();
 

@@ -74,5 +74,10 @@ paymentRepo.updatePayment(dto.getRent(),dto.getAccount(),dto.getDeduction(),dto.
         bookingRepo.acceptBooking(id);
     }
 
+    @Override
+    public Collection<bookingDTO> findBookingsForUser(String id) {
+        return  mapper.map(bookingRepo.findBookingsForUser(id),new TypeToken<Collection<bookingDTO>>(){}.getType());
+    }
+
 
 }

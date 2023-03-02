@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +23,10 @@ public class Payment {
     @Column(name = "booking_id")
     private String bookingId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn(name = "booking_id",referencedColumnName="bookingId")
-    @JsonManagedReference
+    @JsonIgnore
+    @JsonIgnoreProperties
     private Booking booking;
 
     private BigDecimal rent;

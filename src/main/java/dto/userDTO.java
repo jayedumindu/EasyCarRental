@@ -1,5 +1,6 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import entity.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,17 @@ public class userDTO {
     private String license;
     private byte[] nicVerification;
     private byte[] licenseVerification;
+    @JsonIgnore
     private Collection<bookingDTO> bookings;
+
+    public userDTO(String username, String name, String address, String contact, String nic, String license) {
+        this.username = username;
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.nic = nic;
+        this.license = license;
+    }
 
     public userDTO(String username, String pwd, String name, String address, String contact, String nic, String license, byte[] nicVerification, byte[] licenseVerification) {
         this.username = username;

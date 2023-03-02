@@ -127,7 +127,7 @@ body > section {
 div#login {
   display: flex;
   z-index: 50;
-  height: 80vh;
+  height: 100vh;
   border-radius: 5pt;
   opacity: 0.3;
   background-size: cover;
@@ -160,17 +160,7 @@ div#login {
   background: url(../assets/images/logo.png);
 }
 
-/* div#nav-brand {
-  border-radius: 50%;
-  height: 80pt;
-  width: 80pt;
-  background-image: url(../assets/images/logo.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
-
 .admin-nav li {
-  /* background-color: #bdc3c7; */
   margin-top: 30pt;
   height: 100pt;
   display: inline-flex;
@@ -179,6 +169,26 @@ div#login {
   font-size: larger;
 }
 
-.admin-nav li:hover {
-  background-color: azure;
+.admin-nav li a:hover {
+  color: #06090b !important;
+}
+
+.navbar-nav {
+  background: beige;
+}
+
+.navbar-toggler {
+  color: #06090b;
+}
+
+.navbar-toggler:focus {
+  box-shadow: unset;
+}
+
+#booking {
+  height: 100vh;
+}
+
+.nav-item {
+  margin-top: 0 !important;
 }

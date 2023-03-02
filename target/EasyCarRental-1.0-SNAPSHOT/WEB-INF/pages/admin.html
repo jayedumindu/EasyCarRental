@@ -24,17 +24,14 @@
 
 <body>
 
-    <nav class="navbar  sticky-top" style="background: transparent;">
+    <nav class="navbar  fixed-top" style="background: transparent;">
         <div class="container-fluid">
-            <div id="nav-brand"></div>
+            <div id="nav-brand"><a href="./index.html"><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Back to Home</a>
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
                 <i class="fa-solid fa-bars"></i>
             </button>
-
-            <!--                <span class="navbar-toggler-icon"></span>-->
-            <!--                    -->
-
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
@@ -44,7 +41,7 @@
                 <div class="offcanvas-body admin-nav p-0">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link active text-center" aria-current="page" id="#dashboard"><i
+                            <a class="nav-link text-center" aria-current="page" id="#dashboard"><i
                                     class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a>
 
                         </li>
@@ -57,6 +54,9 @@
                         </li>
                         <li class="nav-item text-center">
                             <a class="nav-link" id="#booking"><i class="fa-solid fa-book"></i>&nbsp;Bookings</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a id="logOut"><i class="fa-solid fa-book"></i>&nbsp;Logout</a>
                         </li>
 
                     </ul>
@@ -106,14 +106,9 @@
         </div>
     </div>
 
-    <div id="login" class="container mt-5">
-
-
-
-    </div>
 
     <!--    dashboard -->
-    <section id="dashboard" style="height: 92vh;">
+    <section id="dashboard">
         <div class="container bootstrap snippet">
             <div class="row d-flex justify-content-center">
                 <div class=" col-sm-6 col-4 mt-5">
@@ -301,7 +296,7 @@
     </section>
 
     <!-- booking and payment -->
-    <section id="booking" class="row container-fluid " style="height: 92vh;">
+    <section id="booking" class="row container-fluid ">
 
         <div class="col-6">
             <div class="header p-5 text-center d-flex justify-content-center">

@@ -1,8 +1,5 @@
 $(function () {
-  // UNDO
-  // cookieTable.user = true;
-
-  //  navigation
+  //  navigation and event handling
   var cookieTable = {};
   $(document).ready(function () {
     $("body>section").hide();
@@ -43,7 +40,26 @@ $(function () {
     changeActiveTab(path);
   });
 
-  // console.log("date updated");
+  $(".img-upload-select").on("click", function (event) {
+    console.log("clicked");
+    let elem = $(event.target);
+    let input = $(elem).parent().find("input.file-input");
+    input.trigger("click");
+    // $(event.target).attr("background", `url(${$("#file-input").val()})`);
+  });
+
+  $(".file-input").change(function (event) {
+    const file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = function () {
+      $(event.target)
+        .parent()
+        .parent()
+        .find(".img-upload-select")
+        .css("background", `url(${fileReader.result})`);
+    };
+  });
 
   $("#tab-register").click(function () {
     $("#tab-login").removeClass("active");
@@ -61,10 +77,11 @@ $(function () {
 
   $("#logout").click(function () {
     //removes user
-    cookieTable.user = null;
-    $("#user-management-inner").show();
-    $("#logout").hide();
-    $("li#user").hide();
+    // cookieTable.user = null;
+    // $("#user-management-inner").show();
+    // $("#logout").hide();
+    // $("li#user").hide();
+    location.reload();
   });
 
   let baseURL = "http://localhost:8080/EasyCarRental_war/";
@@ -87,21 +104,20 @@ $(function () {
     let [uname, pwd] = [$("#loginUsername").val(), $("#loginPassword").val()];
     clearLogin();
     $.ajax({
-      url: baseURL + "user/find?username=" + uname,
+      url: baseURL + "user/find?username=" + uname + "&pwd=" + pwd,
       method: "get",
       dataType: "json",
       success: function (res) {
         console.log(res.data);
         alert(res.message);
-        if (pwd === res.data.pwd) {
+        if (res.data) {
           // adding cookies
           $.cookie("userLoggedIn", true, { path: "/" });
-          cookieTable.user = res.data;
-          alert("login sucessful " + $.cookie("userLoggedIn"));
           // after logged in
           $("#user-management-inner").hide();
           $("#logout").show();
           $("li#user").show();
+          loadDataForUserSection(uname);
         } else {
           alert("wrong credentials");
         }
@@ -111,6 +127,25 @@ $(function () {
       },
     });
   });
+
+  function loadDataForUserSection(uname) {
+    $.ajax({
+      url: baseURL + "user/findOne?username=" + uname,
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        cookieTable.user = res.data;
+        $(".contact-section span").each(function () {
+          $(this).text(cookieTable.user[$(this).attr("id")]);
+        });
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
+    // user = await $.get("user/findOne?username=" + uname);
+  }
   // save customer
   $("form#userAdd").submit(function (e) {
     e.preventDefault();
@@ -143,9 +178,34 @@ $(function () {
     });
   });
 
-  function loadUserData() {}
+  $("#updateUser").click(function () {
+    // update user
+    let data = $("form#user-up").serialize();
+    data += "&name=" + $("input#fname").val() + " " + $("input#lname").val();
+
+    data += "&username=" + $("span#username").text();
+    $.ajax({
+      url: baseURL + "user/update",
+      method: "post",
+      data: data,
+      dataType: "json",
+      success: function (res) {
+        alert(res.message);
+        location.reload();
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
+  });
+
+  function loadAllBookingsForUser(userId) {
+    $.get(baseURL + "booking/");
+  }
 
   // ------------------------------- car-single -------------------
+
   // load car cards
   function loadAllCarsForSelection() {
     $("#car-selection-row").empty();
@@ -162,11 +222,14 @@ $(function () {
             monthlyRate,
             dailyRate,
             registrationNumber,
+            img_front,
           } = car;
+          console.log(img_front);
           $("#car-selection-row").append(
             '<div class="col-md-4">' +
               '<div class="car-wrap rounded ">' +
               '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
+              `<img src=data:image/ico;base64, ${img_front} class="car-card-img"></img>` +
               "</div>" +
               '<div class="text">' +
               '<h2 class="mb-0">' +
@@ -300,6 +363,7 @@ $(function () {
   });
 
   // ------------------------------------booking---------------------------------------
+
   function placeBooking(id) {
     var user,
       driver = {};

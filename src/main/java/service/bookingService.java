@@ -2,6 +2,8 @@ package service;
 
 import dto.bookingDTO;
 import dto.paymentDTO;
+import entity.Booking;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
@@ -14,4 +16,5 @@ public interface bookingService {
 void upDatePayment(paymentDTO dto, String bId);
 void removeBooking(String id);
 void acceptBooking(String id);
+    Collection<bookingDTO> findBookingsForUser(String id);
 }

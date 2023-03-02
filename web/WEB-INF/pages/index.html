@@ -22,12 +22,12 @@
 
 <body>
 
-    <div class="sticky-top">
-        <nav class="navbar navbar-expand-lg border-secondary navbar-main">
+    <div class="fixed-top">
+        <nav class="navbar navbar-expand-lg border-secondary navbar-main" style="background: transparent;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="../assets/images/logo.png" alt=""></a>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown1">
-                    <ul class="navbar-nav">
+                <!-- <a class="navbar-brand" href="#"><img src="../assets/images/logo.png" alt=""></a> -->
+                <div class="collapse navbar-collapse justify-content-around" id="navbarNavDropdown1">
+                    <ul class="nav ">
                         <li class="nav-item active">
                             <a class="nav-link" aria-current="page" href="#home">
                                 Home</a>
@@ -49,21 +49,23 @@
         </nav>
     </div>
     <!-- homepage -->
-    <section class="home" id="home">
+    <section class="home " id="home">
 
-        <div class="hero-wrap ftco-degree-bg" style="background-image: url('../assets/images/bg_1.jpg');"
+        <div id="logo">
+
+        </div>
+
+        <div class="hero-wrap ftco-degree-bg" style="background-image: url('../assets/images/home_bg_2.jpg');"
             data-stellar-background-ratio="0.5">
             <div class="container">
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
                     <div class="col-lg-8 ">
                         <div class="text w-100 text-center mb-md-5 pb-md-5">
 
-                            <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car</h1>
-                            <p style="font-size: 18px;">A small river named Duden flows by
-                                their place and
-                                supplies it with the necessary regelialia. It is a
-                                paradisematic
-                                country, in which roasted parts</p>
+                            <h1 class="mb-4" style="color: rgb(255, 255, 255);">Fast &amp; Easy Way To Rent A
+                                Car
+                            </h1>
+
                         </div>
                     </div>
                 </div>
@@ -111,7 +113,7 @@
                                         </div>
 
                                     </div>
-                                    <p><a href="#" class="btn btn-primary py-3 px-4 mt-3">Reserve
+                                    <p><a class="btn btn-primary py-3 px-4 mt-3 search-vehicle">Reserve
                                             Your
                                             Perfect Car</a></p>
                                 </div>
@@ -178,7 +180,7 @@
                     </div>
                     <!-- register -->
                     <div class="tab-pane" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                        <form id="userAdd">
+                        <form id="userAdd" class="d-flex flex-wrap justify-content-center">
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="registerName" class="form-control" name="name" />
@@ -207,21 +209,45 @@
                                     no</label>
                             </div>
 
-                            <div class="input-group mb-4">
+                            <div class="card p-2 img-upload" style="width: 15rem;">
+                                <div class="card-img-top img-upload-select">
+                                    <i class="fa-solid fa-upload upload"></i>
+                                </div>
+                                <div class="card-body text-center img-upload-info">
+                                    <input class="file-input" type="file" name="name"
+                                        style="display: none; width: 100%; height: 100%;" />
+                                    <h5 class="card-title img-upload-info-title">Card title</h5>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="input-group mb-4">
                                 <label class="input-group-text" for="inputGroupFile01">Upload</label>
                                 <input type="file" class="form-control" id="inputGroupFile01" name="nicVerification">
-                            </div>
+                            </div> -->
 
                             <div class="form-outline">
                                 <input type="text" id="license" class="form-control" name="license" />
                                 <label class="form-label" for="license">License
                                     no</label>
                             </div>
-                            <div class="input-group mb-4">
+
+                            <div class="card p-2 img-upload" style="width: 15rem;">
+                                <div class="card-img-top img-upload-select">
+                                    <i class="fa-solid fa-upload upload"></i>
+                                </div>
+                                <div class="card-body text-center img-upload-info">
+                                    <input class="file-input" type="file" name="name"
+                                        style="display: none; width: 100%; height: 100%;" />
+                                    <h5 class="card-title img-upload-info-title">Card title</h5>
+                                </div>
+                            </div>
+
+                            <!-- <div class="input-group mb-4">
                                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
                                 <input type="file" class="form-control" id="inputGroupFile02"
                                     name="licenseVerification">
-                            </div>
+                            </div> -->
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
@@ -266,32 +292,24 @@
             <div class="container">
                 <div class="row no-gutters">
                     <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center"
-                        style="background-image: url(../assets/images/about.jpg);">
+                        style="background-image: url(../assets/images/about_bg.jpg);">
                     </div>
                     <div class="col-md-6 wrap-about ">
                         <div class="heading-section heading-section-white pl-md-5">
                             <span class="subheading">About us</span>
-                            <h2 class="mb-4">Welcome to Carbook</h2>
+                            <h2 class="mb-4">Welcome to Easy Car Rental Pvt. (Ltd)</h2>
 
-                            <p>A small river named Duden flows by their place and supplies
-                                it with the
-                                necessary regelialia. It is a paradisematic country, in
-                                which roasted
-                                parts of sentences fly into your mouth.</p>
-                            <p>On her way she met a copy. The copy warned the Little Blind
-                                Text, that where
-                                it came from it would have been rewritten a thousand
-                                times and
-                                everything that was left from its origin would be the
-                                word "and" and the
-                                Little Blind Text should turn around and return to its
-                                own, safe
-                                country. A small river named Duden flows by their place
-                                and supplies it
-                                with the necessary regelialia. It is a paradisematic
-                                country, in which
-                                roasted parts of sentences fly into your mouth.</p>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Search
+                            <p style="color :rgba(0, 0, 0, 0.551)">Easy car rental private limited is a car rental
+                                service
+                                with 5 years of history. This
+                                company has about
+                                50 cars and 40 drivers working for them in regular shifts. This company is located at
+                                No. 200, Galle
+                                Road, Panadura, and well known for their services. Usually, people who don’t own a car,
+                                people who
+                                are waiting for their car to be repaired and, travelers or tourists seek their services
+                            </p>
+                            <p><a class="btn btn-primary py-3 px-4 search-vehicle">Search
                                     Vehicle</a></p>
                         </div>
                     </div>
@@ -316,9 +334,9 @@
                             </div>
                             <div class="text w-100">
                                 <h3 class="heading mb-2">Wedding Ceremony</h3>
-                                <p>A small river named Duden flows by their place and
-                                    supplies it with
-                                    the necessary regelialia.</p>
+                                <p>well known wedding planners in Sri Lanka which offers an array of services ranging
+                                    from initial consultation to
+                                    coordination</p>
                             </div>
                         </div>
                     </div>
@@ -329,9 +347,8 @@
                             </div>
                             <div class="text w-100">
                                 <h3 class="heading mb-2">City Transfer</h3>
-                                <p>A small river named Duden flows by their place and
-                                    supplies it with
-                                    the necessary regelialia.</p>
+                                <p>Request a ride to and from Colombo Airport (CMB) using Uber online or through the
+                                    app. </p>
                             </div>
                         </div>
                     </div>
@@ -342,9 +359,7 @@
                             </div>
                             <div class="text w-100">
                                 <h3 class="heading mb-2">Airport Transfer</h3>
-                                <p>A small river named Duden flows by their place and
-                                    supplies it with
-                                    the necessary regelialia.</p>
+                                <p>Pack bags for a fresh start</p>
                             </div>
                         </div>
                     </div>
@@ -355,9 +370,7 @@
                             </div>
                             <div class="text w-100">
                                 <h3 class="heading mb-2">Whole City Tour</h3>
-                                <p>A small river named Duden flows by their place and
-                                    supplies it with
-                                    the necessary regelialia.</p>
+                                <p>Friendly drivers to have a chat while enjoying your long weekend</p>
                             </div>
                         </div>
                     </div>
@@ -368,8 +381,7 @@
         <!-- driver login -->
         <section class="ftco-section ftco-intro p-5" style="background-image: url(images/bg_3.jpg);">
             <div class="overlay">
-                <img src="../../../src/main/java/WEB-INF/assets/images/driver_1.jpg" alt="driver"
-                    style="width: 100%;height: 100%;">
+                <img src="../assets/images/driver.jpg" alt="driver" style="width: 100%;height: 100%;">
             </div>
             <div class="container">
                 <div class="row justify-content-end" id="driver-overlay">
@@ -379,7 +391,7 @@
                         <p>
                             <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
                                 aria-expanded="false" aria-controls="collapseExample" id="driver-login-collapse">
-                                Link with href
+                                Log In as a Driver
                             </a>
                         </p>
                         <div class="collapse" id="collapseExample">
@@ -857,7 +869,7 @@
                                         <div class="icon mr-3">
                                             <span class="icon-map-o"></span>
                                         </div>
-                                        <p><span>Username:</span>jaydumi</p>
+                                        <p>Username:<span id="username"></span></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -865,9 +877,7 @@
                                         <div class="icon mr-3">
                                             <span class="icon-map-o"></span>
                                         </div>
-                                        <p><span>Address:</span> 198 West 21th
-                                            Street, Suite 721 New
-                                            York NY 10016</p>
+                                        <p>Address: &nbsp;<span id="address"></span></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -875,9 +885,7 @@
                                         <div class="icon mr-3">
                                             <span class="icon-mobile-phone"></span>
                                         </div>
-                                        <p><span>Phone:</span> <a href="tel://1234567920">+
-                                                1235 2355
-                                                98</a></p>
+                                        <p>Phone: &nbsp;<span id="contact"></span></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -885,8 +893,8 @@
                                         <div class="icon mr-3">
                                             <span class="icon-envelope-o"></span>
                                         </div>
-                                        <p><span>Name:</span> <a href="mailto:info@yoursite.com">Dumindu
-                                                Jayasekara</a>
+                                        <p>Name: &nbsp;<span id="name"></span>
+
                                         </p>
                                     </div>
                                 </div>
@@ -895,7 +903,7 @@
                                         <div class="icon mr-3">
                                             <span class="icon-envelope-o"></span>
                                         </div>
-                                        <p><span>License:</span> <a href="mailto:info@yoursite.com">B123123</a>
+                                        <p>License: &nbsp;<span id="license"></span>
                                         </p>
                                     </div>
                                 </div>
@@ -904,52 +912,41 @@
                                         <div class="icon mr-3">
                                             <span class="icon-envelope-o"></span>
                                         </div>
-                                        <p><span>NIC:</span> <a href="mailto:info@yoursite.com">200113504080</a>
+                                        <p> NIC: &nbsp;<span id="nic"></span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-8 block-9 mb-md-5 ">
-                            <form class="bg-light p-5 contact-form row">
-                                <div class="form-group col-12">
-                                    <input type="text" class="form-control" placeholder="username">
+                            <form class="bg-light p-5 contact-form row" id="user-up">
+                                <!-- <div class="form-group col-12">
+                                    <input type="text" class="form-control" placeholder="username" name="username">
+                                </div> -->
+                                <div class="form-group col-6">
+                                    <input type="text" class="form-control" placeholder="first name" id="fname">
                                 </div>
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" placeholder="first name">
+                                    <input type="text" class="form-control" placeholder="last name" id="lname">
                                 </div>
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" placeholder="last name">
+                                    <input type="text" class="form-control" placeholder="phone" name="contact">
                                 </div>
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" placeholder="phone">
-                                </div>
-                                <div class="form-group col-6">
-                                    <input type="text" class="form-control" placeholder="license"></textarea>
+                                    <input type="text" class="form-control" placeholder="license" name="license">
                                 </div>
 
                                 <div class="form-group col-6">
-                                    <input type="text" class="form-control" placeholder="NIC"></textarea>
+                                    <input type="text" class="form-control" placeholder="NIC" name="nic">
                                 </div>
 
                                 <div class="form-group col-6">
-                                    <textarea type="text" rows="3" class="form-control"
-                                        placeholder="address"></textarea>
+                                    <textarea type="text" rows="3" class="form-control" placeholder="address"
+                                        name="address"></textarea>
                                 </div>
-                                <div class="user-verification-upload">
-                                    <input type="file" name="nic">
-                                    <input type="file" name="license">
-                                </div>
-                                <div class="user-verification-details col-12">
-                                    <div>
-                                        <img src="" alt="NIC">
-                                    </div>
-                                    <div>
-                                        <img src="" alt="license">
-                                    </div>
-                                </div>
+
                                 <div class="form-group col-6">
-                                    <buton type="button" class="btn btn-primary py-3 px-5">Update
+                                    <buton type="button" class="btn btn-primary py-3 px-5" id="updateUser">Update
                                     </buton>
                                 </div>
                             </form>
@@ -1043,7 +1040,11 @@
                 <div class="row mb-5">
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>book</span></a>
+                            <h2 class="ftco-heading-2"><a href="#" class="logo">
+                                    <div id="logo" class="logo-footer">
+
+                                    </div>
+                                </a>
                             </h2>
 
                             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
@@ -1136,9 +1137,9 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
     <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script> -->
 

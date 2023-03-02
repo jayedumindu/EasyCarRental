@@ -72,9 +72,22 @@ svg {
 }
 
 .nav-item {
+  font-weight: 500;
   cursor: pointer;
+  border-radius: 5pt;
 }
 
+.nav-item:hover {
+  background-color: rgb(38, 120, 193);
+}
+
+.nav-item:hover .nav-link {
+  color: azure;
+}
+
+.nav-link {
+  color: rgb(38, 120, 193);
+}
 /* #car-selection {
   z-index: 1;
   position: sticky;
@@ -129,3 +142,34 @@ tr {
 #user-management-inner {
   display: flex;
 }
+
+div#logo {
+  z-index: 100;
+  margin: auto;
+  top: 100px;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  background-image: url(../assets/images/logo.png);
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+
+.logo-footer {
+  position: relative !important;
+  top: 50px !important;
+  width: 100px !important;
+  height: 100px !important;
+  background-size: cover !important;
+  opacity: 0.7;
+}
+
+.ftco-about::after {
+  background: #9ed6e9 !important;
+}
+
+.fixed-top {
+  background-color: aliceblue;
+}
+/* search-vechicle */

@@ -2,6 +2,7 @@ package service.impl;
 
 import dto.adminDTO;
 import dto.userDTO;
+import entity.Admin;
 import entity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -48,7 +49,7 @@ public class userServiceImpl implements userService {
         if (!repo.existsById(dto.getUsername())){
             throw new RuntimeException("Customer Not Exist. Please Enter Valid ID..!");
         }
-        repo.save(mapper.map(dto, User.class));
+        repo.updateUser(dto.getUsername(),dto.getAddress(),dto.getContact(),dto.getLicense(),dto.getName(),dto.getNic());
     }
 
     @Override
@@ -68,8 +69,12 @@ public class userServiceImpl implements userService {
 
     @Override
     public adminDTO validateAdmin(String id) {
-        return mapper.map(adminRepo.findById(id),adminDTO.class);
-    }
+        Admin ent = adminRepo.findAdminByUsername(id);
+        if (ent != null) {
+            return mapper.map(ent, adminDTO.class);
+        }
+        return null;
 
+    }
 
 }

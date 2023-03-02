@@ -8,15 +8,23 @@
 $(document).ready(function () {
   $("body>section").hide();
   $("section#admin").show();
-  // $(".nav-link").click(function () {
-  //   changeActiveTab($(this).attr("id"));
-  //   console.log($(this).attr("id"));
-  // });
+  $(".nav-link").click(function () {
+    changeActiveTab($(this).attr("id"));
+    console.log($(this).attr("id"));
+  });
   $(".datepicker").datepicker();
 });
 
+$("#logOut").click(function () {
+  cookieTable.user = null;
+  location.reload();
+});
+
+var cookieTable = {};
+
 function changeActiveTab(tab) {
   $("body>section").hide();
+  $("body>div").hide();
   $(tab).show();
 }
 
@@ -52,6 +60,7 @@ async function loadDashboardData() {
 }
 
 loadDashboardData();
+
 // ------------------------- admin --------------------------------
 
 $("#admin-login").click(function () {
@@ -65,11 +74,17 @@ $("#admin-login").click(function () {
     success: function (res) {
       if (res.data) {
         // login success
+        alert(res.message);
+        cookieTable.user = res.data;
+        $(".navbar-toggler").show();
+        changeActiveTab("#dashboard");
+      } else {
+        alert(res.message);
       }
     },
     error: function (error) {
-      var jsObject = JSON.parse(error.responseText);
-      alert(jsObject.message);
+      // var jsObject = JSON.parse(error.responseText);
+      // alert(jsObject.message);
     },
   });
   // clear form

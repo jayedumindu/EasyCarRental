@@ -97,6 +97,12 @@ public class bookingController {
         return new ResponseUtil("OK","Successful!", null);
     }
 
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseUtil findBookingsForUser(@RequestParam String id){
+        return new ResponseUtil("OK","Successful!", bkService.findBookingsForUser(id));
+    }
+
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseUtil doPayment(
@@ -115,4 +121,5 @@ public class bookingController {
         bkService.upDatePayment(dto,id);
         return new ResponseUtil("OK","Successful!", null);
     }
+
 }

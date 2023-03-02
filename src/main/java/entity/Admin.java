@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ public class Admin {
     private String username;
     private String password;
     private String name;
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnoreProperties
+    @JsonIgnore
     private Collection<Booking> bookings = new ArrayList<>();
 
 }
