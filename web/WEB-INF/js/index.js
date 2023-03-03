@@ -206,7 +206,7 @@ $(function () {
     $.get(baseURL + "booking/");
   }
 
-  // ------------------------------- car-single -------------------
+  // ------------------------------- cars -------------------
 
   // load car cards
   function loadAllCarsForSelection() {
@@ -217,55 +217,7 @@ $(function () {
       success: function (resp) {
         cookieTable.cars = resp.data;
         resp.data.forEach((car) => {
-          let {
-            brand,
-            model,
-            fuelType,
-            monthlyRate,
-            dailyRate,
-            registrationNumber,
-            img_front,
-          } = car;
-          console.log(img_front);
-          $("#car-selection-row").append(
-            '<div class="col-md-4">' +
-              '<div class="car-wrap rounded ">' +
-              '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-              `<img src=data:image/ico;base64, ${img_front} class="car-card-img"></img>` +
-              "</div>" +
-              '<div class="text">' +
-              '<h2 class="mb-0">' +
-              "<a>" +
-              brand +
-              " " +
-              model +
-              " (" +
-              fuelType +
-              ")" +
-              "</a>" +
-              "</h2>" +
-              '<h6 class="car-reg-no">' +
-              registrationNumber +
-              "</h6>" +
-              '<div class="d-flex mb-3">' +
-              '<br><p class="price ml-auto">' +
-              dailyRate +
-              "<span>/day</span>" +
-              "</p>" +
-              '<br><p class="price ml-auto">' +
-              monthlyRate +
-              "<span>/month</span>" +
-              "</p>" +
-              "</div>" +
-              '<p class="d-flex mb-0 d-block">' +
-              '<a class="btn btn-primary py-2 mr-1 book-btn">' +
-              "Book now" +
-              "</a>" +
-              "</p>" +
-              "</div>" +
-              "</div>" +
-              "</div>"
-          );
+          appendCar(car);
         });
         // button functionalities
         $(".book-btn").click(function () {
@@ -313,6 +265,103 @@ $(function () {
   }
 
   loadAllCarsForSelection();
+
+  function appendCar(car) {
+    let {
+      brand,
+      model,
+      fuelType,
+      monthlyRate,
+      dailyRate,
+      registrationNumber,
+      img_front,
+    } = car;
+    console.log(img_front);
+    $("#car-selection-row").append(
+      '<div class="col-md-4">' +
+        '<div class="car-wrap rounded ">' +
+        '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
+        `<img src=data:image/ico;base64, ${img_front} class="car-card-img"></img>` +
+        "</div>" +
+        '<div class="text">' +
+        '<h2 class="mb-0">' +
+        "<a>" +
+        brand +
+        " " +
+        model +
+        " (" +
+        fuelType +
+        ")" +
+        "</a>" +
+        "</h2>" +
+        '<h6 class="car-reg-no">' +
+        registrationNumber +
+        "</h6>" +
+        '<div class="d-flex mb-3">' +
+        '<br><p class="price ml-auto">' +
+        dailyRate +
+        "<span>/day</span>" +
+        "</p>" +
+        '<br><p class="price ml-auto">' +
+        monthlyRate +
+        "<span>/month</span>" +
+        "</p>" +
+        "</div>" +
+        '<p class="d-flex mb-0 d-block">' +
+        '<a class="btn btn-primary py-2 mr-1 book-btn">' +
+        "Book now" +
+        "</a>" +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+    );
+  }
+
+  //  data sorting
+  $(".dropdown").on("hide.bs.dropdown", function () {
+    // calculation goes here
+    //  for each combo
+    let attr = [];
+    $(".sorting .dropdown-toggle").each(function (index) {
+      attr[index] = $(this).val();
+    });
+
+    console.log(attr);
+    $("#car-selection-row").empty();
+    cookieTable.cars.forEach((car) => {
+      console.log(car);
+      if ((car.brand == attr[0]) | (attr[0] == "")) {
+        let [from, to] = attr[1].split("-");
+        if (
+          ((car.monthlyRate >= from) & (car.monthlyRate < to)) |
+          (attr[1] == "")
+        ) {
+          if ((car.fuelType == attr[2]) | (attr[2] == "")) {
+            if ((car.noOfPassengers == attr[3]) | (attr[3] == "")) {
+              if ((car.transmissionType == attr[4]) | (attr[4] == "")) {
+                appendCar(car);
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+
+  // clear sorting
+  let defVals = ["Brand", "Price", "Fuel Type", "Passengers", "Transmission"];
+  $(".clear-sorting").click(function () {
+    $(".sorting .dropdown-toggle").each(function (index) {
+      $(this).text(defVals[index]);
+    });
+    loadAllCarsForSelection();
+  });
+
+  $(".dropdown-menu li a").click(function () {
+    $(this).closest(".dropdown").find(".dropdown-toggle").text($(this).text());
+    $(this).closest(".dropdown").find(".dropdown-toggle").val($(this).text());
+  });
 
   // on date change
   function calculateValueOnDateChange(dateText) {

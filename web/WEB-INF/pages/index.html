@@ -53,12 +53,12 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="brand">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Brand
                         </a>
-                        <ul class="dropdown-menu" id="drpBrand">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Toyota</a></li>
                             <li><a class="dropdown-item" href="#">Mercedes Benz</a>
                             </li>
@@ -70,12 +70,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="mRate">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Price
                         </a>
-                        <ul class="dropdown-menu" id="drpMnRate">
+                        <ul class="dropdown-menu">
                             <li>
                                 <h6 class="dropdown-header">Monthly Rate</h6>
                             </li>
@@ -102,7 +102,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="fuel">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Fuel Type
@@ -113,7 +113,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="seat">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Passengers
@@ -125,7 +125,7 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="trans">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Transmission
@@ -519,8 +519,8 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" id="car-selection-nav">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
+                    <ul class="navbar-nav sorting">
+                        <li class="nav-item dropdown" id="brand">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Brand
@@ -537,7 +537,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="price" style="width: 150pt;">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Price
@@ -555,32 +555,22 @@
                                 <li><a class="dropdown-item" href="#">250,000-300,000</a>
                                 </li>
                                 <li>
-                                    <h6 class="dropdown-header">Daily Rate</h6>
-                                </li>
-                                <li><a class="dropdown-item" href="#">2,000-6,000</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">6,000-10,000</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">10,000-14,000</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">14,000-18,000</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">18,000-22,000</a>
-                                </li>
+
+
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="fType">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Fuel Type
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Petro</a></li>
+                                <li><a class="dropdown-item" href="#">Petrol</a></li>
                                 <li><a class="dropdown-item" href="#">Diesel</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="seat">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Passengers
@@ -592,7 +582,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="trans">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Transmission
@@ -602,6 +592,9 @@
                                 <li><a class="dropdown-item" href="#">Manual</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="clear-sorting">
+                            <i class="fa-regular fa-circle-xmark"></i> &nbsp;clear selection
                         </li>
                     </ul>
                 </div>

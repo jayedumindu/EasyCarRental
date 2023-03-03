@@ -1,8 +1,6 @@
 $(function () {
-  // UNDO
-  // cookieTable.user = true;
-
-  //  navigation
+  //  navigation and event handling
+  // cookies - user,license,nic
   var cookieTable = {};
   $(document).ready(function () {
     $("body>section").hide();
@@ -43,7 +41,29 @@ $(function () {
     changeActiveTab(path);
   });
 
-  // console.log("date updated");
+  $(".img-upload-select").on("click", function (event) {
+    console.log("clicked");
+    let elem = $(event.target);
+    let input = $(elem).parent().find("input.file-input");
+    input.trigger("click");
+  });
+
+  $(".file-input").change(function (event) {
+    const file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    if ($(event.target).attr("id") == "nic") {
+      cookieTable.nic = file;
+    } else cookieTable.license = file;
+    console.log(cookieTable);
+    fileReader.onload = function () {
+      $(event.target)
+        .parent()
+        .parent()
+        .find(".img-upload-select")
+        .css("background-image", `url(${fileReader.result})`);
+    };
+  });
 
   $("#tab-register").click(function () {
     $("#tab-login").removeClass("active");
@@ -60,11 +80,6 @@ $(function () {
   });
 
   $("#logout").click(function () {
-    //removes user
-    // cookieTable.user = null;
-    // $("#user-management-inner").show();
-    // $("#logout").hide();
-    // $("li#user").hide();
     location.reload();
   });
 
@@ -80,6 +95,8 @@ $(function () {
 
   function clearRegister() {
     $("form#userAdd")[0].reset();
+    cookieTable.license, (cookieTable.nic = null);
+    $(".img-upload-select").css("background-image", "none");
   }
 
   // user login
@@ -141,8 +158,9 @@ $(function () {
       formData.append(input.name, input.value);
     });
 
-    formData.append("file1", $("#inputGroupFile02")[0].files[0]);
-    formData.append("file2", $("#inputGroupFile01")[0].files[0]);
+    formData.append("file1", cookieTable.nic);
+    formData.append("name");
+    formData.append("file2", cookieTable.license);
 
     clearRegister();
     $.ajax({
@@ -188,7 +206,7 @@ $(function () {
     $.get(baseURL + "booking/");
   }
 
-  // ------------------------------- car-single -------------------
+  // ------------------------------- cars -------------------
 
   // load car cards
   function loadAllCarsForSelection() {
@@ -197,56 +215,9 @@ $(function () {
       url: baseURL + "car/getAll",
       dataType: "json",
       success: function (resp) {
-        console.log(resp.data);
+        cookieTable.cars = resp.data;
         resp.data.forEach((car) => {
-          let {
-            brand,
-            model,
-            fuelType,
-            monthlyRate,
-            dailyRate,
-            registrationNumber,
-            img_front,
-          } = car;
-          $("#car-selection-row").append(
-            '<div class="col-md-4">' +
-              '<div class="car-wrap rounded ">' +
-              '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-              `<img src=data:image/png;base64, ${img_front}></img>` +
-              "</div>" +
-              '<div class="text">' +
-              '<h2 class="mb-0">' +
-              "<a>" +
-              brand +
-              " " +
-              model +
-              " (" +
-              fuelType +
-              ")" +
-              "</a>" +
-              "</h2>" +
-              '<h6 class="car-reg-no">' +
-              registrationNumber +
-              "</h6>" +
-              '<div class="d-flex mb-3">' +
-              '<br><p class="price ml-auto">' +
-              dailyRate +
-              "<span>/day</span>" +
-              "</p>" +
-              '<br><p class="price ml-auto">' +
-              monthlyRate +
-              "<span>/month</span>" +
-              "</p>" +
-              "</div>" +
-              '<p class="d-flex mb-0 d-block">' +
-              '<a class="btn btn-primary py-2 mr-1 book-btn">' +
-              "Book now" +
-              "</a>" +
-              "</p>" +
-              "</div>" +
-              "</div>" +
-              "</div>"
-          );
+          appendCar(car);
         });
         // button functionalities
         $(".book-btn").click(function () {
@@ -294,6 +265,95 @@ $(function () {
   }
 
   loadAllCarsForSelection();
+
+  function appendCar(car) {
+    let {
+      brand,
+      model,
+      fuelType,
+      monthlyRate,
+      dailyRate,
+      registrationNumber,
+      img_front,
+    } = car;
+    console.log(img_front);
+    $("#car-selection-row").append(
+      '<div class="col-md-4">' +
+        '<div class="car-wrap rounded ">' +
+        '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
+        `<img src=data:image/ico;base64, ${img_front} class="car-card-img"></img>` +
+        "</div>" +
+        '<div class="text">' +
+        '<h2 class="mb-0">' +
+        "<a>" +
+        brand +
+        " " +
+        model +
+        " (" +
+        fuelType +
+        ")" +
+        "</a>" +
+        "</h2>" +
+        '<h6 class="car-reg-no">' +
+        registrationNumber +
+        "</h6>" +
+        '<div class="d-flex mb-3">' +
+        '<br><p class="price ml-auto">' +
+        dailyRate +
+        "<span>/day</span>" +
+        "</p>" +
+        '<br><p class="price ml-auto">' +
+        monthlyRate +
+        "<span>/month</span>" +
+        "</p>" +
+        "</div>" +
+        '<p class="d-flex mb-0 d-block">' +
+        '<a class="btn btn-primary py-2 mr-1 book-btn">' +
+        "Book now" +
+        "</a>" +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+    );
+  }
+  //  data sorting
+  $(".dropdown").on("hide.bs.dropdown", function () {
+    // calculation goes here
+    let mode = $(this).attr("id");
+    let val = $(this).find(".dropdown-toggle").val();
+    console.log(mode, val);
+    switch (mode) {
+      case "brand":
+        cookieTable.cars.forEach((car) => {
+          $("#car-selection-row").empty();
+          if (car.brand == val) {
+            appendCar(car);
+          }
+        });
+        break;
+      case "mRate":
+        cookieTable.cars.forEach((car) => {
+          let [from, to] = val.split("-");
+          $("#car-selection-row").empty();
+          if ((car.monthlyRate >= from) & (car.monthlyRate < to)) {
+            appendCar(car);
+          }
+        });
+        break;
+      case "fuel":
+        break;
+      case "seat":
+        break;
+      case "trans":
+        break;
+    }
+  });
+  $(".dropdown-menu li a").click(function () {
+    $(this).closest(".dropdown").find(".dropdown-toggle").text($(this).text());
+    $(this).closest(".dropdown").find(".dropdown-toggle").val($(this).text());
+  });
+
   // on date change
   function calculateValueOnDateChange(dateText) {
     let startDay = new Date($("#datepicker1").val());
