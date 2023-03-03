@@ -1,5 +1,6 @@
 $(function () {
   //  navigation and event handling
+  // cookies - user,license,nic
   var cookieTable = {};
   $(document).ready(function () {
     $("body>section").hide();
@@ -45,19 +46,22 @@ $(function () {
     let elem = $(event.target);
     let input = $(elem).parent().find("input.file-input");
     input.trigger("click");
-    // $(event.target).attr("background", `url(${$("#file-input").val()})`);
   });
 
   $(".file-input").change(function (event) {
     const file = event.target.files[0];
     let fileReader = new FileReader();
     fileReader.readAsDataURL(file);
+    if ($(event.target).attr("id") == "nic") {
+      cookieTable.nic = file;
+    } else cookieTable.license = file;
+    console.log(cookieTable);
     fileReader.onload = function () {
       $(event.target)
         .parent()
         .parent()
         .find(".img-upload-select")
-        .css("background", `url(${fileReader.result})`);
+        .css("background-image", `url(${fileReader.result})`);
     };
   });
 
@@ -76,11 +80,6 @@ $(function () {
   });
 
   $("#logout").click(function () {
-    //removes user
-    // cookieTable.user = null;
-    // $("#user-management-inner").show();
-    // $("#logout").hide();
-    // $("li#user").hide();
     location.reload();
   });
 
@@ -96,6 +95,8 @@ $(function () {
 
   function clearRegister() {
     $("form#userAdd")[0].reset();
+    cookieTable.license, (cookieTable.nic = null);
+    $(".img-upload-select").css("background-image", "none");
   }
 
   // user login
@@ -157,8 +158,9 @@ $(function () {
       formData.append(input.name, input.value);
     });
 
-    formData.append("file1", $("#inputGroupFile02")[0].files[0]);
-    formData.append("file2", $("#inputGroupFile01")[0].files[0]);
+    formData.append("file1", cookieTable.nic);
+    formData.append("name");
+    formData.append("file2", cookieTable.license);
 
     clearRegister();
     $.ajax({
@@ -213,7 +215,7 @@ $(function () {
       url: baseURL + "car/getAll",
       dataType: "json",
       success: function (resp) {
-        console.log(resp.data);
+        cookieTable.cars = resp.data;
         resp.data.forEach((car) => {
           let {
             brand,
@@ -311,6 +313,7 @@ $(function () {
   }
 
   loadAllCarsForSelection();
+
   // on date change
   function calculateValueOnDateChange(dateText) {
     let startDay = new Date($("#datepicker1").val());

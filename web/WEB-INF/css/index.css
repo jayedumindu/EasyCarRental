@@ -82,17 +82,12 @@ svg {
 }
 
 .nav-item:hover .nav-link {
-  color: azure;
+  color: azure !important;
 }
 
 .nav-link {
   color: rgb(38, 120, 193);
 }
-/* #car-selection {
-  z-index: 1;
-  position: sticky;
-  top: 63px;
-} */
 
 tr {
   text-align: center;
@@ -188,19 +183,23 @@ div#logo {
 .img-upload-select {
   height: 100pt;
   background-color: rgba(199, 196, 191, 0.327);
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   border: rgba(0, 0, 0, 0.167) 1pt dashed;
   border-bottom: none;
+
   -webkit-transition: background-color 0.7s;
+  transition: all 0.7s;
 }
 
 .img-upload-select:hover {
   opacity: 0.5;
   cursor: pointer;
-  background: transparent;
   -webkit-transition: all 0.5s;
+  transition: all 0.7s;
 }
 
 .upload {
