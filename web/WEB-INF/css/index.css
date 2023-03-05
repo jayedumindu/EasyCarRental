@@ -125,13 +125,17 @@ tr {
   color: aliceblue;
 }
 
+.sorting {
+  width: 100%;
+}
+
 #car-selection-nav .nav-item {
-  width: 110pt;
+  min-width: 130pt;
 }
 
 .clear-sorting {
   padding: 5pt;
-  margin-left: 50%;
+  margin-left: 45%;
   width: 500pt;
 }
 

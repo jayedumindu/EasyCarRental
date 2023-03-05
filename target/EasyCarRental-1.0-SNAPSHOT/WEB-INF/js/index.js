@@ -29,6 +29,20 @@ $(function () {
     });
   });
 
+  // $("img").on("load", function () {
+  //   URL.revokeObjectURL($(this).attr("src"));
+  //   console.log("hello");
+  //   if (this.complete) $(this).load();
+  // });
+
+  // $("img").each(function () {
+  //   if (this.complete) $(this).load();
+  // });
+  // .each(function () {
+  //   // in case it's already loaded
+  //   if (this.complete) $(this).load();
+  // });
+
   function changeActiveTab(tab) {
     $("body>section").hide();
     $(tab).show();
@@ -264,6 +278,30 @@ $(function () {
     });
   }
 
+  // buffer convertor
+  function arrayBufferToBase64(buffer) {
+    var blob = new Blob([buffer], { type: "application/octet-binary" });
+    return (url = URL.createObjectURL(blob));
+
+    // var binary = "";
+    // var bytes = new Uint8Array(buffer);
+    // var len = bytes.byteLength;
+    // for (var i = 0; i < len; i++) {
+    //   binary += String.fromCharCode(bytes[i]);
+    // }
+    // return window.btoa(binary);
+    // return btoa((encodeURIComponent(buffer)));
+  }
+
+  function imageOnLoad() {
+    console.log("runs");
+
+    // let image = new Image;
+    // image.onload() = function () {
+    //   URL.revokeObjectURL(url)
+    // }
+  }
+
   loadAllCarsForSelection();
 
   function appendCar(car) {
@@ -276,12 +314,13 @@ $(function () {
       registrationNumber,
       img_front,
     } = car;
-    console.log(img_front);
+    let url = arrayBufferToBase64(img_front);
+    console.log(url);
     $("#car-selection-row").append(
       '<div class="col-md-4">' +
         '<div class="car-wrap rounded ">' +
         '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-        `<img src=data:image/ico;base64, ${img_front} class="car-card-img"></img>` +
+        `<img src=${url} class="car-card-img">` +
         "</div>" +
         '<div class="text">' +
         '<h2 class="mb-0">' +
@@ -317,38 +356,47 @@ $(function () {
         "</div>"
     );
   }
+
   //  data sorting
   $(".dropdown").on("hide.bs.dropdown", function () {
     // calculation goes here
-    let mode = $(this).attr("id");
-    let val = $(this).find(".dropdown-toggle").val();
-    console.log(mode, val);
-    switch (mode) {
-      case "brand":
-        cookieTable.cars.forEach((car) => {
-          $("#car-selection-row").empty();
-          if (car.brand == val) {
-            appendCar(car);
+    //  for each combo
+    let attr = [];
+    $(".sorting .dropdown-toggle").each(function (index) {
+      attr[index] = $(this).val();
+    });
+
+    console.log(attr);
+    $("#car-selection-row").empty();
+    cookieTable.cars.forEach((car) => {
+      console.log(car);
+      if ((car.brand == attr[0]) | (attr[0] == "")) {
+        let [from, to] = attr[1].split("-");
+        if (
+          ((car.monthlyRate >= from) & (car.monthlyRate < to)) |
+          (attr[1] == "")
+        ) {
+          if ((car.fuelType == attr[2]) | (attr[2] == "")) {
+            if ((car.noOfPassengers == attr[3]) | (attr[3] == "")) {
+              if ((car.transmissionType == attr[4]) | (attr[4] == "")) {
+                appendCar(car);
+              }
+            }
           }
-        });
-        break;
-      case "mRate":
-        cookieTable.cars.forEach((car) => {
-          let [from, to] = val.split("-");
-          $("#car-selection-row").empty();
-          if ((car.monthlyRate >= from) & (car.monthlyRate < to)) {
-            appendCar(car);
-          }
-        });
-        break;
-      case "fuel":
-        break;
-      case "seat":
-        break;
-      case "trans":
-        break;
-    }
+        }
+      }
+    });
   });
+
+  // clear sorting
+  let defVals = ["Brand", "Price", "Fuel Type", "Passengers", "Transmission"];
+  $(".clear-sorting").click(function () {
+    $(".sorting .dropdown-toggle").each(function (index) {
+      $(this).text(defVals[index]);
+    });
+    loadAllCarsForSelection();
+  });
+
   $(".dropdown-menu li a").click(function () {
     $(this).closest(".dropdown").find(".dropdown-toggle").text($(this).text());
     $(this).closest(".dropdown").find(".dropdown-toggle").val($(this).text());
@@ -408,6 +456,22 @@ $(function () {
   // ------------------------------------booking---------------------------------------
 
   function placeBooking(id) {
+    // checking if the vehivle is available for selected dates
+    $.ajax({
+      url: baseURL + "car/isAvailable",
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        alert(res.message);
+        if (re.data) {
+          console.log("can be booked");
+        }
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
     var user,
       driver = {};
     if ($.cookie("userLoggedIn")) {

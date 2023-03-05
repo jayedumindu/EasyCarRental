@@ -9,6 +9,8 @@ import util.ResponseUtil;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @CrossOrigin
@@ -76,7 +78,6 @@ public class carController {
         carDTO dto = new carDTO(registrationNumber,brand,model,type,noOfPassengers,mileage,serviceMileage,transmissionType,fuelType,dailyRate,monthlyRate,freeMileageForMonth,freeMileageForDay,priceForExtraKM,color,availability,file1.getBytes(),file2.getBytes(),file3.getBytes(),file4.getBytes());
         carService.updateCar(dto);
         return new ResponseUtil("OK","Successfully Updated.!",null);
-
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
@@ -94,6 +95,15 @@ public class carController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public ResponseUtil getAllCar(@RequestParam String registrationNumber){
         carDTO data = carService.findCarByRegNo(registrationNumber);
+        return new ResponseUtil("OK","Successful!",data);
+    }
+
+    @RequestMapping(value = "/isAvailable", method = RequestMethod.GET)
+    public ResponseUtil checkAvailability(@RequestParam String regNo,@RequestParam String date1, @RequestParam String date2){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate dt1 = LocalDate.parse(date1,dateTimeFormatter);
+        LocalDate dt2 = LocalDate.parse(date2,dateTimeFormatter);
+        boolean data = carService.isCarAvailable(regNo, dt1, dt2) == 0;
         return new ResponseUtil("OK","Successful!",data);
     }
 

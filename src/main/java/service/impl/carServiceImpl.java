@@ -10,6 +10,7 @@ import repo.carRepo;
 import service.carService;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
@@ -65,5 +66,10 @@ public class carServiceImpl implements carService {
     @Override
     public int countCarsScheduled() {
         return repo.countCarsScheduled();
+    }
+
+    @Override
+    public int isCarAvailable(String regNo, LocalDate date1, LocalDate date2) {
+        return repo.isCarAvailable(regNo,date1,date2);
     }
 }

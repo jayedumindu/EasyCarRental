@@ -8,6 +8,8 @@ import service.driverService;
 import util.ResponseUtil;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @CrossOrigin
@@ -66,8 +68,11 @@ public class driverController {
     }
 
     @RequestMapping(value = "/findRandom", method = RequestMethod.GET)
-    public ResponseUtil getDriverRandomly(){
-        driverDTO data = driverService.findDriverRandomly();
+    public ResponseUtil getDriverRandomly(@RequestParam String date1, @RequestParam String date2){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate dt1 = LocalDate.parse(date1,dateTimeFormatter);
+        LocalDate dt2 = LocalDate.parse(date2,dateTimeFormatter);
+        driverDTO data = driverService.findDriverRandomly(dt1,dt2);
         return new ResponseUtil("OK","Successful!",data);
     }
 

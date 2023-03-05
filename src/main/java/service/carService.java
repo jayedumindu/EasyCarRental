@@ -2,6 +2,7 @@ package service;
 
 import dto.carDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface carService {
@@ -12,4 +13,5 @@ public interface carService {
     ArrayList<carDTO> getAllCar();
     int countCarsByAvailabilityIsTrue();
     int countCarsScheduled();
+    int isCarAvailable(String regNo, LocalDate date1, LocalDate date2);
 }

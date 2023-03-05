@@ -125,8 +125,25 @@ tr {
   color: aliceblue;
 }
 
+.sorting {
+  width: 100%;
+}
+
 #car-selection-nav .nav-item {
-  width: 100pt;
+  min-width: 130pt;
+}
+
+.clear-sorting {
+  padding: 5pt;
+  margin-left: 45%;
+  width: 500pt;
+}
+
+.clear-sorting:hover {
+  cursor: pointer;
+  opacity: 0.5;
+
+  color: rgb(186, 70, 70);
 }
 
 .card-body h5 {

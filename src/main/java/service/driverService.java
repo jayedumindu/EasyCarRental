@@ -2,6 +2,7 @@ package service;
 
 import dto.driverDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface driverService {
@@ -10,7 +11,7 @@ public interface driverService {
     void updateDriver(driverDTO dto);
     driverDTO findDriverByUsername(String username);
     ArrayList<driverDTO> getAllDriver();
-    driverDTO findDriverRandomly();
+    driverDTO findDriverRandomly(LocalDate date1, LocalDate date2);
     int getNoOfOccupiedDrivers();
     int getNoOfAvailableDrivers();
 }
