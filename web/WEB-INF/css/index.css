@@ -102,7 +102,7 @@ tr {
 }
 
 .ftco-section {
-  padding: 0 !important;
+  padding: 60.8px 0 0 0 !important;
 }
 
 .select-car {
@@ -135,7 +135,7 @@ tr {
 
 .clear-sorting {
   padding: 5pt;
-  margin-left: 45%;
+  margin-left: 40%;
   width: 500pt;
 }
 
@@ -237,6 +237,11 @@ div#logo {
   color: aliceblue;
 }
 
-/* .dropdown-menu li {
-  width: 100pt;
+span#booking {
+  display: block;
+  font-size: 20px;
+}
+/* 
+section {
+  padding-top: 60.8px;
 } */

@@ -17,4 +17,7 @@ void upDatePayment(paymentDTO dto, String bId);
 void removeBooking(String id);
 void acceptBooking(String id);
     Collection<bookingDTO> findBookingsForUser(String id);
+    boolean checkIfPaymentExist(String pId);
+    bookingDTO getBookingById(String bId);
+    paymentDTO getPaymentById(String pId);
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import dto.bookingDTO;
+import dto.driverDTO;
 import dto.paymentDTO;
 import dto.userDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,19 @@ public class bookingController {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate crd = LocalDate.parse(currentDateTime,dateTimeFormatter);
         LocalDate dt = LocalDate.parse(dueDateTime,dateTimeFormatter);
-        System.out.println("start");
-        bookingDTO dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),drService.findDriverByUsername(driver), uService.findUserByUsername(user));
-        paymentDTO dto2 = new paymentDTO(dto1.getBookingId(),dto1,rent);
+//        System.out.println(driver);
+//        System.out.println("start");
+        System.out.println(driver.getClass().getSimpleName());
+        bookingDTO dto1;
+        if(driver.equals("null")){
+            System.out.println("null");
+            dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),uService.findUserByUsername(user));
+        }else  {
+            System.out.println("not null");
+            dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),drService.findDriverByUsername(driver), uService.findUserByUsername(user));}
+
+//        bookingDTO dto1 = new bookingDTO(bookingId,crd,dt,advancePayment,conf,isAccepted,crService.findCarByRegNo(car),drService.findDriverByUsername(driver), uService.findUserByUsername(user));
+        paymentDTO dto2 = new paymentDTO(dto1.getBookingId(),dto1,rent,false);
         bkService.placeBooking(dto1,dto2);
         return new ResponseUtil("OK","Successfully Added.!",null);
     }
@@ -74,6 +85,18 @@ public class bookingController {
     public ResponseUtil getBookingsByAcceptedFalse(){
         System.out.println("method called");
         return new ResponseUtil("OK","Successful!", bkService.getBookingsByAcceptedFalse());
+    }
+
+    @RequestMapping(value = "/getBooking", method = RequestMethod.GET)
+    public ResponseUtil getBookingById(@RequestParam String bId){
+        System.out.println("method called");
+        return new ResponseUtil("OK","Successful!", bkService.getBookingById(bId));
+    }
+
+    @RequestMapping(value = "/getPayment", method = RequestMethod.GET)
+    public ResponseUtil getPaymentById(@RequestParam String pId){
+        System.out.println("method called");
+        return new ResponseUtil("OK","Successful!", bkService.getPaymentById(pId));
     }
 
     @RequestMapping(value = "/pending", method = RequestMethod.GET)
@@ -103,6 +126,24 @@ public class bookingController {
         return new ResponseUtil("OK","Successful!", bkService.findBookingsForUser(id));
     }
 
+    @RequestMapping(value = "/paymentExist", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseUtil checkIfPaymentExists(@RequestParam String pId){
+        return new ResponseUtil("OK","Successful!", bkService.checkIfPaymentExist(pId));
+    }
+
+    @RequestMapping(value = "/calDailyRev", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseUtil calculateDailyRevenue(){
+        return new ResponseUtil("OK","Successful!", null);
+    }
+
+    @RequestMapping(value = "/calMonthlyRev", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseUtil calculateMonthlyRevenue(){
+        return new ResponseUtil("OK","Successful!", null);
+    }
+
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseUtil doPayment(
@@ -111,12 +152,13 @@ public class bookingController {
             @RequestParam BigDecimal deduction,
             @RequestParam String method,
             @RequestParam String date,
-            @RequestParam String id
+            @RequestParam String id,
+            @RequestParam boolean done
                                   ){
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate returnDate = LocalDate.parse(date,dateTimeFormatter);
-        paymentDTO dto = new paymentDTO(rent,account,method,deduction,returnDate);
+        paymentDTO dto = new paymentDTO(rent,account,method,deduction,returnDate,done);
         System.out.println(date);
         bkService.upDatePayment(dto,id);
         return new ResponseUtil("OK","Successful!", null);

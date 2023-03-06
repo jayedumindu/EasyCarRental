@@ -48,98 +48,6 @@
             </div>
         </nav>
     </div>
-    <!-- sorting navbar-->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" id="car-selection-nav">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown" id="brand">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Brand
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Toyota</a></li>
-                            <li><a class="dropdown-item" href="#">Mercedes Benz</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Perodua</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">BMW</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Suzuki</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" id="mRate">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Price
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <h6 class="dropdown-header">Monthly Rate</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#">50,000-100,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">100,000-150,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">150,000-200,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">250,000-300,000</a>
-                            </li>
-                            <li>
-                                <h6 class="dropdown-header">Daily Rate</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#">2,000-6,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">6,000-10,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">10,000-14,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">14,000-18,000</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">18,000-22,000</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" id="fuel">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Fuel Type
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Petro</a></li>
-                            <li><a class="dropdown-item" href="#">Diesel</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" id="seat">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Passengers
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">2</a></li>
-                            <li><a class="dropdown-item" href="#">4</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" id="trans">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Transmission
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Auto</a></li>
-                            <li><a class="dropdown-item" href="#">Manual</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <!-- homepage -->
     <section class="home " id="home">
@@ -513,7 +421,7 @@
 
 
     <!-- car selection registered user/guest user -->
-    <section class="car-selection main bg-white" id="car-selection">
+    <section class="car-selection main bg-white ftco-section" id="car-selection">
 
         <!-- sorting navbar-->
         <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" id="car-selection-nav">
@@ -883,16 +791,18 @@
                                             </div>
                                             <div class="col-12 mt-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="driverCheck">
+                                                    <input class="form-check-input" type="checkbox" id="driverCheck"
+                                                        disabled>
                                                     <label class="form-check-label" for="driverCheck">
                                                         Include
                                                         a driver
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-12 d-flex p-5 text-center">
-                                                <h2>Total for : <span id="total"></span>
+                                            <div class="col-12 d-flex p-5 text-center" style="flex-direction: column;">
+                                                <h2>Rent : <span id="total"></span>
                                                 </h2>
+                                                <h4>Driver fee : <span id="driverTotal"></span></h4>
                                             </div>
                                             <div class="col-12 mt-5">
                                                 <button type="button" class="btn btn-primary"
@@ -944,7 +854,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-map-o"></span>
+                                            <i class="fa-solid fa-user"></i>
                                         </div>
                                         <p>Username:<span id="username"></span></p>
                                     </div>
@@ -952,7 +862,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-map-o"></span>
+                                            <i class="fa-solid fa-location-dot"></i>
                                         </div>
                                         <p>Address: &nbsp;<span id="address"></span></p>
                                     </div>
@@ -960,7 +870,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-mobile-phone"></span>
+                                            <i class="fa-solid fa-phone"></i>
                                         </div>
                                         <p>Phone: &nbsp;<span id="contact"></span></p>
                                     </div>
@@ -968,7 +878,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-envelope-o"></span>
+                                            <i class="fa-solid fa-file-signature"></i>
                                         </div>
                                         <p>Name: &nbsp;<span id="name"></span>
 
@@ -978,7 +888,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-envelope-o"></span>
+                                            <i class="fa-solid fa-file"></i>
                                         </div>
                                         <p>License: &nbsp;<span id="license"></span>
                                         </p>
@@ -987,7 +897,7 @@
                                 <div class="col-md-12">
                                     <div class="border w-100 p-4 rounded mb-2 d-flex">
                                         <div class="icon mr-3">
-                                            <span class="icon-envelope-o"></span>
+                                            <i class="fa-solid fa-file"></i>
                                         </div>
                                         <p> NIC: &nbsp;<span id="nic"></span>
                                         </p>
@@ -1044,12 +954,12 @@
                                     <th>&nbsp;</th>
                                     <th>&nbsp;</th>
                                     <th colspan="3" class="bg-primary heading">
-                                        Booking Details
+                                        Bookings
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="">
+                            <tbody id="userBookings">
+                                <!-- <tr class="">
                                     <td class="car-image">
                                         <div class="img" style="background-image:url(../assets/images/car-1.jpg);">
                                         </div>
@@ -1100,7 +1010,7 @@
                                                 fuel surcharges</span>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>

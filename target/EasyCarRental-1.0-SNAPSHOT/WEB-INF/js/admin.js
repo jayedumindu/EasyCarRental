@@ -5,6 +5,46 @@
 // - The number of bookings active for the day.
 // - The number of available and occupied drivers.
 
+function CustomAlert() {
+  this.alert = function (message, title) {
+    document.body.innerHTML =
+      document.body.innerHTML +
+      '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
+
+    let dialogoverlay = document.getElementById("dialogoverlay");
+    let dialogbox = document.getElementById("dialogbox");
+
+    let winH = window.innerHeight;
+    dialogoverlay.style.height = winH + "px";
+
+    dialogbox.style.top = "100px";
+
+    dialogoverlay.style.display = "block";
+    dialogbox.style.display = "block";
+
+    document.getElementById("dialogboxhead").style.display = "block";
+
+    if (typeof title === "undefined") {
+      document.getElementById("dialogboxhead").style.display = "none";
+    } else {
+      document.getElementById("dialogboxhead").innerHTML =
+        '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + title;
+    }
+    document.getElementById("dialogboxbody").innerHTML = message;
+    document.getElementById("dialogboxfoot").innerHTML =
+      '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
+  };
+
+  this.ok = function () {
+    document.getElementById("dialogbox").style.display = "none";
+    document.getElementById("dialogoverlay").style.display = "none";
+  };
+}
+
+let customAlert = new CustomAlert();
+
+var cookieTable = {};
+
 $(document).ready(function () {
   $("body>section").hide();
   $("section#admin").show();
@@ -13,14 +53,13 @@ $(document).ready(function () {
     console.log($(this).attr("id"));
   });
   $(".datepicker").datepicker();
+  $("#logout").hide();
+  $("#logout").click(function () {
+    console.log("logout");
+    cookieTable.admin = null;
+    location.reload();
+  });
 });
-
-$("#logOut").click(function () {
-  cookieTable.user = null;
-  location.reload();
-});
-
-var cookieTable = {};
 
 function changeActiveTab(tab) {
   $("body>section").hide();
@@ -74,9 +113,10 @@ $("#admin-login").click(function () {
     success: function (res) {
       if (res.data) {
         // login success
-        alert(res.message);
-        cookieTable.user = res.data;
-        $(".navbar-toggler").show();
+        // customAlert.alert("done");
+        cookieTable.admin = res.data;
+        // $(".navbar-toggler").show();
+        $("#logout").show();
         changeActiveTab("#dashboard");
       } else {
         alert(res.message);
@@ -268,9 +308,9 @@ function loadAllCars() {
       resp.data.forEach((car) => {
         let { brand, model, fuelType, registrationNumber } = car;
         $(".select-car").append(
-          '<div class="container"> ' +
-            '<section class="mx-auto my-5" style="max-width: 23rem;"> ' +
-            '<div class="card">' +
+          // '<div class="container"> ' +
+          // '<section class="mx-auto my-5" > ' +
+          '<div class="card" style="width: 23rem; margin:10pt;">' +
             '<div class="bg-image hover-overlay ripple" ' +
             'data-mdb-ripple-color="light"> ' +
             '<img src="../assets/images/car-10.jpg" ' +
@@ -301,9 +341,9 @@ function loadAllCars() {
             '<a href="#!"' +
             'class="btn btn-link link-primary p-md-1 mb-0 car-del">Remove</a>' +
             "</div>" +
-            "</div>" +
-            "</section>" +
             "</div>"
+          // "</section>" +
+          // "</div>"
         );
       });
       // button functionalities
@@ -353,7 +393,7 @@ loadAllCars();
 
 // ------------------booking-----------------------------
 
-async function loadAllBookingsToBeAccepted() {
+function loadAllBookingsToBeAccepted() {
   $.ajax({
     url: baseURL + "booking/getBookingsByAcceptedFalse",
     method: "get",
@@ -414,7 +454,7 @@ async function loadAllBookingsToBeAccepted() {
             },
           });
         });
-        $("#bkdecline").click(async function () {
+        $("#bkdecline").click(function () {
           let id = data.bookingId;
           $.ajax({
             url: baseURL + "booking/delete?id=" + id,
@@ -442,10 +482,85 @@ async function loadAllBookingsToBeAccepted() {
 
 loadAllBookingsToBeAccepted();
 
+// payment
+
+// assigns current date
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, "0");
+var mm = String(today.getMonth() + 1).padStart(2, "0");
+var yyyy = today.getFullYear();
+
+today = dd + "/" + mm + "/" + yyyy;
+$("input#pDate").val(today);
+
+$("#pBookingId").keyup(function () {
+  let validator = new RegExp(`BK-[0-9]{1,}`);
+  let id = $(this).val();
+  if (validator.test(id)) {
+    // search if a payment exist
+    $.ajax({
+      url: baseURL + "booking/paymentExist?pId=" + id,
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        // alert(res.message);
+        if (res.data) {
+          // then get the booking details
+          $.ajax({
+            url: baseURL + "booking/getPayment?pId=" + id,
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+              // alert(res.message);
+              payment = res.data;
+              if (!payment.done) {
+                alert("pending payment");
+                cookieTable.payment = payment;
+                cookieTable.booking = payment.booking;
+                cookieTable.car = payment.booking.car;
+                $("span#advancePayment").text(
+                  cookieTable.booking.advancePayment
+                );
+                $("span#rent").text(cookieTable.payment.rent);
+                // $.ajax({
+                //   url: baseURL + "booking/getBooking?bId=" + payment.bookingId,
+                //   method: "get",
+                //   dataType: "json",
+                //   success: function (res) {
+                //     cookieTable.payment = payment;
+                //     cookieTable.booking = booking;
+                //     cookieTable.car = booking.car;
+                //     $("span#advancePayment").text(
+                //       cookieTable.booking.advancePayment
+                //     );
+                //     $("span#rent").text(cookieTable.payment.rent);
+                //   },
+                // });
+              }
+            },
+            error: function (error) {
+              // var jsObject = JSON.parse(error.responseText);
+              // alert(jsObject.message);
+            },
+          });
+        }
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
+  } else {
+    $(this).css("border", "1px solid red");
+  }
+});
+
 $("#payBtn").click(function () {
   let paymentDetails = $("form#paymentForm").serialize();
   console.log(paymentDetails);
-  paymentDetails += "&rent=" + $("span#rent").text();
+  total =
+    parseInt($("span#rent").text()) + parseInt($("span#totFromExtraKm").text());
+  paymentDetails += "&rent=" + total + "&date=" + today + "&done=true";
   $.ajax({
     url: baseURL + "booking/payment",
     data: paymentDetails,
@@ -453,11 +568,32 @@ $("#payBtn").click(function () {
     dataType: "json",
     success: function (res) {
       alert(res.message);
-      loadAllCars();
+      clearAllFormData();
+      $("input#pDate").val(today);
     },
-    error: function (error) {
-      // var jsObject = JSON.parse(error.responseText);
-      // alert(jsObject.message);
-    },
+    error: function (error) {},
   });
 });
+
+$("#pMileage").keyup(function () {
+  let miles = $(this).val();
+  let calc = miles * cookieTable.car.priceForExtraKM;
+  $("span#totFromExtraKm").text(calc);
+});
+
+$("#pDeduction").keyup(function () {
+  if ($(this).val() < cookieTable.booking.advancePayment) {
+    let duePay = cookieTable.booking.advancePayment - $(this).val();
+    $("span#totFromAdvance").text(duePay);
+  } else {
+    alert("cannot exceed due amount");
+    $(this).val("");
+  }
+});
+
+function clearAllFormData() {
+  $("form#paymentForm")[0].reset();
+  $("form#paymentForm span").each(function () {
+    $(this).text("");
+  });
+}

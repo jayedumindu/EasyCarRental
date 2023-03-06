@@ -1,5 +1,7 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import entity.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +17,14 @@ import java.time.LocalDateTime;
 @ToString
 public class paymentDTO {
     private String bookingId;
-    private bookingDTO booking;
     private BigDecimal rent;
+    private bookingDTO booking;
     private String account;
     private String payment_method;
     private BigDecimal deduction;
     private LocalDate returnDateTime;
+    private boolean done;
+
 
     public paymentDTO(bookingDTO booking, BigDecimal rent) {
         this.booking = booking;
@@ -33,12 +37,23 @@ public class paymentDTO {
         this.rent = rent;
     }
 
-    public paymentDTO(BigDecimal rent, String account, String payment_method, BigDecimal deduction, LocalDate returnDateTime) {
+    public paymentDTO(BigDecimal rent, String account, String payment_method, BigDecimal deduction, LocalDate returnDateTime, boolean done) {
         this.rent = rent;
         this.account = account;
         this.payment_method = payment_method;
         this.deduction = deduction;
         this.returnDateTime = returnDateTime;
+        this.done = done;
     }
 
+//    public paymentDTO(String bookingId, bookingDTO dto1, BigDecimal rent, boolean b) {
+//    }
+
+
+    public paymentDTO(String bookingId,  bookingDTO booking, BigDecimal rent, boolean done) {
+        this.bookingId = bookingId;
+        this.rent = rent;
+        this.booking = booking;
+        this.done = done;
+    }
 }

@@ -14,6 +14,7 @@ import repo.paymentRepo;
 import service.bookingService;
 
 import javax.transaction.Transactional;
+import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -66,12 +67,30 @@ paymentRepo.updatePayment(dto.getRent(),dto.getAccount(),dto.getDeduction(),dto.
 
     @Override
     public void removeBooking(String id) {
-        bookingRepo.deleteById(id);
+        if (bookingRepo.existsById(id)){
+            bookingRepo.deleteById(id);
+        }
+
     }
 
     @Override
     public void acceptBooking(String id) {
         bookingRepo.acceptBooking(id);
+    }
+
+    @Override
+    public boolean checkIfPaymentExist(String pId) {
+        return paymentRepo.existsById(pId);
+    }
+
+    @Override
+    public bookingDTO getBookingById(String pId) {
+        return mapper.map(bookingRepo.getBookingByBookingId(pId),bookingDTO.class);
+    }
+
+    @Override
+    public paymentDTO getPaymentById(String pId) {
+        return  mapper.map(paymentRepo.getPaymentByBookingId(pId),paymentDTO.class);
     }
 
     @Override

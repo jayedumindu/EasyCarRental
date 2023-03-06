@@ -50,7 +50,18 @@ public class bookingDTO {
 
     }
 
-//    public bookingDTO(String bookingId, LocalDate currenDateTime, LocalDate dueDateTime, BigDecimal advancePayment, byte[] paymentConfirmation, boolean isAccepted, String carId, String driverId, String userId, carDTO car, driverDTO driver, adminDTO admin, userDTO user, Blob conf) throws SQLException {
+    public bookingDTO(String bookingId, LocalDate currenDateTime, LocalDate dueDateTime, BigDecimal advancePayment, byte[] paymentConfirmation, boolean isAccepted, carDTO car, userDTO user) {
+        this.bookingId = bookingId;
+        this.currenDateTime = currenDateTime;
+        this.dueDateTime = dueDateTime;
+        this.advancePayment = advancePayment;
+        this.paymentConfirmation = paymentConfirmation;
+        this.isAccepted = isAccepted;
+        this.car = car;
+        this.user = user;
+    }
+
+    //    public bookingDTO(String bookingId, LocalDate currenDateTime, LocalDate dueDateTime, BigDecimal advancePayment, byte[] paymentConfirmation, boolean isAccepted, String carId, String driverId, String userId, carDTO car, driverDTO driver, adminDTO admin, userDTO user, Blob conf) throws SQLException {
 //        this.bookingId = bookingId;
 //        this.currenDateTime = currenDateTime;
 //        this.dueDateTime = dueDateTime;

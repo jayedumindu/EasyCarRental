@@ -153,13 +153,14 @@ $(function () {
         $(".contact-section span").each(function () {
           $(this).text(cookieTable.user[$(this).attr("id")]);
         });
+
+        loadAllBookingsForUser(uname);
       },
       error: function (error) {
         // var jsObject = JSON.parse(error.responseText);
         // alert(jsObject.message);
       },
     });
-    // user = await $.get("user/findOne?username=" + uname);
   }
   // save customer
   $("form#userAdd").submit(function (e) {
@@ -216,8 +217,69 @@ $(function () {
     });
   });
 
-  function loadAllBookingsForUser(userId) {
-    $.get(baseURL + "booking/");
+  function loadAllBookingsForUser(uname) {
+    $("tbody#userBookings").empty();
+    // ajax
+    $.ajax({
+      url: baseURL + "booking/pending?username=" + uname,
+      method: "get",
+      dataType: "json",
+      success: function (res) {
+        console.dir(res.data);
+        res.data.forEach(function (booking) {
+          let [yyyy, mm, dd] = booking.currenDateTime;
+          $("tbody#userBookings").append(
+            '<tr class="">' +
+              '<td class="car-image">' +
+              "<div" +
+              'class="img"' +
+              'style="background-image:url();"' +
+              "></div>" +
+              "</td>" +
+              '<td class="product-name">' +
+              "<h3>" +
+              `${booking.car.brand} ${booking.car.model}` +
+              "</h3>" +
+              `<p>${booking.car.registrationNumber}</p>` +
+              "</td>" +
+              '<td class="price" colspan="3">' +
+              '<p class="btn-custom">' +
+              '<a class="bk-cancel">Cancel Booking</a>' +
+              "</p>" +
+              '<div class="price-rate">' +
+              "<h3>" +
+              `<span id="booking">ID : ${booking.bookingId}</span>` +
+              `<span class="per">booked on ${yyyy}-${mm}-${dd}</span>` +
+              "</h3>" +
+              `<span class="subheading">${booking.car.mileage} KMs done</span>` +
+              "</div>" +
+              "</td>" +
+              "</tr>"
+          );
+          // btn behaviours
+          $(".bk-cancel").click(function () {
+            id = $(this).parent().parent().find("span#booking").text();
+            $.ajax({
+              url: baseURL + "booking/delete?id=" + id,
+              method: "delete",
+              dataType: "json",
+              success: function (res) {
+                alert(res.message);
+                loadAllBookingsForUser(cookieTable.user.username);
+              },
+              error: function (error) {
+                // var jsObject = JSON.parse(error.responseText);
+                // alert(jsObject.message);
+              },
+            });
+          });
+        });
+      },
+      error: function (error) {
+        // var jsObject = JSON.parse(error.responseText);
+        // alert(jsObject.message);
+      },
+    });
   }
 
   // ------------------------------- cars -------------------
@@ -320,7 +382,7 @@ $(function () {
       '<div class="col-md-4">' +
         '<div class="car-wrap rounded ">' +
         '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-        `<img src=${url} class="car-card-img">` +
+        `<img src=${window.btoa(img_front)} class="car-card-img">` +
         "</div>" +
         '<div class="text">' +
         '<h2 class="mb-0">' +
@@ -405,31 +467,45 @@ $(function () {
   // on date change
   function calculateValueOnDateChange() {
     // validating date
-
     let startDay = new Date($("#datepicker1").val());
     let endDay = new Date($("#datepicker2").val());
+    let today = Date.now();
     let total = 0.0;
     if (startDay & endDay) {
-      try {
-        var millisBetween = startDay.getTime() - endDay.getTime();
-      } finally {
-        let totalDays = Math.round(
-          Math.abs(millisBetween / (1000 * 3600 * 24))
-        );
-        let dailyRate = parseInt($("span#dailyRate").text());
-        if (totalDays >= 30) {
-          let monthlyRate = parseInt($("span#monthlyRate").text());
-          let months = Math.round(totalDays / 30);
-          let days = totalDays % 30;
-          total += days * dailyRate + months * monthlyRate;
-        } else {
-          total += dailyRate * totalDays;
+      if ((startDay < endDay) & (startDay > today)) {
+        try {
+          var millisBetween = startDay.getTime() - endDay.getTime();
+        } finally {
+          let totalDays = Math.round(
+            Math.abs(millisBetween / (1000 * 3600 * 24))
+          );
+          let dailyRate = parseInt($("span#dailyRate").text());
+          if (totalDays >= 30) {
+            let monthlyRate = parseInt($("span#monthlyRate").text());
+            let months = Math.round(totalDays / 30);
+            let days = totalDays % 30;
+            total += days * dailyRate + months * monthlyRate;
+          } else {
+            total += dailyRate * totalDays;
+          }
+          $("#driverCheck").removeAttr("disabled");
+          // checking out
+          if ($("#driverCheck").is(":checked")) {
+            $("#driverCheck").prop("checked", false);
+          }
         }
-        if ($.cookie("driverAssigned")) {
-          total += totalDays * 1000;
-        }
+        $("span#total").text(total);
+      } else {
+        alert("invalid date selection, please check again");
+        cookieTable.driver = null;
+        $(".datepicker").val("");
+        $("span#total").text("");
+        $("driver-details span").each(function () {
+          $(this).text("");
+        });
+        $("#driverCheck").attr("disabled", true);
+        $("#driverCheck").prop("checked", false);
       }
-      $("span#total").text(total);
     }
   }
   // add a driver randomly
@@ -438,72 +514,85 @@ $(function () {
       // get a driver randomly
       date1 = $("#datepicker2").val();
       date2 = $("#datepicker1").val();
-      if ((date1 != "") & (date2 != "")) {
-        console.log("true");
-        $.ajax({
-          url: baseURL + "driver/findRandom",
-          method: "get",
-          data: "date1=" + date1 + "&date2=" + date2,
-          dataType: "json",
-          success: function (res) {
-            let driver = res.data;
-            $.cookie("driverAssigned", true, { path: "/" });
-            cookieTable.driver = res.data;
-            // setting values
-            $("#driver-details span[id]").each(function () {
-              $(this).text(driver[$(this).attr("id")]);
-            });
-          },
-          error: function () {
-            return null;
-          },
-        });
-      }
+      $.ajax({
+        url: baseURL + "driver/findRandom",
+        method: "get",
+        data: "date1=" + date1 + "&date2=" + date2,
+        dataType: "json",
+        success: function (res) {
+          let driver = res.data;
+          $.cookie("driverAssigned", true, { path: "/" });
+          cookieTable.driver = res.data;
+          // setting values
+          $("#driver-details span[id]").each(function () {
+            $(this).text(driver[$(this).attr("id")]);
+          });
+          $("span#driverTotal").text(calDays() * 1000);
+        },
+        error: function () {
+          $.cookie("driverAssigned", false, { path: "/" });
+          cookieTable.driver = null;
+          alert("Cannot assign a driver for following dates!");
+          $(this).prop("checked", false);
+        },
+      });
     } else {
       $.cookie("driverAssigned", false, { path: "/" });
-      $.cookie("driver", null);
+      cookieTable.driver = null;
       $("#driver-details span[id]").each(function () {
         $(this).text("");
       });
+      $("span#driverTotal").text(0);
     }
   });
 
   // ------------------------------------booking---------------------------------------
 
+  function clearBookingForm() {
+    $("form#booking")[0].reset();
+    $("#driverCheck").attr("disabled", true);
+  }
   function placeBooking(id) {
-    // checking if the vehivle is available for selected dates
+    // checking if the vehicle is available for selected dates
+    data =
+      "regNo=" +
+      $("span#registrationNumber").text() +
+      "&date1=" +
+      $("#datepicker1").val() +
+      "&date2=" +
+      $("#datepicker2").val();
     $.ajax({
       url: baseURL + "car/isAvailable",
       method: "get",
+      data: data,
       dataType: "json",
       success: function (res) {
-        alert(res.message);
-        if (re.data) {
-          var user,
-            driver = {};
-          if ($.cookie("userLoggedIn")) {
-            user = cookieTable["user"];
-            console.dir(user);
-          }
-          if ($.cookie("driverAssigned")) {
-            driver = cookieTable["driver"];
-            console.dir(driver);
-          }
+        if (res.data) {
           var formData = new FormData();
           formData.append(
             "advancePayment",
             parseFloat($("span#advancePayment").text())
           );
+          console.groupEnd($.cookie("driverAssigned"));
+          if (cookieTable.driver != null) {
+            // driver = cookieTable["driver"];
+            // console.dir(driver);
+            formData.append("driver", cookieTable.driver.username);
+          } else formData.append("driver", null);
 
           // let id = await generateNextId();
           formData.append("isAccepted", false);
           formData.append("bookingId", id);
-          formData.append("rent", parseFloat($("span#total").text()));
+          formData.append(
+            "rent",
+            parseFloat($("span#total").text()) +
+              parseFloat($("span#driverTotal").text())
+          );
           formData.append("dueDateTime", $("#datepicker2").val());
           formData.append("currentDateTime", $("#datepicker1").val());
           formData.append("car", $("span#registrationNumber").text());
-          formData.append("driver", driver.username);
-          formData.append("user", user.username);
+
+          formData.append("user", cookieTable.user.username);
           formData.append(
             "paymentConfirmation",
             $("#bookingAdvance")[0].files[0]
@@ -515,6 +604,8 @@ $(function () {
             dataType: "json",
             success: function (res) {
               alert(res.message);
+              clearBookingForm();
+              loadAllBookingsForUser(user.username);
             },
             error: function (error) {
               // var jsObject = JSON.parse(error.responseText);
@@ -557,6 +648,15 @@ $(function () {
         // alert(jsObject.message);
       },
     });
+  }
+
+  function calDays() {
+    let startDay = new Date($("#datepicker1").val());
+    let endDay = new Date($("#datepicker2").val());
+    var millisBetween = startDay.getTime() - endDay.getTime();
+    return (totalDays = Math.round(
+      Math.abs(millisBetween / (1000 * 3600 * 24))
+    ));
   }
 
   function loadPendingOrdersForCustomer() {}
