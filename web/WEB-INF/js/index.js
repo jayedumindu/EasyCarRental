@@ -29,23 +29,10 @@ $(function () {
     });
   });
 
-  // $("img").on("load", function () {
-  //   URL.revokeObjectURL($(this).attr("src"));
-  //   console.log("hello");
-  //   if (this.complete) $(this).load();
-  // });
-
-  // $("img").each(function () {
-  //   if (this.complete) $(this).load();
-  // });
-  // .each(function () {
-  //   // in case it's already loaded
-  //   if (this.complete) $(this).load();
-  // });
-
   function changeActiveTab(tab) {
     $("body>section").hide();
     $(tab).show();
+    clearBookingForm();
   }
 
   // for all nav links
@@ -248,7 +235,7 @@ $(function () {
               "</p>" +
               '<div class="price-rate">' +
               "<h3>" +
-              `<span id="booking">ID : ${booking.bookingId}</span>` +
+              `<span id="booking">${booking.bookingId}</span>` +
               `<span class="per">booked on ${yyyy}-${mm}-${dd}</span>` +
               "</h3>" +
               `<span class="subheading">${booking.car.mileage} KMs done</span>` +
@@ -382,7 +369,7 @@ $(function () {
       '<div class="col-md-4">' +
         '<div class="car-wrap rounded ">' +
         '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-        `<img src=${window.btoa(img_front)} class="car-card-img">` +
+        `<img src="data:image/png;base64, ${img_front}" class="car-card-img">` +
         "</div>" +
         '<div class="text">' +
         '<h2 class="mb-0">' +
@@ -533,7 +520,7 @@ $(function () {
           $.cookie("driverAssigned", false, { path: "/" });
           cookieTable.driver = null;
           alert("Cannot assign a driver for following dates!");
-          $(this).prop("checked", false);
+          $("#driverCheck").prop("checked", false);
         },
       });
     } else {
@@ -551,6 +538,11 @@ $(function () {
   function clearBookingForm() {
     $("form#booking")[0].reset();
     $("#driverCheck").attr("disabled", true);
+    $("#driver-details span[id]").each(function () {
+      $(this).text("");
+    });
+    $("span#total").text("");
+    $("span#driverTotal").text("");
   }
   function placeBooking(id) {
     // checking if the vehicle is available for selected dates
@@ -577,12 +569,20 @@ $(function () {
           if (cookieTable.driver != null) {
             // driver = cookieTable["driver"];
             // console.dir(driver);
+            formData.append(
+              "rent",
+              parseFloat($("span#total").text()) +
+                parseFloat($("span#driverTotal").text())
+            );
             formData.append("driver", cookieTable.driver.username);
-          } else formData.append("driver", null);
-
+          } else {
+            formData.append("driver", null);
+            formData.append("rent", parseFloat($("span#total").text()));
+          }
           // let id = await generateNextId();
           formData.append("isAccepted", false);
           formData.append("bookingId", id);
+
           formData.append(
             "rent",
             parseFloat($("span#total").text()) +

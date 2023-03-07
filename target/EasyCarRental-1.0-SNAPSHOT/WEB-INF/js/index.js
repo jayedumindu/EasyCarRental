@@ -46,6 +46,7 @@ $(function () {
   function changeActiveTab(tab) {
     $("body>section").hide();
     $(tab).show();
+    clearBookingForm();
   }
 
   // for all nav links
@@ -248,7 +249,7 @@ $(function () {
               "</p>" +
               '<div class="price-rate">' +
               "<h3>" +
-              `<span id="booking">ID : ${booking.bookingId}</span>` +
+              `<span id="booking">${booking.bookingId}</span>` +
               `<span class="per">booked on ${yyyy}-${mm}-${dd}</span>` +
               "</h3>" +
               `<span class="subheading">${booking.car.mileage} KMs done</span>` +
@@ -527,10 +528,13 @@ $(function () {
           $("#driver-details span[id]").each(function () {
             $(this).text(driver[$(this).attr("id")]);
           });
+          $("span#driverTotal").text(calDays() * 1000);
         },
         error: function () {
           $.cookie("driverAssigned", false, { path: "/" });
           cookieTable.driver = null;
+          alert("Cannot assign a driver for following dates!");
+          $("#driverCheck").prop("checked", false);
         },
       });
     } else {
@@ -539,6 +543,7 @@ $(function () {
       $("#driver-details span[id]").each(function () {
         $(this).text("");
       });
+      $("span#driverTotal").text(0);
     }
   });
 
@@ -547,6 +552,11 @@ $(function () {
   function clearBookingForm() {
     $("form#booking")[0].reset();
     $("#driverCheck").attr("disabled", true);
+    $("#driver-details span[id]").each(function () {
+      $(this).text("");
+    });
+    $("span#total").text("");
+    $("span#driverTotal").text("");
   }
   function placeBooking(id) {
     // checking if the vehicle is available for selected dates
@@ -573,13 +583,25 @@ $(function () {
           if (cookieTable.driver != null) {
             // driver = cookieTable["driver"];
             // console.dir(driver);
+            formData.append(
+              "rent",
+              parseFloat($("span#total").text()) +
+                parseFloat($("span#driverTotal").text())
+            );
             formData.append("driver", cookieTable.driver.username);
-          } else formData.append("driver", null);
-
+          } else {
+            formData.append("driver", null);
+            formData.append("rent", parseFloat($("span#total").text()));
+          }
           // let id = await generateNextId();
           formData.append("isAccepted", false);
           formData.append("bookingId", id);
-          formData.append("rent", parseFloat($("span#total").text()));
+
+          formData.append(
+            "rent",
+            parseFloat($("span#total").text()) +
+              parseFloat($("span#driverTotal").text())
+          );
           formData.append("dueDateTime", $("#datepicker2").val());
           formData.append("currentDateTime", $("#datepicker1").val());
           formData.append("car", $("span#registrationNumber").text());
