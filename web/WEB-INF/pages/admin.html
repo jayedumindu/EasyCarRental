@@ -218,7 +218,7 @@
                     <div class="row">
                         <div class="col-md-6 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img class="driver-img mt-5" src="" alt="profile image">
+                                <img class="driver-img mt-5">
 
                                 <div class="mt-5 d-flex flex-column justify-content-start">
                                     <h6>Add a profile picture</h6>
@@ -291,8 +291,8 @@
 
         <div class="col-6">
             <div class="header p-5 text-center d-flex justify-content-center">
-                <p>Manage Bookings and Payments
-                <p>
+                <!-- <p>Manage Bookings and Payments
+                <p> -->
             </div>
 
 
@@ -310,7 +310,9 @@
 
             <form class="row g-3 col-12 d-flex justify-content-center" id="paymentForm">
                 <div class="col-6 ">
-                    <label for="pBookingId" class="form-label">Booking Id</label><br>
+                    <label for="pBookingId" class="form-label">Booking Id&nbsp;&nbsp;<i class="fa-solid fa-certificate"
+                            id="verified" style="color: red;"></i></label><br>
+
                     <input type="text" class="form-control" id="pBookingId" name="id">
                 </div>
                 <div class="col-md-6">

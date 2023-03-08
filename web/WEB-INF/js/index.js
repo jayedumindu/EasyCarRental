@@ -156,7 +156,7 @@ $(function () {
         if (res.data) {
           // adding cookies
           $.cookie("userLoggedIn", true, { path: "/" });
-          customAlert.alert("User Login", "successful");
+          customAlert.alert("successful", "User Login");
           // after logged in
           $("#user-management-inner").hide();
           $("#logout").show();
@@ -164,11 +164,11 @@ $(function () {
           loadDataForUserSection(uname);
           changeActiveTab("#user-bookings");
         } else {
-          customAlert.alert("wrong credentials");
+          customAlert.alert("Wrong Credentials", "User Login");
         }
       },
       error: function (error) {
-        console.log(error);
+        customAlert.alert(error.responseText, "User Login");
       },
     });
   });
@@ -204,7 +204,6 @@ $(function () {
     });
 
     formData.append("file1", cookieTable.nic);
-    formData.append("name");
     formData.append("file2", cookieTable.license);
 
     clearRegister();
@@ -214,9 +213,10 @@ $(function () {
       data: formData,
       dataType: "json",
       success: function (res) {
-        alert(res.message);
+        customAlert.alert(res.message, "User Register");
       },
       error: function (error) {
+        customAlert.alert("Unsuccesfull...Please try again", "User Register");
         // var jsObject = JSON.parse(error.responseText);
         // alert(jsObject.message);
       },
@@ -237,12 +237,14 @@ $(function () {
       data: data,
       dataType: "json",
       success: function (res) {
-        alert(res.message);
+        customAlert.alert(
+          res.message + " : please log in to proceed",
+          "User Register"
+        );
         location.reload();
       },
       error: function (error) {
-        // var jsObject = JSON.parse(error.responseText);
-        // alert(jsObject.message);
+        customAlert.alert("Unsuccesfull...Please try again", "User Update");
       },
     });
   });
@@ -261,10 +263,7 @@ $(function () {
           $("tbody#userBookings").append(
             '<tr class="">' +
               '<td class="car-image">' +
-              "<img " +
-              'class="img" ' +
-              `src="data:image/png;base64, ${booking.car.img_front};"` +
-              " >" +
+              `<img class='img' src="data:image/jpeg;base64, ${booking.car.img_front}">` +
               "</td>" +
               '<td class="product-name">' +
               "<h3>" +
@@ -420,9 +419,9 @@ $(function () {
     let url = arrayBufferToBase64(img_front);
     console.log(url);
     $("#car-selection-row").append(
-      '<div class="col-md-4">' +
+      '<div class="col-md-4" style="overflow:hidden;">' +
         '<div class="car-wrap rounded ">' +
-        '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
+        '<div class="img rounded d-flex" style="justify-content:center;overflow:hidden;">' +
         `<img src="data:image/png;base64, ${img_front}" class="car-card-img">` +
         "</div>" +
         '<div class="text">' +
@@ -735,7 +734,7 @@ class CustomAlert {
   constructor() {
     this.alert = function (message, title) {
       $("body").append(
-        '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>'
+        '<div id="dialogoverlay"></div><div style="z-index:1000;" id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>'
       );
 
       let dialogoverlay = $("#dialogoverlay");
@@ -769,10 +768,12 @@ class CustomAlert {
         );
       }
       // document.getElementById("dialogboxbody").innerHTML = message;
-      $("#dialogboxhead").text(message);
+      $("#dialogboxbody").html(message);
       $("#dialogboxfoot").html(
         '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'
       );
+
+      $(window).scrollTop(0);
 
       // document.getElementById("dialogboxfoot").innerHTML =
       //   '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';

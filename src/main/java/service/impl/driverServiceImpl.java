@@ -10,6 +10,7 @@ import repo.driverRepo;
 import service.driverService;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -59,7 +60,9 @@ public class driverServiceImpl implements driverService {
 
     @Override
     public driverDTO findDriverRandomly(LocalDate date1 , LocalDate date2) {
-        return mapper.map(repo.selectDriverRandomly(date1 ,date2),driverDTO.class);
+        Date Date1 = Date.valueOf(date1);
+        Date Date2 = Date.valueOf(date2);
+        return mapper.map(repo.selectDriverRandomly(Date1 ,Date2),driverDTO.class);
 
     }
 

@@ -287,3 +287,8 @@ div#logout:hover {
 /* tr:hover {
   background-color: rgba(240, 248, 255, 0.623);
 } */
+
+.driver-img {
+  background-position: center;
+  background-size: cover;
+}

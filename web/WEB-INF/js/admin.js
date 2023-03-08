@@ -48,10 +48,18 @@ var cookieTable = {};
 $(document).ready(function () {
   $("body>section").hide();
   $("section#admin").show();
+
   $(".nav-link").click(function () {
-    changeActiveTab($(this).attr("id"));
-    console.log($(this).attr("id"));
+    if (cookieTable.admin) {
+      changeActiveTab($(this).attr("id"));
+      console.log($(this).attr("id"));
+    } else {
+      customAlert.alert("Please Login to Continue.....", "Administration");
+    }
   });
+  // $(".nav-link").each(function () {
+  //   $(this).attr
+  // })
   $(".datepicker").datepicker();
   $("#logout").hide();
   $("#logout").click(function () {
@@ -65,6 +73,7 @@ function changeActiveTab(tab) {
   $("body>section").hide();
   $("body>div").hide();
   $(tab).show();
+  $(window).scrollTop(0);
 }
 
 let baseURL = "http://localhost:8080/EasyCarRental_war/";
@@ -118,8 +127,9 @@ $("#admin-login").click(function () {
         // $(".navbar-toggler").show();
         $("#logout").show();
         changeActiveTab("#dashboard");
+        customAlert.alert("Welcome.......", "Administration");
       } else {
-        alert(res.message);
+        customAlert.alert(res.message, "Administration");
       }
     },
     error: function (error) {
@@ -170,10 +180,12 @@ function prepareDriverForm(url, method) {
 $("button#driverSave").click(function () {
   console.log("cicked");
   prepareDriverForm("driver/add", "post");
+  $(".driver-img").css("background-image", "none");
 });
 
 $("button#driverUpdate").click(function () {
   prepareDriverForm("driver/update", "post");
+  $(".driver-img").css("background-image", "none");
 });
 function loadAllDrivers() {
   $("#driver-tb").empty();
@@ -408,7 +420,7 @@ function loadAllBookingsToBeAccepted() {
       console.dir(bookings);
       $("div#booking-row").empty();
       bookings.forEach((data) => {
-        console.log("run run");
+        // console.log("run run");
         $("div#booking-row").append(
           '<div class="card text-center col-6">' +
             '<div class="card-header">' +
@@ -418,17 +430,17 @@ function loadAllBookingsToBeAccepted() {
             "</div>" +
             '<div class="row booking-row">' +
             '<div class="card-body col-6">' +
-            '<h5 class="card-title">Booked By : <span id="user"> ' +
-            data.userId +
+            '<h5 class="card-title">Booked By : <span id="user">' +
+            data.carId +
             "</span></h5>" +
             '<h5 class="card-title">Driver : <span id="driver">' +
-            data.carId +
+            data.userId +
             "</span></h5>" +
             '<h5 class="card-title">Car Assigned : <span id="car">' +
             data.driverId +
             "</span></h5>" +
-            '<a href="#" class="btn btn-primary" id="bkAccept">Accept</a> &nbsp;&nbsp;' +
-            '<a href="#" class="btn btn-secondary" id="bkdecline">Decline</a>' +
+            '<a href="#" class="btn btn-primary bkAccept" >Accept</a> &nbsp;&nbsp;' +
+            '<a href="#" class="btn btn-secondary bkdecline" >Decline</a>' +
             "</div>" +
             '<div class="card-body col-6 d-flex justify-content-center flex-wrap">' +
             '<h5 class="card-title">booking Confirmation</span></h5>' +
@@ -440,41 +452,52 @@ function loadAllBookingsToBeAccepted() {
             "</div>" +
             "</div>"
         );
-        // add button functionalities
-        $("#bkAccept").click(function () {
-          let id = data.bookingId;
+      });
+      // add button functionalities
+      $(".bkAccept").click(function () {
+        let id = $(this)
+          .parent()
+          .parent()
+          .parent()
+          .find("span#bookingId")
+          .text();
 
-          $.ajax({
-            url: baseURL + "booking/accept?id=" + id,
-            method: "post",
-            dataType: "json",
-            success: function (res) {
-              console.log(res.messege);
-              alert(res.message);
-              loadAllBookingsToBeAccepted();
-            },
-            error: function (error) {
-              // var jsObject = JSON.parse(error.responseText);
-              // alert(jsObject.message);
-            },
-          });
+        $.ajax({
+          url: baseURL + "booking/accept?id=" + id,
+          method: "post",
+          dataType: "json",
+          success: function (res) {
+            console.log(res.messege);
+            alert(res.message);
+            loadAllBookingsToBeAccepted();
+          },
+          error: function (error) {
+            // var jsObject = JSON.parse(error.responseText);
+            // alert(jsObject.message);
+          },
         });
-        $("#bkdecline").click(function () {
-          let id = data.bookingId;
-          $.ajax({
-            url: baseURL + "booking/delete?id=" + id,
-            method: "delete",
-            dataType: "json",
-            success: function (res) {
-              console.log(res.messege);
-              alert(res.message);
-              loadAllBookingsToBeAccepted();
-            },
-            error: function (error) {
-              // var jsObject = JSON.parse(error.responseText);
-              // alert(jsObject.message);
-            },
-          });
+      });
+      $(".bkdecline").click(function () {
+        let id = $(this)
+          .parent()
+          .parent()
+          .parent()
+          .find("span#bookingId")
+          .text();
+
+        $.ajax({
+          url: baseURL + "booking/delete?id=" + id,
+          method: "delete",
+          dataType: "json",
+          success: function (res) {
+            console.log(res.messege);
+            alert(res.message);
+            loadAllBookingsToBeAccepted();
+          },
+          error: function (error) {
+            // var jsObject = JSON.parse(error.responseText);
+            // alert(jsObject.message);
+          },
         });
       });
     },
@@ -501,6 +524,7 @@ $("input#pDate").val(today);
 $("#pBookingId").keyup(function () {
   let validator = new RegExp(`BK-[0-9]{1,}`);
   let id = $(this).val();
+  let input = $(this);
   if (validator.test(id)) {
     // search if a payment exist
     $.ajax({
@@ -519,7 +543,9 @@ $("#pBookingId").keyup(function () {
               // alert(res.message);
               payment = res.data;
               if (!payment.done) {
-                alert("pending payment");
+                // alert("pending payment");
+                // input.css("border", "1px solid green");
+                $("#verified").css("color", "green");
                 cookieTable.payment = payment;
                 cookieTable.booking = payment.booking;
                 cookieTable.car = payment.booking.car;
@@ -541,22 +567,37 @@ $("#pBookingId").keyup(function () {
                 //     $("span#rent").text(cookieTable.payment.rent);
                 //   },
                 // });
+              } else {
+                $("form#paymentForm span").each(function () {
+                  $(this).text("");
+                });
+                $("#verified").css("color", "red");
               }
             },
             error: function (error) {
-              // var jsObject = JSON.parse(error.responseText);
-              // alert(jsObject.message);
+              $("form#paymentForm span").each(function () {
+                $(this).text("");
+              });
             },
           });
+        } else {
+          $("form#paymentForm span").each(function () {
+            $(this).text("");
+          });
+          $("#verified").css("color", "red");
         }
       },
       error: function (error) {
-        // var jsObject = JSON.parse(error.responseText);
-        // alert(jsObject.message);
+        $("form#paymentForm span").each(function () {
+          $(this).text("");
+        });
       },
     });
   } else {
-    $(this).css("border", "1px solid red");
+    $("form#paymentForm span").each(function () {
+      $(this).text("");
+    });
+    $("#verified").css("color", "red");
   }
 });
 
@@ -602,3 +643,79 @@ function clearAllFormData() {
     $(this).text("");
   });
 }
+
+// custom alert
+class CustomAlert {
+  constructor() {
+    this.alert = function (message, title) {
+      $("body").append(
+        '<div id="dialogoverlay"></div><div style="z-index:1000;" id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>'
+      );
+
+      let dialogoverlay = $("#dialogoverlay");
+      let dialogbox = $("#dialogbox");
+
+      // let winH = window.innerHeight;
+      let winH = $(window).innerHeight();
+      // dialogoverlay.style.height = winH + "px";
+      dialogoverlay.css("height", winH + "px");
+
+      // dialogbox.style.top = "100px";
+      dialogbox.css("top", "100px");
+
+      // dialogoverlay.style.display = "block";
+      dialogbox.css("display", "block");
+      dialogoverlay.css("display", "block");
+      // dialogbox.style.display = "block";
+
+      // document.getElementById("dialogboxhead").style.display = "block";
+      $("#dialogboxhead").css("display", "block");
+
+      if (typeof title === "undefined") {
+        // document.getElementById("dialogboxhead").style.display = "none";
+        $("#dialogboxhead").css("display", "none");
+      } else {
+        // document.getElementById("dialogboxhead").innerHTML =
+        //   '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' +
+        //   title;
+        $("#dialogboxhead").html(
+          '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + title
+        );
+      }
+      // document.getElementById("dialogboxbody").innerHTML = message;
+      $("#dialogboxbody").html(message);
+      $("#dialogboxfoot").html(
+        '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'
+      );
+
+      $(window).scrollTop(0);
+
+      // document.getElementById("dialogboxfoot").innerHTML =
+      //   '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
+    };
+
+    this.ok = function () {
+      $("#dialogbox").hide();
+      $("#dialogoverlay").hide();
+      // document.getElementById("dialogbox").style.display = "none";
+      // document.getElementById("dialogoverlay").style.display = "none";
+    };
+  }
+}
+
+let customAlert = new CustomAlert();
+
+$("#driver-pro").change(function name(event) {
+  console.log("add una");
+  const file = event.target.files[0];
+  let fileReader = new FileReader();
+  fileReader.readAsDataURL(file);
+  fileReader.onload = function () {
+    // $(event.target)
+    //   .parent()
+    //   .parent()
+    //   .find(".img-upload-select")
+    //   .css("background-image", `url(${fileReader.result})`);
+    $(".driver-img").css("background-image", `url(${fileReader.result})`);
+  };
+});

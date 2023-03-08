@@ -153,6 +153,10 @@ tr {
   width: 100%;
 }
 
+#car-selection img {
+  width: auto;
+}
+
 #car-selection-nav .nav-item {
   min-width: 130pt;
 }
@@ -214,7 +218,7 @@ div#logo {
 }
 
 .car-card-img {
-  width: 100%;
+  width: 50%;
   height: 100%;
 }
 
