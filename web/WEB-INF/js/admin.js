@@ -5,43 +5,43 @@
 // - The number of bookings active for the day.
 // - The number of available and occupied drivers.
 
-function CustomAlert() {
-  this.alert = function (message, title) {
-    document.body.innerHTML =
-      document.body.innerHTML +
-      '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
+// function CustomAlert() {
+//   this.alert = function (message, title) {
+//     document.body.innerHTML =
+//       document.body.innerHTML +
+//       '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>';
 
-    let dialogoverlay = document.getElementById("dialogoverlay");
-    let dialogbox = document.getElementById("dialogbox");
+//     let dialogoverlay = document.getElementById("dialogoverlay");
+//     let dialogbox = document.getElementById("dialogbox");
 
-    let winH = window.innerHeight;
-    dialogoverlay.style.height = winH + "px";
+//     let winH = window.innerHeight;
+//     dialogoverlay.style.height = winH + "px";
 
-    dialogbox.style.top = "100px";
+//     dialogbox.style.top = "100px";
 
-    dialogoverlay.style.display = "block";
-    dialogbox.style.display = "block";
+//     dialogoverlay.style.display = "block";
+//     dialogbox.style.display = "block";
 
-    document.getElementById("dialogboxhead").style.display = "block";
+//     document.getElementById("dialogboxhead").style.display = "block";
 
-    if (typeof title === "undefined") {
-      document.getElementById("dialogboxhead").style.display = "none";
-    } else {
-      document.getElementById("dialogboxhead").innerHTML =
-        '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + title;
-    }
-    document.getElementById("dialogboxbody").innerHTML = message;
-    document.getElementById("dialogboxfoot").innerHTML =
-      '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
-  };
+//     if (typeof title === "undefined") {
+//       document.getElementById("dialogboxhead").style.display = "none";
+//     } else {
+//       document.getElementById("dialogboxhead").innerHTML =
+//         '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + title;
+//     }
+//     document.getElementById("dialogboxbody").innerHTML = message;
+//     document.getElementById("dialogboxfoot").innerHTML =
+//       '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
+//   };
 
-  this.ok = function () {
-    document.getElementById("dialogbox").style.display = "none";
-    document.getElementById("dialogoverlay").style.display = "none";
-  };
-}
+//   this.ok = function () {
+//     document.getElementById("dialogbox").style.display = "none";
+//     document.getElementById("dialogoverlay").style.display = "none";
+//   };
+// }
 
-let customAlert = new CustomAlert();
+// let customAlert = new CustomAlert();
 
 var cookieTable = {};
 
@@ -262,6 +262,7 @@ loadAllDrivers();
 function clearCarRegister() {
   $("form#carAdd")[0].reset();
 }
+
 function prepareCarForm(url, method) {
   var form = $("#carAdd").serializeArray();
   var formData = new FormData();
@@ -290,14 +291,17 @@ function prepareCarForm(url, method) {
     },
   });
 }
+
 // car-add
 $("#carSave").click(function () {
   prepareCarForm("car/save", "post");
 });
+
 // car-update
 $("#carUpdate").click(function () {
   prepareCarForm("car/update", "post");
 });
+
 function loadAllCars() {
   $(".select-car").empty();
   $.ajax({
@@ -306,14 +310,14 @@ function loadAllCars() {
     success: function (resp) {
       console.log(resp.data);
       resp.data.forEach((car) => {
-        let { brand, model, fuelType, registrationNumber } = car;
+        let { brand, model, fuelType, registrationNumber, img_front } = car;
         $(".select-car").append(
           // '<div class="container"> ' +
           // '<section class="mx-auto my-5" > ' +
           '<div class="card" style="width: 23rem; margin:10pt;">' +
             '<div class="bg-image hover-overlay ripple" ' +
             'data-mdb-ripple-color="light"> ' +
-            '<img src="../assets/images/car-10.jpg" ' +
+            `<img src="data:image/jpeg;base64, ${img_front}" ` +
             'class="img-fluid" />' +
             '<a href="#!">' +
             '<div class="mask"' +
@@ -389,6 +393,7 @@ function loadAllCars() {
     },
   });
 }
+
 loadAllCars();
 
 // ------------------booking-----------------------------

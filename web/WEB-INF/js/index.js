@@ -32,6 +32,7 @@ $(function () {
   function changeActiveTab(tab) {
     $("body>section").hide();
     $(tab).show();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
     clearBookingForm();
   }
 
@@ -86,7 +87,48 @@ $(function () {
 
   let baseURL = "http://localhost:8080/EasyCarRental_war/";
 
-  // ------------------------------------- user ----------------------------------------------
+  // ---------------------------- home ---------------------------------
+  // load featured cars
+  function loadFeaturesCars(carList) {
+    carList.forEach((car) => {
+      $(".featured-row").append(
+        '<div class="card" style="width: 23rem; margin:10pt;">' +
+          '<div class="bg-image hover-overlay ripple" ' +
+          'data-mdb-ripple-color="light"> ' +
+          `<img src="data:image/jpeg;base64, ${car.img_front}" ` +
+          'class="img-fluid" />' +
+          '<a href="#!">' +
+          '<div class="mask"' +
+          'style="background-color: rgba(251, 251,' +
+          '251, 0.15);">' +
+          "</div>" +
+          "</a>" +
+          "</div>" +
+          '<div class="card-body">' +
+          '<h5 class="card-title font-weight-bold" id="lblCarBrand">' +
+          "<a>" +
+          car.brand +
+          " " +
+          car.model +
+          "</a></h5>" +
+          '<p class="mb-2" id="lblCarFuelType">' +
+          car.fuelType +
+          "</p>" +
+          '<p class="mb-2" id="lblCarRegNo">' +
+          car.registrationNumber +
+          "</p>" +
+          // '<hr class="my-4" />' +
+          // '<a href="#!"' +
+          // 'class="btn btn-link link-secondary p-md-1 mb-0 car-up">Update</a>' +
+          // '<a href="#!"' +
+          // 'class="btn btn-link link-primary p-md-1 mb-0 car-del">Remove</a>' +
+          "</div>" +
+          "</div>"
+      );
+    });
+  }
+
+  // ------------------------------------- user -------------------------
 
   // clear login form
   function clearLogin() {
@@ -111,17 +153,18 @@ $(function () {
       dataType: "json",
       success: function (res) {
         console.log(res.data);
-        alert(res.message);
         if (res.data) {
           // adding cookies
           $.cookie("userLoggedIn", true, { path: "/" });
+          customAlert.alert("User Login", "successful");
           // after logged in
           $("#user-management-inner").hide();
           $("#logout").show();
           $("li#user").show();
           loadDataForUserSection(uname);
+          changeActiveTab("#user-bookings");
         } else {
-          alert("wrong credentials");
+          customAlert.alert("wrong credentials");
         }
       },
       error: function (error) {
@@ -218,10 +261,10 @@ $(function () {
           $("tbody#userBookings").append(
             '<tr class="">' +
               '<td class="car-image">' +
-              "<div" +
-              'class="img"' +
-              'style="background-image:url();"' +
-              "></div>" +
+              "<img " +
+              'class="img" ' +
+              `src="data:image/png;base64, ${booking.car.img_front};"` +
+              " >" +
               "</td>" +
               '<td class="product-name">' +
               "<h3>" +
@@ -282,6 +325,8 @@ $(function () {
         resp.data.forEach((car) => {
           appendCar(car);
         });
+        let allCars = cookieTable.cars;
+        loadFeaturesCars([allCars[0], allCars[2], allCars[4]]);
         // button functionalities
         $(".book-btn").click(function () {
           // is user is logged in
@@ -299,6 +344,15 @@ $(function () {
                 let car = res.data;
                 $("#car-single-selection span[id]").each(function () {
                   $(this).text(car[$(this).attr("id")]);
+                });
+                // load images for carousel
+                let { img_front, img_back, img_interior, img_side } = car;
+                let imgArr = [img_front, img_back, img_interior, img_side];
+                $("#car-single-selection img").each(function (index) {
+                  $(this).attr(
+                    "src",
+                    `data:image/jpeg;base64, ${imgArr[index]}`
+                  );
                 });
                 let advance = 0.0;
                 switch (car.type) {
@@ -407,7 +461,7 @@ $(function () {
   }
 
   //  data sorting
-  $(".dropdown").on("hide.bs.dropdown", function () {
+  $(".dropdown").on("show.bs.dropdown hide.bs.dropdown", function () {
     // calculation goes here
     //  for each combo
     let attr = [];
@@ -451,6 +505,8 @@ $(function () {
     $(this).closest(".dropdown").find(".dropdown-toggle").val($(this).text());
   });
 
+  $("#pills-driver").hide();
+  $("#nav-profile-tab").hide();
   // on date change
   function calculateValueOnDateChange() {
     // validating date
@@ -459,7 +515,7 @@ $(function () {
     let today = Date.now();
     let total = 0.0;
     if (startDay & endDay) {
-      if ((startDay < endDay) & (startDay > today)) {
+      if ((startDay < endDay) & (startDay >= today)) {
         try {
           var millisBetween = startDay.getTime() - endDay.getTime();
         } finally {
@@ -495,6 +551,7 @@ $(function () {
       }
     }
   }
+
   // add a driver randomly
   $("input#driverCheck").change(function () {
     if ($(this).is(":checked")) {
@@ -507,9 +564,16 @@ $(function () {
         data: "date1=" + date1 + "&date2=" + date2,
         dataType: "json",
         success: function (res) {
+          // if driver is present
           let driver = res.data;
           $.cookie("driverAssigned", true, { path: "/" });
-          cookieTable.driver = res.data;
+          cookieTable.driver = driver;
+          $("img#driver-profile").attr(
+            "src",
+            `data:image/png;base64, ${driver.profile}`
+          );
+          $("#pills-driver").show();
+          $("#nav-profile-tab").show();
           // setting values
           $("#driver-details span[id]").each(function () {
             $(this).text(driver[$(this).attr("id")]);
@@ -521,15 +585,19 @@ $(function () {
           cookieTable.driver = null;
           alert("Cannot assign a driver for following dates!");
           $("#driverCheck").prop("checked", false);
+          $("#pills-driver").hide();
+          $("#nav-profile-tab").hide();
         },
       });
     } else {
       $.cookie("driverAssigned", false, { path: "/" });
-      cookieTable.driver = null;
-      $("#driver-details span[id]").each(function () {
-        $(this).text("");
-      });
+      // cookieTable.driver = null;
+      // $("#driver-details span[id]").each(function () {
+      //   $(this).text("");
+      // });
       $("span#driverTotal").text(0);
+      $("#pills-driver").hide();
+      $("#nav-profile-tab").hide();
     }
   });
 
@@ -538,11 +606,11 @@ $(function () {
   function clearBookingForm() {
     $("form#booking")[0].reset();
     $("#driverCheck").attr("disabled", true);
-    $("#driver-details span[id]").each(function () {
-      $(this).text("");
-    });
+
+    $("#pills-driver").hide();
     $("span#total").text("");
     $("span#driverTotal").text("");
+    $("img#driver-profile").attr("src", "");
   }
   function placeBooking(id) {
     // checking if the vehicle is available for selected dates
@@ -661,3 +729,62 @@ $(function () {
 
   function loadPendingOrdersForCustomer() {}
 });
+
+// custom alert
+class CustomAlert {
+  constructor() {
+    this.alert = function (message, title) {
+      $("body").append(
+        '<div id="dialogoverlay"></div><div id="dialogbox" class="slit-in-vertical"><div><div id="dialogboxhead"></div><div id="dialogboxbody"></div><div id="dialogboxfoot"></div></div></div>'
+      );
+
+      let dialogoverlay = $("#dialogoverlay");
+      let dialogbox = $("#dialogbox");
+
+      // let winH = window.innerHeight;
+      let winH = $(window).innerHeight();
+      // dialogoverlay.style.height = winH + "px";
+      dialogoverlay.css("height", winH + "px");
+
+      // dialogbox.style.top = "100px";
+      dialogbox.css("top", "100px");
+
+      // dialogoverlay.style.display = "block";
+      dialogbox.css("display", "block");
+      dialogoverlay.css("display", "block");
+      // dialogbox.style.display = "block";
+
+      // document.getElementById("dialogboxhead").style.display = "block";
+      $("#dialogboxhead").css("display", "block");
+
+      if (typeof title === "undefined") {
+        // document.getElementById("dialogboxhead").style.display = "none";
+        $("#dialogboxhead").css("display", "none");
+      } else {
+        // document.getElementById("dialogboxhead").innerHTML =
+        //   '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' +
+        //   title;
+        $("#dialogboxhead").html(
+          '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + title
+        );
+      }
+      // document.getElementById("dialogboxbody").innerHTML = message;
+      $("#dialogboxhead").text(message);
+      $("#dialogboxfoot").html(
+        '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>'
+      );
+
+      // document.getElementById("dialogboxfoot").innerHTML =
+      //   '<button class="pure-material-button-contained active" onclick="customAlert.ok()">OK</button>';
+    };
+
+    this.ok = function () {
+      $("#dialogbox").hide();
+      $("#dialogoverlay").hide();
+      // document.getElementById("dialogbox").style.display = "none";
+      // document.getElementById("dialogoverlay").style.display = "none";
+    };
+  }
+}
+
+let customAlert = new CustomAlert();

@@ -77,13 +77,21 @@ svg {
   border-radius: 5pt;
 }
 
-.nav-item:hover {
+.navbar-main .nav-item:hover {
   background-color: rgb(38, 120, 193);
 }
 
-.nav-item:hover .nav-link {
+/* .navbar-collapse .nav-item:hover {
+  opacity: 0.5;
+} */
+
+.navbar-main .nav-item:hover .nav-link {
   color: azure !important;
 }
+
+/* .navbar-main .nav-item:visited .nav-link {
+  color: rgb(155, 163, 188) !important;
+} */
 
 .nav-link {
   color: rgb(38, 120, 193);
@@ -112,13 +120,29 @@ tr {
 }
 
 .driver-img {
-  width: 250px;
+  width: 200px;
   height: 300px;
 }
 
 .driver-pro {
   position: relative;
   left: 50px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+}
+
+.card .bg-image {
+  height: 180pt;
+  justify-content: center;
+  display: flex;
+}
+
+.card img {
+  width: auto !important;
+  height: 100%;
 }
 
 #car-selection .dropdown-toggle {
@@ -194,6 +218,22 @@ div#logo {
   height: 100%;
 }
 
+#car-single-selection img {
+  height: 300px;
+  /* width: 80% !important; */
+  border-radius: 5pt;
+  margin-bottom: 50pt;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+#car-single-selection {
+  padding-top: 80pt !important;
+}
+
+/* #carousel-car-single {
+  background: transparent;
+} */
+
 /* img upload button */
 
 .img-upload {
@@ -245,3 +285,9 @@ span#booking {
 section {
   padding-top: 60.8px;
 } */
+
+#driver-profile {
+  width: 220pt;
+  height: 180pt;
+  border: none;
+}

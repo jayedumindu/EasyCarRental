@@ -29,20 +29,6 @@ $(function () {
     });
   });
 
-  // $("img").on("load", function () {
-  //   URL.revokeObjectURL($(this).attr("src"));
-  //   console.log("hello");
-  //   if (this.complete) $(this).load();
-  // });
-
-  // $("img").each(function () {
-  //   if (this.complete) $(this).load();
-  // });
-  // .each(function () {
-  //   // in case it's already loaded
-  //   if (this.complete) $(this).load();
-  // });
-
   function changeActiveTab(tab) {
     $("body>section").hide();
     $(tab).show();
@@ -314,6 +300,15 @@ $(function () {
                 $("#car-single-selection span[id]").each(function () {
                   $(this).text(car[$(this).attr("id")]);
                 });
+                // load images for carousel
+                let { img_front, img_back, img_interior, img_side } = car;
+                let imgArr = [img_front, img_back, img_interior, img_side];
+                $("#car-single-selection img").each(function (index) {
+                  $(this).attr(
+                    "src",
+                    `data:image/png;base64, ${imgArr[index]}`
+                  );
+                });
                 let advance = 0.0;
                 switch (car.type) {
                   case "General":
@@ -383,7 +378,7 @@ $(function () {
       '<div class="col-md-4">' +
         '<div class="car-wrap rounded ">' +
         '<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">' +
-        `<img src=${window.btoa(img_front)} class="car-card-img">` +
+        `<img src="data:image/png;base64, ${img_front}" class="car-card-img">` +
         "</div>" +
         '<div class="text">' +
         '<h2 class="mb-0">' +

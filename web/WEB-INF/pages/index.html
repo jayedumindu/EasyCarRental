@@ -16,6 +16,7 @@
     <!-- icons -->
     <link rel="stylesheet" href="../css/flaticon.css">
     <link rel="stylesheet" href="../css/icomoon.css">
+    <link rel="stylesheet" href="../css/alert.css">
 
 
 </head>
@@ -273,7 +274,7 @@
                         <h2 class="mb-2">Featured Vehicles</h2>
                     </div>
                 </div>
-                <div class="row">
+                <div class="featured-row d-flex">
 
                 </div>
             </div>
@@ -534,28 +535,34 @@
                             <h1 class="text-center"><span id="brand"></span>&nbsp;<span id="model"></span></h1>
                             <p class="text-center"><span id="registrationNumber"></span></p>
                         </div>
-                        <div id="carousel-car-single" class="carousel slide carousel-fade">
+                        <div id="carousel-car-single" class="carousel  " data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
+                                <div class="carousel-item active" data-bs-interval="5000">
                                     <img src="../../../src/main/java/WEB-INF/assets/images/car-1.jpg"
                                         class="d-block w-100" alt="...">
                                 </div>
-                                <div class="carousel-item">
+                                <div class="carousel-item" data-bs-interval="5000">
                                     <img src="../../../src/main/java/WEB-INF/assets/images/car-2.jpg"
                                         class="d-block w-100" alt="...">
                                 </div>
-                                <div class="carousel-item">
+                                <div class="carousel-item" data-bs-interval="5000">
                                     <img src="../../../src/main/java/WEB-INF/assets/images/car-3.jpg"
                                         class="d-block w-100" alt="...">
                                 </div>
-                                <button class="carousel-control-prev" type="button"
+                                <div class="carousel-item" data-bs-interval="5000">
+                                    <img src="../../../src/main/java/WEB-INF/assets/images/car-3.jpg"
+                                        class="d-block w-100" alt="...">
+                                </div>
+                                <!-- <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carousel-car-single" data-bs-slide="prev">
-
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
                                 </button>
                                 <button class="carousel-control-next" type="button"
                                     data-bs-target="#carousel-car-single" data-bs-slide="next">
-
-                                </button>
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button> -->
 
                             </div>
 
@@ -799,7 +806,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-12 d-flex p-5 text-center" style="flex-direction: column;">
+                                            <div class="col-12 d-flex p-5" style="flex-direction: column;">
                                                 <h2>Rent : <span id="total"></span>
                                                 </h2>
                                                 <h4>Driver fee : <span id="driverTotal"></span></h4>
@@ -817,8 +824,8 @@
                                 aria-labelledby="pills-manufacturer-tab">
                                 <div class="row ">
                                     <div class="col-6">
-                                        <h1>Profile Picture</h1>
-                                        <img src="" alt="">
+                                        <!-- <h1>Profile Picture</h1> -->
+                                        <img id="driver-profile">
                                     </div>
                                     <div class="col-6" id="driver-details">
                                         <h1><span id="fname"></span>&nbsp;<span id="lname"></span></h1>
@@ -842,7 +849,7 @@
         <!-- account details / update -->
         <div class="account-details">
             <div class="account-details d-flex justify-content-center">
-                <h1 class="text-center">Account Details</h1>
+                <!-- <h1 class="text-center">Account Details</h1> -->
             </div>
 
 
